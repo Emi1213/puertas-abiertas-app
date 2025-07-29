@@ -1,6 +1,7 @@
 import { API_ROUTES } from "../../../core/api/routes/api-routes";
 import { AxiosClient } from "../../../core/infraestructure/http/axios-client";
 import type { IHttpHandler } from "../../../core/interfaces/IHttpHandler";
+import { useAuthStore } from "../context/auth-store";
 import type { ILogin, ILoginResponse } from "../interfaces/auth.interfaces";
 
 export class AuthDataSource {
@@ -18,17 +19,22 @@ export class AuthDataSource {
     return this.instance;
   }
 
-  async login({usuario, contrasenia}: ILogin){
+  async login({ usuario, contrasenia }: ILogin) {
     const data = await this.httpClient.post<ILoginResponse>(
-        API_ROUTES.AUTH.LOGIN,
-        {
-            usuario: usuario,
-            contrasenia: contrasenia,
-        }, 
-    )
+      API_ROUTES.AUTH.LOGIN,
+      {
+        usuario: usuario,
+        contrasenia: contrasenia,
+      }
+    );
 
-    if (!data) return
+    if (!data) return;
 
-    useAuthSt
+    useAuthStore().setToken(data.token);
+  }
+
+  logout() {
+    useAuthStore().logout();
+    this.httpClient.setAccessToken(null);
   }
 }
