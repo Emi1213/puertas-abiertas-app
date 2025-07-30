@@ -11,6 +11,5 @@ export interface IHttpHandler {
 export interface IHttpResponse<T> {
   Exitoso: boolean
   Mensaje: string,
-  Errores: string[]
   Datos: T
 }
