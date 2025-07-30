@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1 class="title">Compañías</h1>
+    <h1 class="title">Empresas</h1>
   </header>
 </template>
 
