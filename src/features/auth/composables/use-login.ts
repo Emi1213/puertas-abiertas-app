@@ -1,15 +1,17 @@
 import { ref } from "vue";
 import { useToast } from "vue-toastification";
 import { z } from "zod";
+import { useRouter } from "vue-router";
 
 import { AuthDataSource } from "../services/datasource";
 
-interface LoginForm {
+export interface LoginForm {
   usuario: string;
   contrasenia: string;
 }
 
 export default function useLogin() {
+  const router = useRouter();
   const isLoading = ref(false);
 
   const schema = z.object({
@@ -38,8 +40,12 @@ export default function useLogin() {
     try {
       await AuthDataSource.getInstance().login(form);
       toast.success("Inicio de sesión exitoso.");
+      await router.push("/companies");
     } catch (error) {
-      toast.error("Error al iniciar sesión.");
+      toast.error(
+        "Error al iniciar sesión." +
+          (error instanceof Error ? `: ${error.message}` : "")
+      );
     } finally {
       isLoading.value = false;
     }

@@ -7,7 +7,10 @@ import { User, Lock, Loader2 } from "lucide-vue-next";
 import "../styles/login-form.css";
 
 const { schema, onSubmit, isLoading } = useLogin();
-const { formData, errors, handleSubmit, validateField } = useForm(schema);
+const { formData, errors, handleSubmit, validateField } = useForm(schema, {
+  usuario: "",
+  contrasenia: "",
+});
 
 const submitForm = () => handleSubmit(onSubmit);
 </script>
