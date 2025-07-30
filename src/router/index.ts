@@ -12,7 +12,8 @@ const router = createRouter({
     {
       path: "",
       name: "not-found",
-      component: () => import("../App.vue"),
+      component: () =>
+        import("../features/auth/presentation/views/login-view.vue"),
     },
   ],
 });

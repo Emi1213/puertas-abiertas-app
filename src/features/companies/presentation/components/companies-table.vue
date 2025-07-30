@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <Grid :data-items="companies" :style="{ height: '500px' }">
+  <!-- <Grid :data-items="companies" :style="{ height: '500px' }">
     <column field="id" title="ID" width="80" />
     <column field="nombre" title="Nombre" />
     <column field="ruc" title="RUC" />
@@ -22,5 +22,5 @@ defineProps<{
         </span>
       </template>
     </column>
-  </Grid>
+  </Grid> -->
 </template>
