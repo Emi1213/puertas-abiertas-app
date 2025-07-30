@@ -30,6 +30,18 @@
               Empresas
             </span>
           </RouterLink>
+          <RouterLink
+            to="/dashboard"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100/80 transition-all duration-200 group"
+            active-class="bg-blue-50 text-blue-700 font-medium shadow-sm border border-blue-100"
+          >
+            <ScanFace
+              class="w-4 h-4 text-slate-500 group-hover:text-slate-700"
+            />
+            <span class="text-sm text-slate-700 group-hover:text-slate-900">
+              Ingresos
+            </span>
+          </RouterLink>
         </div>
       </div>
     </nav>
@@ -37,5 +49,5 @@
 </template>
 
 <script setup lang="ts">
-import { Building2 } from "lucide-vue-next";
+import { Building2, ScanFace } from "lucide-vue-next";
 </script>
