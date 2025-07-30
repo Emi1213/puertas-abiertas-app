@@ -6,7 +6,7 @@ import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 import router from "./router";
-import "./assets/index.css";
+import "./index.css";
 
 const toastOptions = {
   position: "top-right",
