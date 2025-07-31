@@ -1,11 +1,10 @@
 import { API_ROUTES } from "../../../core/api/routes/api-routes";
 import { AxiosClient } from "../../../core/infraestructure/http/axios-client";
-import type {
-  IHttpHandler,
-  IHttpResponse,
-} from "../../../core/interfaces/IHttpHandler";
+import type { IHttpHandler } from "../../../core/interfaces/IHttpHandler";
 import { useAuthStore } from "../context/auth-store";
-import type { ILogin, ILoginResponse } from "../interfaces/auth.interfaces";
+import type { IAccount } from "../interfaces/IAccount";
+import type { ILogin, ILoginResponse } from "../interfaces/ILogin";
+import { jwtDecode } from "jwt-decode";
 
 export class AuthDataSource {
   private httpClient: IHttpHandler;
@@ -24,7 +23,7 @@ export class AuthDataSource {
 
   async login({ usuario, contrasenia }: ILogin) {
     try {
-      const data = await this.httpClient.post<IHttpResponse<ILoginResponse>>(
+      const data = await this.httpClient.post<ILoginResponse>(
         API_ROUTES.AUTH.LOGIN,
         {
           usuario,
@@ -32,15 +31,26 @@ export class AuthDataSource {
         }
       );
 
-      console.log("Login response:");
-
       if (!data || !data.Datos) {
         throw new Error("Credenciales inválidas o token no recibido.");
       }
 
+      const decoded = jwtDecode<Record<string, any>>(data.Datos.token);
+      const user: IAccount = {
+        id: decoded[
+          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+        ],
+        username:
+          decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+        role: decoded[
+          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        ],
+      };
+
       useAuthStore().setToken(data.Datos.token);
+      useAuthStore().setUser(user);
       this.httpClient.setAccessToken(data.Datos.token);
-      return data;
+      return user as IAccount;
     } catch (error: any) {
       const message =
         error?.response?.data?.message || "Credenciales incorrectas.";

@@ -4,6 +4,7 @@ import { z } from "zod";
 import { useRouter } from "vue-router";
 
 import { AuthDataSource } from "../services/datasource";
+import { useAuthStore } from "../context/auth-store";
 
 export interface LoginForm {
   usuario: string;
@@ -13,6 +14,7 @@ export interface LoginForm {
 export default function useLogin() {
   const router = useRouter();
   const isLoading = ref(false);
+  const { getUser } = useAuthStore();
 
   const schema = z.object({
     usuario: z
@@ -39,7 +41,7 @@ export default function useLogin() {
     isLoading.value = true;
     try {
       await AuthDataSource.getInstance().login(form);
-      toast.success("Inicio de sesión exitoso.");
+      toast.success(`Bienvenido ${getUser()?.username}!`);
       await router.push("/companies");
     } catch (error) {
       toast.error(
