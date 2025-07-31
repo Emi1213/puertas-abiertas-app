@@ -19,7 +19,7 @@ const submitForm = () => handleSubmit(onSubmit);
   <form @submit.prevent="submitForm" class="login-form">
     <div class="form-header">
       <h2 class="form-title">Iniciar Sesión</h2>
-      <p class="form-subtitle">
+      <p class="form-subtitle bg-">
         Ingresa tus credenciales para acceder al sistema
       </p>
     </div>
