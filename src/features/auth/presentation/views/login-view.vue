@@ -6,11 +6,9 @@ import "../styles/login-view.css";
 <template>
   <div class="login-container">
     <div class="system-header">
-      <div class="logo-container">
-        <div class="system-info">
-          <h1 class="system-title">Sistema de Ingresos</h1>
-          <p class="system-subtitle">Gestión de acceso a instalaciones</p>
-        </div>
+      <div class="system-info">
+        <h1 class="system-title">Puertas Abiertas</h1>
+        <p class="system-subtitle">Gestión de acceso a instalaciones</p>
       </div>
     </div>
     <div class="login-card">
