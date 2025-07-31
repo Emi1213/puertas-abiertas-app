@@ -31,11 +31,11 @@ export class AuthDataSource {
         }
       );
 
-      if (!data || !data.Datos) {
+      if (!data || !data.datos) {
         throw new Error("Credenciales inválidas o token no recibido.");
       }
 
-      const decoded = jwtDecode<Record<string, any>>(data.Datos.token);
+      const decoded = jwtDecode<Record<string, any>>(data.datos.token);
       const user: IAccount = {
         id: decoded[
           "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
@@ -47,9 +47,9 @@ export class AuthDataSource {
         ],
       };
 
-      useAuthStore().setToken(data.Datos.token);
+      useAuthStore().setToken(data.datos.token);
       useAuthStore().setUser(user);
-      this.httpClient.setAccessToken(data.Datos.token);
+      this.httpClient.setAccessToken(data.datos.token);
       return user as IAccount;
     } catch (error: any) {
       const message =

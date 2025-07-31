@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import useLogin from "../../composables/use-login";
-import { Button } from "@progress/kendo-vue-buttons";
 import { useForm } from "../../../../lib/composables/use-form";
 import { User, Lock, Loader2 } from "lucide-vue-next";
 import "../styles/login-form.css";
 import Input from "@/components/ui/input/Input.vue";
+import Label from "@/components/ui/label/Label.vue";
+import Button from "@/components/ui/button/Button.vue";
 
 const { schema, onSubmit, isLoading } = useLogin();
 const { formData, errors, handleSubmit, validateField } = useForm(schema, {
