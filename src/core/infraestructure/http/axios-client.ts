@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
 import { useToast } from "vue-toastification";
-import type { IHttpHandler } from "../../../core/interfaces/IHttpHandler";
+import type { IHttpHandler, IHttpResponse } from "../../../core/interfaces/IHttpHandler";
 
 export class AxiosClient implements IHttpHandler {
   private static instance: AxiosClient;
@@ -83,18 +83,15 @@ export class AxiosClient implements IHttpHandler {
     }
   }
 
-  async post<T>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<T> {
-    try {
-      const response = await this.axiosInstance.post<T>(url, data, config);
-      return response.data;
-    } catch (e: any) {
-      return e.response.data;
-    }
+  async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<IHttpResponse<T>> {
+  try {
+    const response = await this.axiosInstance.post<IHttpResponse<T>>(url, data, config);
+    return response.data;
+  } catch (e: any) {
+    return e.response.data;
   }
+}
+
 
   async put<T>(
     url: string,
