@@ -28,6 +28,12 @@ export const sidebarMenu: SidebarSection[] = [
         icon: ScanFace,
         roles: ["admin", "vigilante", "Lectura"],
       },
+      {
+        label: "Usuarios",
+        to: "/users",
+        icon: ScanFace,
+        roles: ["admin", "vigilante", "Lectura"],
+      },
     ],
   },
 ];

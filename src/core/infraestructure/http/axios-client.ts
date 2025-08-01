@@ -4,13 +4,14 @@ import type {
   IHttpHandler,
   IHttpResponse,
 } from "../../../core/interfaces/IHttpHandler";
+import { useAuthStore } from "@/features/auth/context/auth-store";
 
 export class AxiosClient implements IHttpHandler {
   private static instance: AxiosClient;
   private axiosInstance: AxiosInstance;
   private static readonly baseURL =
     import.meta.env.VITE_API_URL || "http://localhost:5022/api";
-  //   private accessToken: string | null = null;
+  private accessToken: string | null = null;
   private toast = useToast();
 
   constructor() {
@@ -20,6 +21,16 @@ export class AxiosClient implements IHttpHandler {
         "Content-Type": "application/json",
       },
     });
+
+    this.axiosInstance.interceptors.request.use(config => {
+      const authStore = useAuthStore()
+      authStore.loadData()
+      this.accessToken = authStore.token
+      if (this.accessToken) {
+        config.headers.Authorization = `Bearer ${this.accessToken}`
+      }
+      return config
+    })
 
     this.axiosInstance.interceptors.response.use(
       (response) => {
@@ -43,6 +54,7 @@ export class AxiosClient implements IHttpHandler {
   }
 
   setAccessToken(accessToken: string | null): void {
+    this.accessToken = accessToken;
     if (accessToken) {
       this.axiosInstance.defaults.headers.common[
         "Authorization"

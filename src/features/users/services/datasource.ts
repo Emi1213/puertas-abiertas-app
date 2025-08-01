@@ -20,8 +20,9 @@ export class UserDataSource {
 
   async getAll(): Promise<IUser[]> {
     const response = await this.httpClient.get<IUser[]>(
-      API_ROUTES.COMPANIES.GETALL
+      API_ROUTES.USERS.GETALL
     );
+    console.log("getAll response:", response.datos);
     return response.datos;
   }
 }

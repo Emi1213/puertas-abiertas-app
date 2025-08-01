@@ -9,6 +9,7 @@ import { VueQueryPlugin } from "@tanstack/vue-query";
 import router from "./router";
 import "./index.css";
 import { vueQueryClient } from "./core/infraestructure/vue-query/query-client.";
+import { VueQueryDevtools } from "@tanstack/vue-query-devtools";
 
 const toastOptions = {
   position: "top-right",
@@ -33,6 +34,7 @@ app.use(VueQueryPlugin, {
   queryClient: vueQueryClient,
 });
 app.use(router);
+app.component("VueQueryDevtools", VueQueryDevtools);
 app.use(Toast, toastOptions);
 
 app.mount("#app");

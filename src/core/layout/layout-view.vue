@@ -1,11 +1,9 @@
 <template>
-  <div class="dashboard-layout">
+  <div class="flex h-screen overflow-hidden">
     <Sidebar />
 
-    <div class="dashboard-main">
-      <Header />
-
-      <div class="dashboard-content">
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <div class="flex-1 p-4 overflow-y-auto bg-gray-50">
         <router-view />
       </div>
     </div>
@@ -13,28 +11,5 @@
 </template>
 
 <script setup lang="ts">
-import Sidebar from './Sidebar.vue'
-import Header from './Header.vue' 
+import Sidebar from "./Sidebar.vue";
 </script>
-
-<style scoped>
-.dashboard-layout {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.dashboard-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.dashboard-content {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
-  background-color: #f9fafb;
-}
-</style>
