@@ -22,7 +22,7 @@ export class UserDataSource {
     const response = await this.httpClient.get<IUser[]>(
       API_ROUTES.USERS.GETALL
     );
-    console.log("getAll response:", response.datos);
+
     return response.datos;
   }
 }
