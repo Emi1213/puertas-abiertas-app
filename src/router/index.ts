@@ -4,6 +4,7 @@ import { authRoutes } from "../features/auth/routes/auth-routes";
 import { companiesRoutes } from "../features/companies/routes/companies-routes";
 import { useAuthStore } from "../features/auth/context/auth-store";
 import { usersRoutes } from "@/features/users/routes/users-routes";
+import { incomesRoutes } from "@/features/income/routes/incomes-routes";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,6 +13,7 @@ const router = createRouter({
     ...authRoutes,
     ...companiesRoutes,
     ...usersRoutes,
+    ...incomesRoutes,
     {
       path: "",
       name: "not-found",

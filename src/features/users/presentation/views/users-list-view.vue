@@ -1,22 +1,19 @@
 <script setup lang="ts">
+import type { IUser } from "../../interfaces/IUser";
 import ContentLayout from "@/core/layout/content-layout.vue";
-import { useUsers } from "../../composables/queries/use-users";
-import { useUsersTableColumns } from "../components/users-table-columns";
 import DataTable from "@/shared/components/ui/data-table/data-table.vue";
+import { useUsersTableColumns } from "../components/users-table-columns";
 
-const users = useUsers();
-
-function handleEdit(user: any) {
-  console.log("Editar usuario:", user);
-}
-
-function handleDelete(user: any) {
-  console.log("Eliminar usuario:", user);
-}
+const { users, loading, onEdit, onDelete } = defineProps<{
+  users: IUser[];
+  loading?: boolean;
+  onEdit?: (user: IUser) => void;
+  onDelete?: (user: IUser) => void;
+}>();
 
 const columns = useUsersTableColumns({
-  onEdit: handleEdit,
-  onDelete: handleDelete,
+  onEdit,
+  onDelete,
 });
 
 const emptyMessage = "No hay usuarios registrados";
@@ -25,9 +22,9 @@ const emptyMessage = "No hay usuarios registrados";
 <template>
   <ContentLayout title="Usuarios">
     <DataTable
-      :data="users.data.value ?? []"
+      :data="users"
       :columns="columns"
-      :loading="users.isLoading.value"
+      :loading="loading"
       :empty-message="emptyMessage"
     />
   </ContentLayout>
