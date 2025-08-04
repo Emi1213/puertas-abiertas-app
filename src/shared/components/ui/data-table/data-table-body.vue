@@ -4,6 +4,7 @@ import type {
   BaseDataRow,
   DataTableBodyProps,
 } from "@/shared/interfaces/data-table.types";
+import { isVNode } from "vue";
 
 const props = defineProps<DataTableBodyProps<T>>();
 
@@ -58,7 +59,12 @@ function renderCell(
             : 'text-left',
         ]"
       >
-        {{ renderCell(column, row, rowIndex) }}
+        <template v-if="isVNode(renderCell(column, row, rowIndex))">
+          <component :is="renderCell(column, row, rowIndex)" />
+        </template>
+        <template v-else>
+          {{ renderCell(column, row, rowIndex) }}
+        </template>
       </TableCell>
     </TableRow>
   </TableBody>
