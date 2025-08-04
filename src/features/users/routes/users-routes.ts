@@ -6,7 +6,8 @@ export const usersRoutes = [
       {
         path: "",
         name: "users",
-        component: () => import("../presentation/views/users-list-view.vue"),
+        component: () =>
+          import("../presentation/containers/users-list-container.vue"),
         meta: {
           layout: "dashboard",
         },
