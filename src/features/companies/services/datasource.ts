@@ -1,6 +1,6 @@
 import { AxiosClient } from "@/core/infraestructure/http/axios-client";
 import type { IHttpHandler } from "@/core/interfaces/IHttpHandler";
-import type { ICompany } from "../interfaces/ICompany";
+import type { ICompany, ICreateCompany } from "../interfaces/ICompany";
 import { API_ROUTES } from "@/core/api/routes/api-routes";
 
 export class CompanyDataSource {
@@ -23,5 +23,13 @@ export class CompanyDataSource {
       API_ROUTES.COMPANIES.GETALL
     );
     return response.datos;
+  }
+
+  async create(company: ICreateCompany): Promise<ICompany> {
+    const data = await this.httpClient.post<ICompany>(
+      API_ROUTES.COMPANIES.CREATE,
+      company
+    );
+    return data.datos;
   }
 }
