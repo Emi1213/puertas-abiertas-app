@@ -1,6 +1,10 @@
 import { AxiosClient } from "@/core/infraestructure/http/axios-client";
 import type { IHttpHandler } from "@/core/interfaces/IHttpHandler";
-import type { ICompany, ICreateCompany } from "../interfaces/ICompany";
+import type {
+  ICompany,
+  ICreateCompany,
+  IUpdateCompany,
+} from "../interfaces/ICompany";
 import { API_ROUTES } from "@/core/api/routes/api-routes";
 
 export class CompanyDataSource {
@@ -31,5 +35,17 @@ export class CompanyDataSource {
       company
     );
     return data.datos;
+  }
+
+  async update(company: IUpdateCompany): Promise<ICompany> {
+    const data = await this.httpClient.put<ICompany>(
+      API_ROUTES.COMPANIES.UPDATE(company.id.toString()),
+      company
+    );
+    return data.datos;
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.httpClient.delete(API_ROUTES.COMPANIES.DELETE(id.toString()));
   }
 }

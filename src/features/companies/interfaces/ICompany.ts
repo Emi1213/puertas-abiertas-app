@@ -5,4 +5,6 @@ export interface ICompany {
 }
 
 export interface ICreateCompany extends Omit<ICompany, "id"> {}
-export interface IUpdateCompany extends Partial<ICreateCompany> {}
+export interface IUpdateCompany extends Partial<ICreateCompany> {
+  id: number;
+}

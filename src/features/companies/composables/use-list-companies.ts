@@ -1,6 +1,7 @@
 import { ref } from "vue";
 import { useCreateCompany } from "./mutations/use-create-company";
-// import { useUpdateCompany } from "./mutations/use-update-company";
+import { useUpdateCompany } from "./mutations/use-update-company";
+import { useDeleteCompany } from "./mutations/use-delete-company";
 import type {
   ICompany,
   ICreateCompany,
@@ -9,9 +10,12 @@ import type {
 
 export function useListCompanies() {
   const drawerOpen = ref(false);
+  const confirmDialogOpen = ref(false);
+  const companyToDelete = ref<ICompany | null>(null);
   const initialData = ref<Partial<ICompany>>();
   const createCompany = useCreateCompany();
-//   const updateCompany = useUpdateCompany();
+  const updateCompany = useUpdateCompany();
+  const deleteCompany = useDeleteCompany();
 
   const openAddDrawer = () => {
     initialData.value = undefined;
@@ -27,9 +31,31 @@ export function useListCompanies() {
     drawerOpen.value = false;
   };
 
+  const handleDelete = (company: ICompany) => {
+    companyToDelete.value = company;
+    confirmDialogOpen.value = true;
+  };
+
+  const confirmDelete = async () => {
+    if (companyToDelete.value) {
+      await deleteCompany.mutateAsync(companyToDelete.value.id);
+      companyToDelete.value = null;
+    }
+    confirmDialogOpen.value = false;
+  };
+
+  const cancelDelete = () => {
+    companyToDelete.value = null;
+    confirmDialogOpen.value = false;
+  };
+
   const handleSubmit = async (data: ICreateCompany | IUpdateCompany) => {
-    if ("id" in data && data.id) {
-    //   await updateCompany.mutateAsync(data);
+    if (initialData.value && initialData.value.id) {
+      const updateData: IUpdateCompany = {
+        ...data,
+        id: initialData.value.id,
+      };
+      await updateCompany.mutateAsync(updateData);
     } else {
       await createCompany.mutateAsync(data as ICreateCompany);
     }
@@ -39,9 +65,14 @@ export function useListCompanies() {
   return {
     drawerOpen,
     initialData,
+    confirmDialogOpen,
+    companyToDelete,
     openAddDrawer,
     openEditDrawer,
     closeDrawer,
     handleSubmit,
+    handleDelete,
+    confirmDelete,
+    cancelDelete,
   };
 }
