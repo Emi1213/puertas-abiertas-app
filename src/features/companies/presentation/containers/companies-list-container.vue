@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import type { ICompany } from "../../interfaces/ICompany";
 import CompaniesProvider from "../components/companies-provider.vue";
 import CompaniesListView from "../views/companies-list-view.vue";
+import CompanyFormDrawer from "../components/company-form-drawer.vue";
+import { useListCompanies } from "../../composables/use-list-companies";
 
-const handleEdit = (company: ICompany) => {
-  console.log("Editar", company);
-};
 
-const handleDelete = (company: ICompany) => {
-  console.log("Eliminar", company);
-};
+const {
+  drawerOpen,
+  initialData,
+  openAddDrawer,
+  openEditDrawer,
+  closeDrawer,
+  handleSubmit,
+} = useListCompanies();
 </script>
 
 <template>
@@ -17,9 +20,17 @@ const handleDelete = (company: ICompany) => {
     <template #default="{ companies }">
       <CompaniesListView
         :companies="companies"
-        :on-edit="handleEdit"
-        :on-delete="handleDelete"
+        :on-edit="openEditDrawer"
+        :on-delete="console.log"
+        :on-add="openAddDrawer"
       />
     </template>
   </CompaniesProvider>
+
+  <CompanyFormDrawer
+    :isOpen="drawerOpen"
+    :onSubmit="handleSubmit"
+    :onClose="closeDrawer"
+    :initialData="initialData"
+  />
 </template>
