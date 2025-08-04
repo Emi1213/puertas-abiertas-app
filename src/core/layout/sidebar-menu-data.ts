@@ -1,4 +1,4 @@
-import { Building2, ScanFace } from "lucide-vue-next";
+import { Building2, ScanFace, Users2 } from "lucide-vue-next";
 
 export interface SidebarItem {
   label: string;
@@ -26,6 +26,12 @@ export const sidebarMenu: SidebarSection[] = [
         label: "Ingresos",
         to: "/ingresos",
         icon: ScanFace,
+        roles: ["admin", "vigilante", "Lectura"],
+      },
+      {
+        label: "Usuarios",
+        to: "/users",
+        icon: Users2,
         roles: ["admin", "vigilante", "Lectura"],
       },
     ],

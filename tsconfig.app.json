@@ -2,6 +2,15 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components/ui/*": ["./src/components/ui/*"],
+      "@shared": ["./src/shared"],
+      "@features": ["./src/features"],
+      "@core": ["./src/core"],
+      "@components/*": ["./src/components/*"]
+    },
 
     /* Linting */
     "strict": true,

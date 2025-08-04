@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import useLogin from "../../composables/use-login";
-import { Input } from "@progress/kendo-vue-inputs";
-import { Button } from "@progress/kendo-vue-buttons";
 import { useForm } from "../../../../lib/composables/use-form";
 import { User, Lock, Loader2 } from "lucide-vue-next";
 import "../styles/login-form.css";
+import Input from "@/components/ui/input/Input.vue";
+import Label from "@/components/ui/label/Label.vue";
+import Button from "@/components/ui/button/Button.vue";
 
 const { schema, onSubmit, isLoading } = useLogin();
 const { formData, errors, handleSubmit, validateField } = useForm(schema, {
@@ -16,23 +17,29 @@ const submitForm = () => handleSubmit(onSubmit);
 </script>
 
 <template>
-  <form @submit.prevent="submitForm" class="login-form">
-    <div class="form-header">
-      <h2 class="form-title">Iniciar Sesión</h2>
-      <p class="form-subtitle">
+  <form @submit.prevent="submitForm" class="w-full max-w-85">
+    <div class="text-center mb-4">
+      <h2 class="text-lg font-semibold text-gray-900 m-0 mb-1">
+        Iniciar Sesión
+      </h2>
+      <p class="text-gray-500 text-sm m-0 font-normal">
         Ingresa tus credenciales para acceder al sistema
       </p>
     </div>
-
-    <div class="form-group">
-      <label for="usuario" class="form-label">Nombre de usuario</label>
-      <div class="input-wrapper">
+    <div class="mb-4">
+      <Label
+        for="usuario"
+        class="block font-semibold mb-1.5 text-gray-700 text-xs"
+      >
+        Nombre de usuario
+      </Label>
+      <div class="relative flex items-center">
         <User class="input-icon" />
         <Input
           id="usuario"
           v-model="formData.usuario"
           @input="validateField('usuario')"
-          placeholder="usuario"
+          placeholder="Ingresa tu nombre de usuario"
           class="form-input"
           :class="{ error: errors.usuario }"
         />
@@ -42,9 +49,14 @@ const submitForm = () => handleSubmit(onSubmit);
       </transition>
     </div>
 
-    <div class="form-group">
-      <label for="contrasenia" class="form-label">Contraseña</label>
-      <div class="input-wrapper">
+    <div class="mb-4">
+      <Label
+        for="contrasenia"
+        class="block font-semibold mb-1.5 text-gray-700 text-xs"
+      >
+        Contraseña
+      </Label>
+      <div class="relative flex items-center">
         <Lock class="input-icon" />
         <Input
           id="contrasenia"

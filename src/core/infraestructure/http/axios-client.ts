@@ -1,13 +1,17 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
 import { useToast } from "vue-toastification";
-import type { IHttpHandler, IHttpResponse } from "../../../core/interfaces/IHttpHandler";
+import type {
+  IHttpHandler,
+  IHttpResponse,
+} from "../../../core/interfaces/IHttpHandler";
+import { useAuthStore } from "@/features/auth/context/auth-store";
 
 export class AxiosClient implements IHttpHandler {
   private static instance: AxiosClient;
   private axiosInstance: AxiosInstance;
   private static readonly baseURL =
     import.meta.env.VITE_API_URL || "http://localhost:5022/api";
-  //   private accessToken: string | null = null;
+  private accessToken: string | null = null;
   private toast = useToast();
 
   constructor() {
@@ -17,6 +21,16 @@ export class AxiosClient implements IHttpHandler {
         "Content-Type": "application/json",
       },
     });
+
+    this.axiosInstance.interceptors.request.use(config => {
+      const authStore = useAuthStore()
+      authStore.loadData()
+      this.accessToken = authStore.token
+      if (this.accessToken) {
+        config.headers.Authorization = `Bearer ${this.accessToken}`
+      }
+      return config
+    })
 
     this.axiosInstance.interceptors.response.use(
       (response) => {
@@ -40,6 +54,7 @@ export class AxiosClient implements IHttpHandler {
   }
 
   setAccessToken(accessToken: string | null): void {
+    this.accessToken = accessToken;
     if (accessToken) {
       this.axiosInstance.defaults.headers.common[
         "Authorization"
@@ -67,13 +82,13 @@ export class AxiosClient implements IHttpHandler {
   async get<T>(
     url: string,
     config?: AxiosRequestConfig & { params?: Record<string, any> }
-  ): Promise<T> {
+  ): Promise<IHttpResponse<T>> {
     try {
       const queryParams = config?.params
         ? ""
         : this.buildQueryParams(config?.params);
 
-      const response = await this.axiosInstance.get<T>(
+      const response = await this.axiosInstance.get<IHttpResponse<T>>(
         `${url}${queryParams}`,
         config
       );
@@ -83,23 +98,34 @@ export class AxiosClient implements IHttpHandler {
     }
   }
 
-  async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<IHttpResponse<T>> {
-  try {
-    const response = await this.axiosInstance.post<IHttpResponse<T>>(url, data, config);
-    return response.data;
-  } catch (e: any) {
-    return e.response.data;
+  async post<T>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): Promise<IHttpResponse<T>> {
+    try {
+      const response = await this.axiosInstance.post<IHttpResponse<T>>(
+        url,
+        data,
+        config
+      );
+      return response.data;
+    } catch (e: any) {
+      return e.response.data;
+    }
   }
-}
-
 
   async put<T>(
     url: string,
     data?: any,
     config?: AxiosRequestConfig
-  ): Promise<T> {
+  ): Promise<IHttpResponse<T>> {
     try {
-      const response = await this.axiosInstance.put<T>(url, data, config);
+      const response = await this.axiosInstance.put<IHttpResponse<T>>(
+        url,
+        data,
+        config
+      );
       return response.data;
     } catch (e: any) {
       return e.response.data;

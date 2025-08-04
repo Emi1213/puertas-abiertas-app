@@ -5,8 +5,11 @@ import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import { VueQueryPlugin } from "@tanstack/vue-query";
 import router from "./router";
 import "./index.css";
+import { vueQueryClient } from "./core/infraestructure/vue-query/query-client.";
+import { VueQueryDevtools } from "@tanstack/vue-query-devtools";
 
 const toastOptions = {
   position: "top-right",
@@ -27,7 +30,11 @@ const app = createApp(App);
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 app.use(pinia);
+app.use(VueQueryPlugin, {
+  queryClient: vueQueryClient,
+});
 app.use(router);
+app.component("VueQueryDevtools", VueQueryDevtools);
 app.use(Toast, toastOptions);
 
 app.mount("#app");
