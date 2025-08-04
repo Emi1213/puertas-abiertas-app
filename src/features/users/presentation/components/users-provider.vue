@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LoadingListSkeleton from "@/shared/components/ui/loading-list-skeleton.vue";
+import LoadingListSkeleton from "@/shared/components/loading-list-skeleton.vue";
 import { useUsers } from "../../composables/queries/use-users";
 const { data: users, isLoading, isError } = useUsers();
 </script>

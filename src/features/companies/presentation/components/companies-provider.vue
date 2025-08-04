@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LoadingListSkeleton from "@/shared/components/ui/loading-list-skeleton.vue";
+import LoadingListSkeleton from "@/shared/components/loading-list-skeleton.vue";
 import { useCompanies } from "../../composables/queries/use-companies";
 const { data: companies, isLoading, isError } = useCompanies();
 </script>

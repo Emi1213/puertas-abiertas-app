@@ -6,7 +6,7 @@ export const companiesRoutes = [
       {
         path: "",
         name: "companies",
-        component: () => import("../presentation/views/companies-view.vue"),
+        component: () => import("../presentation/containers/companies-list-container.vue"),
         meta: {
           layout: "dashboard",
         },

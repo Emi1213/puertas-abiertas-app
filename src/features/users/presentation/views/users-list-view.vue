@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { IUser } from "../../interfaces/IUser";
 import ContentLayout from "@/core/layout/content-layout.vue";
-import DataTable from "@/shared/components/ui/data-table/data-table.vue";
+import DataTable from "@/shared/components/data-table/data-table.vue";
 import { useUsersTableColumns } from "../components/users-table-columns";
 
 const { users, loading, onEdit, onDelete } = defineProps<{
