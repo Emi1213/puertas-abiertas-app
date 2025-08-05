@@ -3,26 +3,26 @@ import { useCreateEmpresa } from "./mutations/use-create-empresa";
 import { useUpdateEmpresa } from "./mutations/use-update-empresa";
 import { useDeleteEmpresa } from "./mutations/use-delete-empresa";
 import type {
-  ICompany,
-  ICreateCompany,
-  IUpdateCompany,
-} from "../interfaces/ICompany";
+  IEmpresa,
+  ICreateEmpresa,
+  IUpdateEmpresa,
+} from "../interfaces/IEmpresa";
 
 export function useEmpresasList() {
   const drawerOpen = ref(false);
   const confirmDialogOpen = ref(false);
-  const companyToDelete = ref<ICompany | null>(null);
-  const initialData = ref<Partial<ICompany>>();
-  const createCompany = useCreateEmpresa();
-  const updateCompany = useUpdateEmpresa();
-  const deleteCompany = useDeleteEmpresa();
+  const empresaToDelete = ref<IEmpresa | null>(null);
+  const initialData = ref<Partial<IEmpresa>>();
+  const createEmpresa = useCreateEmpresa();
+  const updateEmpresa = useUpdateEmpresa();
+  const deleteEmpresa = useDeleteEmpresa();
 
   const openAddDrawer = () => {
     initialData.value = undefined;
     drawerOpen.value = true;
   };
 
-  const openEditDrawer = (company: ICompany) => {
+  const openEditDrawer = (company: IEmpresa) => {
     initialData.value = company;
     drawerOpen.value = true;
   };
@@ -31,33 +31,33 @@ export function useEmpresasList() {
     drawerOpen.value = false;
   };
 
-  const handleDelete = (company: ICompany) => {
-    companyToDelete.value = company;
+  const handleDelete = (company: IEmpresa) => {
+    empresaToDelete.value = company;
     confirmDialogOpen.value = true;
   };
 
   const confirmDelete = async () => {
-    if (companyToDelete.value) {
-      await deleteCompany.mutateAsync(companyToDelete.value.id);
-      companyToDelete.value = null;
+    if (empresaToDelete.value) {
+      await deleteEmpresa.mutateAsync(empresaToDelete.value.id);
+      empresaToDelete.value = null;
     }
     confirmDialogOpen.value = false;
   };
 
   const cancelDelete = () => {
-    companyToDelete.value = null;
+    empresaToDelete.value = null;
     confirmDialogOpen.value = false;
   };
 
-  const handleSubmit = async (data: ICreateCompany | IUpdateCompany) => {
+  const handleSubmit = async (data: ICreateEmpresa | IUpdateEmpresa) => {
     if (initialData.value && initialData.value.id) {
-      const updateData: IUpdateCompany = {
+      const updateData: IUpdateEmpresa = {
         ...data,
         id: initialData.value.id,
       };
-      await updateCompany.mutateAsync(updateData);
+      await updateEmpresa.mutateAsync(updateData);
     } else {
-      await createCompany.mutateAsync(data as ICreateCompany);
+      await createEmpresa.mutateAsync(data as ICreateEmpresa);
     }
     drawerOpen.value = false;
   };
@@ -66,7 +66,7 @@ export function useEmpresasList() {
     drawerOpen,
     initialData,
     confirmDialogOpen,
-    companyToDelete,
+    empresaToDelete,
     openAddDrawer,
     openEditDrawer,
     closeDrawer,

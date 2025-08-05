@@ -1,15 +1,15 @@
 import type { Column } from "@/shared/interfaces/data-table.types";
-import type { ICompany } from "../../interfaces/ICompany";
+import type { IEmpresa } from "../../interfaces/IEmpresa";
 import { h } from "vue";
-import CompaniesActionsMenu from "./companies-actions-menu.vue";
+import CompaniesActionsMenu from "./empresas-actions-menu.vue";
 import Badge from "@/components/ui/badge/Badge.vue";
 
-export const useCompaniesTableColumns = (
+export const useEmpresasTableColumns = (
   handlers: {
-    onEdit?: (company: ICompany) => void;
-    onDelete?: (company: ICompany) => void;
+    onEdit?: (empresa: IEmpresa) => void;
+    onDelete?: (empresa: IEmpresa) => void;
   } = {}
-): Column<ICompany>[] => {
+): Column<IEmpresa>[] => {
   return [
     {
       key: "nombre",
@@ -24,7 +24,7 @@ export const useCompaniesTableColumns = (
       align: "center",
       render: (_, row) =>
         h(
-          Badge,  
+          Badge,
           {
             class: row.estado
               ? "bg-green-100 text-green-700"
@@ -42,7 +42,7 @@ export const useCompaniesTableColumns = (
       width: 100,
       render: (_, row) =>
         h(CompaniesActionsMenu, {
-          company: row,
+          empresa: row,
           onEdit: () => handlers.onEdit?.(row),
           onDelete: () => handlers.onDelete?.(row),
         }),

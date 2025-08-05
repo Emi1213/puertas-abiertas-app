@@ -4,11 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import type { ICreateCompany } from "../../interfaces/ICompany";
+import type { ICreateEmpresa } from "../../interfaces/IEmpresa";
 
 const props = defineProps<{
-  onSubmit: (data: ICreateCompany) => Promise<void>;
-  initialData?: Partial<ICreateCompany>;
+  onSubmit: (datos: ICreateEmpresa) => Promise<void>;
+  initialData?: Partial<ICreateEmpresa>;
 }>();
 const { formData, errors, handleSubmit, validateField } = useEmpresaForm(
   props.initialData

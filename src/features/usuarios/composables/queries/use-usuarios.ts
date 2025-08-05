@@ -4,7 +4,7 @@ import { UsuarioDataSource } from "../../services/datasource";
 
 export function useUsers() {
   const query = useQuery({
-    queryKey: [QUERY_KEY.USERS],
+    queryKey: [QUERY_KEY.USUARIOS],
     queryFn: () => new UsuarioDataSource().getAll(),
   });
   return query;

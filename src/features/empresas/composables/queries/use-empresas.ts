@@ -4,7 +4,7 @@ import { CompanyDataSource } from "../../services/datasource";
 
 export function useEmpresas() {
   const query = useQuery({
-    queryKey: [QUERY_KEY.COMPANIES],
+    queryKey: [QUERY_KEY.EMPRESAS],
     queryFn: () => new CompanyDataSource().getAll(),
   });
   return query;

@@ -9,7 +9,7 @@ export function useDeleteEmpresa() {
   return useMutation({
     mutationFn: (id: number) => new CompanyDataSource().delete(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.COMPANIES] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS] });
       toast.success("Empresa eliminada exitosamente.");
     },
     onError: () => {

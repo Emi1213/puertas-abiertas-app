@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { ICompany } from "../../interfaces/ICompany";
+import type { IEmpresa } from "../../interfaces/IEmpresa";
 import { Button } from "@/components/ui/button";
 
 defineProps<{
-  company: ICompany;
+  empresa: IEmpresa;
   onEdit?: () => void;
   onDelete?: () => void;
 }>();

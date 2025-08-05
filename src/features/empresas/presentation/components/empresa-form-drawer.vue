@@ -7,14 +7,14 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import CompanyForm from "./company-form.vue";
-import type { ICreateCompany } from "../../interfaces/ICompany";
+import CompanyForm from "./empresa-form.vue";
+import type { ICreateEmpresa } from "../../interfaces/IEmpresa";
 
 const props = defineProps<{
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: ICreateCompany) => Promise<void>;
-  initialData?: Partial<ICreateCompany>;
+  onSubmit: (datos: ICreateEmpresa) => Promise<void>;
+  initialData?: Partial<ICreateEmpresa>;
 }>();
 
 const open = ref(props.isOpen);

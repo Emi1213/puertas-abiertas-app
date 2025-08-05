@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import CompaniesProvider from "../components/companies-provider.vue";
+import CompaniesProvider from "../components/empresas.vue";
 import CompaniesListView from "../views/companies-list-view.vue";
-import CompanyFormDrawer from "../components/company-form-drawer.vue";
+import CompanyFormDrawer from "../components/empresa-form-drawer.vue";
 import ConfirmationDialog from "@/shared/components/confirmation-dialog.vue";
 import { useEmpresasList } from "../../composables/use-empresas-list";
 
@@ -9,7 +9,7 @@ const {
   drawerOpen,
   initialData,
   confirmDialogOpen,
-  companyToDelete,
+  empresaToDelete,
   openAddDrawer,
   openEditDrawer,
   closeDrawer,
@@ -22,9 +22,9 @@ const {
 
 <template>
   <CompaniesProvider>
-    <template #default="{ companies }">
+    <template #default="{ empresas: empresas }">
       <CompaniesListView
-        :companies="companies"
+        :empresas="empresas"
         :on-edit="openEditDrawer"
         :on-delete="handleDelete"
         :on-add="openAddDrawer"
@@ -42,7 +42,7 @@ const {
   <ConfirmationDialog
     :visible="confirmDialogOpen"
     :title="`Eliminar empresa`"
-    :message="`¿Estás seguro de que quieres eliminar la empresa '${companyToDelete?.nombre}'? Esta acción no se puede deshacer.`"
+    :message="`¿Estás seguro de que quieres eliminar la empresa '${empresaToDelete?.nombre}'? Esta acción no se puede deshacer.`"
     @confirm="confirmDelete"
     @cancel="cancelDelete"
   />

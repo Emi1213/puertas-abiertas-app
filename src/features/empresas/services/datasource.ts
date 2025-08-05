@@ -1,10 +1,10 @@
 import { AxiosClient } from "@/core/infraestructure/http/axios-client";
 import type { IHttpHandler } from "@/core/interfaces/IHttpHandler";
 import type {
-  ICompany,
-  ICreateCompany,
-  IUpdateCompany,
-} from "../interfaces/ICompany";
+  IEmpresa,
+  ICreateEmpresa,
+  IUpdateEmpresa,
+} from "../interfaces/IEmpresa";
 import { API_ROUTES } from "@/core/api/routes/api-routes";
 
 export class CompanyDataSource {
@@ -22,23 +22,23 @@ export class CompanyDataSource {
     return CompanyDataSource.instance;
   }
 
-  async getAll(): Promise<ICompany[]> {
-    const response = await this.httpClient.get<ICompany[]>(
+  async getAll(): Promise<IEmpresa[]> {
+    const response = await this.httpClient.get<IEmpresa[]>(
       API_ROUTES.EMPRESAS.GETALL
     );
     return response.datos;
   }
 
-  async create(company: ICreateCompany): Promise<ICompany> {
-    const data = await this.httpClient.post<ICompany>(
+  async create(company: ICreateEmpresa): Promise<IEmpresa> {
+    const data = await this.httpClient.post<IEmpresa>(
       API_ROUTES.EMPRESAS.CREATE,
       company
     );
     return data.datos;
   }
 
-  async update(company: IUpdateCompany): Promise<ICompany> {
-    const data = await this.httpClient.put<ICompany>(
+  async update(company: IUpdateEmpresa): Promise<IEmpresa> {
+    const data = await this.httpClient.put<IEmpresa>(
       API_ROUTES.EMPRESAS.UPDATE(company.id.toString()),
       company
     );

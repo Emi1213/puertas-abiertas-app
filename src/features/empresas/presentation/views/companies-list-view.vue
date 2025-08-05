@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import ContentLayout from "@/core/layout/content-layout.vue";
 import DataTable from "@/shared/components/data-table/data-table.vue";
-import type { ICompany } from "../../interfaces/ICompany";
-import { useCompaniesTableColumns } from "../components/companies-table-columns";
+import type { IEmpresa } from "../../interfaces/IEmpresa";
+import { useEmpresasTableColumns } from "../components/empresas-table-columns";
 import Button from "@/components/ui/button/Button.vue";
 import { Plus } from "lucide-vue-next";
 
-const { companies, loading, onEdit, onDelete, onAdd } = defineProps<{
-  companies: ICompany[];
+const {
+  empresas: empresas,
+  loading,
+  onEdit,
+  onDelete,
+  onAdd,
+} = defineProps<{
+  empresas: IEmpresa[];
   loading?: boolean;
-  onEdit?: (company: ICompany) => void;
-  onDelete?: (company: ICompany) => void;
+  onEdit?: (empresa: IEmpresa) => void;
+  onDelete?: (empresa: IEmpresa) => void;
   onAdd?: () => void;
 }>();
 
-const columns = useCompaniesTableColumns({ onEdit, onDelete });
+const columns = useEmpresasTableColumns({ onEdit, onDelete });
 const emptyMessage = "No hay empresas registradas";
 </script>
 
@@ -26,7 +32,7 @@ const emptyMessage = "No hay empresas registradas";
       </div>
       <div class="rounded-md bg-white px-6 py-4">
         <DataTable
-          :data="companies"
+          :data="empresas"
           :columns="columns"
           :loading="loading"
           :empty-message="emptyMessage"
