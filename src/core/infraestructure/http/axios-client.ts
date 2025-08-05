@@ -1,0 +1,156 @@
+import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
+import { useToast } from "vue-toastification";
+import type {
+  IHttpHandler,
+  IHttpResponse,
+} from "../../../core/interfaces/IHttpHandler";
+import { useAuthStore } from "@/features/auth/context/auth-store";
+
+export class AxiosClient implements IHttpHandler {
+  private static instance: AxiosClient;
+  private axiosInstance: AxiosInstance;
+  private static readonly baseURL =
+    import.meta.env.VITE_API_URL || "http://localhost:5022/api";
+  private accessToken: string | null = null;
+  private toast = useToast();
+
+  constructor() {
+    this.axiosInstance = axios.create({
+      baseURL: AxiosClient.baseURL,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    this.axiosInstance.interceptors.request.use(config => {
+      const authStore = useAuthStore()
+      authStore.loadData()
+      this.accessToken = authStore.token
+      if (this.accessToken) {
+        config.headers.Authorization = `Bearer ${this.accessToken}`
+      }
+      return config
+    })
+
+    this.axiosInstance.interceptors.response.use(
+      (response) => {
+        if (response.config.method != "get") {
+          this.toast.success("Correcto");
+        }
+        return response;
+      },
+      (error) => {
+        this.toast.error("Error al realizar la acción");
+        return Promise.reject(error);
+      }
+    );
+  }
+
+  static getInstance(): AxiosClient {
+    if (!this.instance) {
+      this.instance = new AxiosClient();
+    }
+    return this.instance;
+  }
+
+  setAccessToken(accessToken: string | null): void {
+    this.accessToken = accessToken;
+    if (accessToken) {
+      this.axiosInstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${accessToken}`;
+    } else {
+      delete this.axiosInstance.defaults.headers.common["Authorization"];
+    }
+  }
+
+  getAxiosInstance(): AxiosInstance {
+    return this.axiosInstance;
+  }
+
+  private buildQueryParams(params?: Record<string, any>): string {
+    if (!params) return "";
+    const query = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== "") {
+        query.append(key, String(value));
+      }
+    });
+    return query.toString() ? `?${query.toString()}` : "";
+  }
+
+  async get<T>(
+    url: string,
+    config?: AxiosRequestConfig & { params?: Record<string, any> }
+  ): Promise<IHttpResponse<T>> {
+    try {
+      const queryParams = config?.params
+        ? ""
+        : this.buildQueryParams(config?.params);
+
+      const response = await this.axiosInstance.get<IHttpResponse<T>>(
+        `${url}${queryParams}`,
+        config
+      );
+      return response.data;
+    } catch (e: any) {
+      return e.response.data;
+    }
+  }
+
+  async post<T>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): Promise<IHttpResponse<T>> {
+    try {
+      const response = await this.axiosInstance.post<IHttpResponse<T>>(
+        url,
+        data,
+        config
+      );
+      return response.data;
+    } catch (e: any) {
+      return e.response.data;
+    }
+  }
+
+  async put<T>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): Promise<IHttpResponse<T>> {
+    try {
+      const response = await this.axiosInstance.put<IHttpResponse<T>>(
+        url,
+        data,
+        config
+      );
+      return response.data;
+    } catch (e: any) {
+      return e.response.data;
+    }
+  }
+
+  async patch<T>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): Promise<T> {
+    try {
+      const response = await this.axiosInstance.patch<T>(url, data, config);
+      return response.data;
+    } catch (e: any) {
+      return e.response.data;
+    }
+  }
+
+  async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    try {
+      const response = await this.axiosInstance.delete<T>(url, config);
+      return response.data;
+    } catch (e: any) {
+      return e.response.data;
+    }
+  }
+}
