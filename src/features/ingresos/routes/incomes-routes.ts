@@ -1,4 +1,4 @@
-export const incomesRoutes = [
+export const ingresosRoutes = [
   {
     path: "/ingresos",
     component: () => import("../../../core/layout/dashboard-wrapper.vue"),

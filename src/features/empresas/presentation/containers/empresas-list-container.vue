@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CompaniesListView from "../views/companies-list-view.vue";
+import EmpresasListView from "../views/empresas-list-view.vue";
 import EmpresaFormDrawer from "../components/empresa-form-drawer.vue";
 import ConfirmationDialog from "@/shared/components/confirmation-dialog.vue";
 import { useEmpresasList } from "../../composables/use-empresas-list";
@@ -32,7 +32,7 @@ const {
 </script>
 
 <template>
-  <CompaniesListView
+  <EmpresasListView
     :empresas="empresas"
     :loading="isLoading"
     :search-query="searchQuery"

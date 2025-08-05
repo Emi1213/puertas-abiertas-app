@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import type { IEmpresa } from "../../interfaces/IEmpresa";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { MoreHorizontal, Edit, Trash2 } from "lucide-vue-next";
 
 defineProps<{
   empresa: IEmpresa;
@@ -10,23 +17,25 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex justify-center gap-2">
-    <Button
-      variant="ghost"
-      size="sm"
-      class="text-blue-600 hover:text-blue-700"
-      @click.stop="onEdit"
-    >
-      Editar
-    </Button>
-
-    <Button
-      variant="ghost"
-      size="sm"
-      class="text-red-600 hover:text-red-700"
-      @click.stop="onDelete"
-    >
-      Eliminar
-    </Button>
-  </div>
+  <DropdownMenu>
+    <DropdownMenuTrigger as-child>
+      <Button variant="ghost" size="sm" class="h-8 w-8 p-0">
+        <MoreHorizontal class="h-4 w-4" />
+        <span class="sr-only">Abrir menú</span>
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent align="end" class="w-40">
+      <DropdownMenuItem @click="onEdit" class="cursor-pointer">
+        <Edit class="mr-2 h-4 w-4" />
+        Editar
+      </DropdownMenuItem>
+      <DropdownMenuItem
+        @click="onDelete"
+        class="cursor-pointer text-red-600 focus:text-red-600"
+      >
+        <Trash2 class="mr-2 h-4 w-4" />
+        Eliminar
+      </DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
 </template>
