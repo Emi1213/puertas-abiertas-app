@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import CompaniesListView from "../views/companies-list-view.vue";
-import CompanyFormDrawer from "../components/empresa-form-drawer.vue";
+import EmpresaFormDrawer from "../components/empresa-form-drawer.vue";
 import ConfirmationDialog from "@/shared/components/confirmation-dialog.vue";
 import { useEmpresasList } from "../../composables/use-empresas-list";
 import { useEmpresasTable } from "../../composables/use-empresas-table";
@@ -46,7 +46,7 @@ const {
     :on-clear-filters="clearFilters"
   />
 
-  <CompanyFormDrawer
+  <EmpresaFormDrawer
     :isOpen="drawerOpen"
     :onSubmit="handleSubmit"
     :onClose="closeDrawer"

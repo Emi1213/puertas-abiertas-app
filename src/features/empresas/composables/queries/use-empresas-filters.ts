@@ -8,6 +8,8 @@ export function useEmpresasFilters(filters: ComputedRef<IEmpresaFilters>) {
   const query = useQuery({
     queryKey: [QUERY_KEY.EMPRESAS_FILTROS, filters],
     queryFn: () => new EmpresaDataSource().search(filters.value),
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
   });
   return query;
 }

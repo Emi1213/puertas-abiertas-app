@@ -10,21 +10,30 @@ const props = defineProps<{
   onSubmit: (datos: ICreateEmpresa) => Promise<void>;
   initialData?: Partial<ICreateEmpresa>;
 }>();
-const { formData, errors, handleSubmit, validateField } = useEmpresaForm(
-  props.initialData
-);
+
+const { formData, errors, loading, handleSubmit, validateField } =
+  useEmpresaForm(props.initialData);
 </script>
+
 <template>
   <form @submit.prevent="handleSubmit(props.onSubmit)" class="space-y-4">
     <div>
       <Label for="nombre" class="mb-3">Nombre</Label>
-      <Input v-model="formData.nombre" @blur="() => validateField('nombre')" />
+      <Input
+        id="nombre"
+        v-model="formData.nombre"
+        @blur="() => validateField('nombre')"
+      />
       <p class="text-xs text-red-500">{{ errors.nombre }}</p>
     </div>
+
     <div class="flex items-center gap-2">
       <Label for="estado">Activo</Label>
       <Switch id="estado" v-model="formData.estado" />
     </div>
-    <Button type="submit" class="w-full">Guardar</Button>
+
+    <Button type="submit" class="w-full" :disabled="loading">
+      {{ loading ? "Guardando..." : "Guardar" }}
+    </Button>
   </form>
 </template>

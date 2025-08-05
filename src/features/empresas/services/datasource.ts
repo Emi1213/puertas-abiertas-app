@@ -31,18 +31,18 @@ export class EmpresaDataSource {
     return response.datos;
   }
 
-  async create(company: ICreateEmpresa): Promise<IEmpresa> {
+  async create(empresa: ICreateEmpresa): Promise<IEmpresa> {
     const data = await this.httpClient.post<IEmpresa>(
       API_ROUTES.EMPRESAS.CREATE,
-      company
+      empresa
     );
     return data.datos;
   }
 
-  async update(company: IUpdateEmpresa): Promise<IEmpresa> {
+  async update(empresa: IUpdateEmpresa): Promise<IEmpresa> {
     const data = await this.httpClient.put<IEmpresa>(
-      API_ROUTES.EMPRESAS.UPDATE(company.id.toString()),
-      company
+      API_ROUTES.EMPRESAS.UPDATE(empresa.id.toString()),
+      empresa
     );
     return data.datos;
   }

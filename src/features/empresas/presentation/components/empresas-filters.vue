@@ -40,7 +40,6 @@ const statusFilterModel = computed({
 
 <template>
   <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-    <!-- Búsqueda -->
     <div class="flex-1 min-w-0 w-full sm:w-auto">
       <div class="relative">
         <Search
@@ -53,8 +52,6 @@ const statusFilterModel = computed({
         />
       </div>
     </div>
-
-    <!-- Filtro por estado -->
     <div class="w-full sm:w-auto">
       <Select v-model="statusFilterModel">
         <SelectTrigger class="w-full sm:w-32">
@@ -67,8 +64,6 @@ const statusFilterModel = computed({
         </SelectContent>
       </Select>
     </div>
-
-    <!-- Botón limpiar -->
     <Button variant="outline" @click="onClearFilters" class="w-full sm:w-auto">
       <X class="w-4 h-4 mr-2" />
       Limpiar

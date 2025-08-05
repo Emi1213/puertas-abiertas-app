@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import CompanyForm from "./empresa-form.vue";
+import EmpresaForm from "./empresa-form.vue";
 import type { ICreateEmpresa } from "../../interfaces/IEmpresa";
 
 const props = defineProps<{
@@ -37,7 +37,7 @@ watch(open, (v) => !v && props.onClose());
           Formulario para agregar o editar una empresa
         </DialogDescription>
       </DialogHeader>
-      <CompanyForm
+      <EmpresaForm
         :onSubmit="props.onSubmit"
         :initialData="props.initialData"
       />
