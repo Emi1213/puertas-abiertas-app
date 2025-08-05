@@ -11,7 +11,11 @@ const config: Config = {
         "2xl": "1400px",
       },
     },
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#1D4ED8",
+      },
+    },
   },
   plugins: [],
 };

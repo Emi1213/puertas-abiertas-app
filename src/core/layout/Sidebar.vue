@@ -18,7 +18,7 @@ const router = useRouter();
 const authStore = useAuthStore();
 const isCollapsed = ref(false);
 
-const userRole = authStore.user?.role || "";
+const userRole = authStore.usuario?.rol || "";
 
 const visibleMenu = sidebarMenu
   .map((section) => {

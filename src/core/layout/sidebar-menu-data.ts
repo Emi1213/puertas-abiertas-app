@@ -30,7 +30,7 @@ export const sidebarMenu: SidebarSection[] = [
       },
       {
         label: "Usuarios",
-        to: "/users",
+        to: "/usuarios",
         icon: Users2,
         roles: ["admin", "vigilante", "Lectura"],
       },

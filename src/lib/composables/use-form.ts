@@ -1,4 +1,3 @@
-// src/lib/composables/use-form.ts
 import { ref, reactive, toRaw } from "vue";
 import { ZodError, ZodObject } from "zod";
 import type { ZodRawShape } from "zod";
@@ -9,7 +8,6 @@ export function useForm<T extends Record<string, any>>(
 ) {
   const schema = ref(initialSchema);
 
-  // Usa los valores iniciales tal como vienen
   const formData = reactive({ ...(initialValues || {}) }) as T;
   const errors = ref<Record<keyof T, string | null>>(
     {} as Record<keyof T, string | null>

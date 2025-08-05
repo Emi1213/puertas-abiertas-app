@@ -41,7 +41,7 @@ export default function useLogin() {
     isLoading.value = true;
     try {
       await AuthDataSource.getInstance().login(form);
-      toast.success(`Bienvenido ${getUser()?.username}!`);
+      toast.success(`Bienvenido ${getUser()?.usuario}!`);
       await router.push("/companies");
     } catch (error) {
       toast.error(

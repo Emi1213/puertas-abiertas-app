@@ -25,7 +25,26 @@ export interface DataTableProps<T extends BaseDataRow> {
   onRowClick?: (row: T, index: number) => void;
   pagination?: boolean;
   emptyMessage?: string;
+  paginationProps?: PaginationProps;
 }
 
+export interface PaginationProps {
+  page: number;
+  pageSize: number;
+  total: number;
+  onPageChange: (page: number) => void;
+  onPageSizeChange?: (pageSize: number) => void;
+}
 
+export interface PaginationState {
+  page: number;
+  pageSize: number;
+  total: number;
+}
 
+export interface DataTablePaginationProps {
+  colSpan: number;
+  pagination: PaginationState;
+  onPageChange: (page: number) => void;
+  onPageSizeChange: (pageSize: number) => void;
+}
