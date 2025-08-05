@@ -6,20 +6,22 @@ import type {
   IUpdateEmpresa,
 } from "../interfaces/IEmpresa";
 import { API_ROUTES } from "@/core/api/routes/api-routes";
+import type { IEmpresaFilters } from "../interfaces/IEmpresaFilters";
+import type { IRespuestaPaginada } from "@/shared/interfaces/IRespuestaPaginada";
 
-export class CompanyDataSource {
+export class EmpresaDataSource {
   private httpClient: IHttpHandler;
-  private static instance: CompanyDataSource;
+  private static instance: EmpresaDataSource;
 
   constructor() {
     this.httpClient = AxiosClient.getInstance();
   }
 
-  static getInstance(): CompanyDataSource {
-    if (!CompanyDataSource.instance) {
-      CompanyDataSource.instance = new CompanyDataSource();
+  static getInstance(): EmpresaDataSource {
+    if (!EmpresaDataSource.instance) {
+      EmpresaDataSource.instance = new EmpresaDataSource();
     }
-    return CompanyDataSource.instance;
+    return EmpresaDataSource.instance;
   }
 
   async getAll(): Promise<IEmpresa[]> {
@@ -48,4 +50,13 @@ export class CompanyDataSource {
   async delete(id: number): Promise<void> {
     await this.httpClient.delete(API_ROUTES.EMPRESAS.DELETE(id.toString()));
   }
+
+  async search(query: IEmpresaFilters): Promise<IRespuestaPaginada<IEmpresa>> {
+  const response = await this.httpClient.get<IRespuestaPaginada<IEmpresa>>(
+    API_ROUTES.EMPRESAS.SEARCH,
+    { params: query }
+  );
+  return response.datos;
+}
+
 }

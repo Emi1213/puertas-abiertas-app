@@ -4,7 +4,6 @@ import { reactiveOmit } from "@vueuse/core";
 import { DrawerTitle } from "vaul-vue";
 import { cn } from "@/lib/utils";
 
-// Definir las props manualmente ya que DrawerTitleProps no está disponible
 const props = defineProps<{
   class?: HTMLAttributes["class"];
 }>();

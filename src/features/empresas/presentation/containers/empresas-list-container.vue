@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import CompaniesProvider from "../components/empresas.vue";
 import CompaniesListView from "../views/companies-list-view.vue";
 import CompanyFormDrawer from "../components/empresa-form-drawer.vue";
 import ConfirmationDialog from "@/shared/components/confirmation-dialog.vue";
 import { useEmpresasList } from "../../composables/use-empresas-list";
+import { useEmpresasTable } from "../../composables/use-empresas-table";
 
 const {
   drawerOpen,
@@ -18,19 +18,33 @@ const {
   confirmDelete,
   cancelDelete,
 } = useEmpresasList();
+
+const {
+  empresas,
+  isLoading,
+  searchQuery,
+  statusFilter,
+  paginationProps,
+  updateSearch,
+  updateStatusFilter,
+  clearFilters,
+} = useEmpresasTable();
 </script>
 
 <template>
-  <CompaniesProvider>
-    <template #default="{ empresas: empresas }">
-      <CompaniesListView
-        :empresas="empresas"
-        :on-edit="openEditDrawer"
-        :on-delete="handleDelete"
-        :on-add="openAddDrawer"
-      />
-    </template>
-  </CompaniesProvider>
+  <CompaniesListView
+    :empresas="empresas"
+    :loading="isLoading"
+    :search-query="searchQuery"
+    :status-filter="statusFilter"
+    :pagination-props="paginationProps"
+    :on-edit="openEditDrawer"
+    :on-delete="handleDelete"
+    :on-add="openAddDrawer"
+    :on-update-search="updateSearch"
+    :on-update-status-filter="updateStatusFilter"
+    :on-clear-filters="clearFilters"
+  />
 
   <CompanyFormDrawer
     :isOpen="drawerOpen"

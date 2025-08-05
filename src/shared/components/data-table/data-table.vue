@@ -2,8 +2,11 @@
 import { Table } from "@/components/ui/table";
 import DataTableHead from "./data-table-head.vue";
 import DataTableBody from "./data-table-body.vue";
-
-import type { BaseDataRow, DataTableProps} from "@/shared/interfaces/data-table.types";
+import DataTablePagination from "./data-table-pagination.vue";
+import type {
+  BaseDataRow,
+  DataTableProps,
+} from "@/shared/interfaces/data-table.types";
 
 const props = defineProps<DataTableProps<T>>();
 </script>
@@ -21,16 +24,14 @@ const props = defineProps<DataTableProps<T>>();
         :empty-message="props.emptyMessage"
         :on-row-click="props.onRowClick"
       />
-
-      <!-- Pagination (⚠️ opcional - no implementado aún) -->
-      <!--
       <DataTablePagination
-        v-if="props.pagination"
+        v-if="props.pagination && props.paginationProps"
         :col-span="props.columns.length"
-        :count="props.data.length"
-        ...
+        :page="props.paginationProps.page"
+        :page-size="props.paginationProps.pageSize"
+        :total="props.paginationProps.total"
+        :on-page-change="props.paginationProps.onPageChange"
       />
-      -->
     </Table>
   </div>
 </template>

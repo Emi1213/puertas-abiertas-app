@@ -14,6 +14,7 @@ export const API_ROUTES = {
     CREATE: AR_KEYS.EMPRESAS,
     UPDATE: (id: string) => `${AR_KEYS.EMPRESAS}/${id}`,
     DELETE: (id: string) => `${AR_KEYS.EMPRESAS}/${id}`,
+    SEARCH: AR_KEYS.EMPRESAS + "/buscar",
   },
   USUARIOS: {
     GETALL: AR_KEYS.USUARIOS,

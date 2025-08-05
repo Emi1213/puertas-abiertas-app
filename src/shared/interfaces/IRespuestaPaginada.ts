@@ -1,4 +1,4 @@
-export interface IPagedResults<T> {
+export interface IRespuestaPaginada<T> {
   items: T[];
   totalItems: number;
   totalPaginas: number;
