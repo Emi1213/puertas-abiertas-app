@@ -25,10 +25,10 @@ export class EmpresaDataSource {
   }
 
   async getAll(): Promise<IEmpresa[]> {
-    const response = await this.httpClient.get<IEmpresa[]>(
+    const respuesta = await this.httpClient.get<IEmpresa[]>(
       API_ROUTES.EMPRESAS.GETALL
     );
-    return response.datos;
+    return respuesta.datos;
   }
 
   async create(empresa: ICreateEmpresa): Promise<IEmpresa> {

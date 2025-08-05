@@ -21,7 +21,6 @@ defineProps<{
     <DropdownMenuTrigger as-child>
       <Button variant="ghost" size="sm" class="h-8 w-8 p-0">
         <MoreHorizontal class="h-4 w-4" />
-        <span class="sr-only">Abrir menú</span>
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end" class="w-40">
