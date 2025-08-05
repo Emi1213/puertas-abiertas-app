@@ -2,7 +2,7 @@ import { API_ROUTES } from "../../../core/api/routes/api-routes";
 import { AxiosClient } from "../../../core/infraestructure/http/axios-client";
 import type { IHttpHandler } from "../../../core/interfaces/IHttpHandler";
 import { useAuthStore } from "../context/auth-store";
-import type { IAccount } from "../interfaces/IAccount";
+import type { ICuenta } from "../interfaces/ICuenta";
 import type { ILogin, ILoginResponse } from "../interfaces/ILogin";
 import { jwtDecode } from "jwt-decode";
 
@@ -23,7 +23,7 @@ export class AuthDataSource {
 
   async login({ usuario, contrasenia }: ILogin) {
     try {
-      const data = await this.httpClient.post<ILoginResponse>(
+      const datos = await this.httpClient.post<ILoginResponse>(
         API_ROUTES.AUTH.LOGIN,
         {
           usuario,
@@ -31,26 +31,26 @@ export class AuthDataSource {
         }
       );
 
-      if (!data || !data.datos) {
+      if (!datos || !datos.datos) {
         throw new Error("Credenciales inválidas o token no recibido.");
       }
 
-      const decoded = jwtDecode<Record<string, any>>(data.datos.token);
-      const user: IAccount = {
-        id: decoded[
+      const decodificado = jwtDecode<Record<string, any>>(datos.datos.token);
+      const user: ICuenta = {
+        id: decodificado[
           "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
         ],
-        username:
-          decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-        role: decoded[
+        usuario:
+          decodificado["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+        rol: decodificado[
           "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
         ],
       };
 
-      useAuthStore().setToken(data.datos.token);
+      useAuthStore().setToken(datos.datos.token);
       useAuthStore().setUser(user);
-      this.httpClient.setAccessToken(data.datos.token);
-      return user as IAccount;
+      this.httpClient.setAccessToken(datos.datos.token);
+      return user as ICuenta;
     } catch (error: any) {
       const message =
         error?.response?.data?.message || "Credenciales incorrectas.";

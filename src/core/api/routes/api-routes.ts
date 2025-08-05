@@ -1,25 +1,25 @@
 const AR_KEYS = {
   AUTH: "/auth",
-  COMPANIES: "/empresas",
-  USERS: "/usuarios",
+  EMPRESAS: "/empresas",
+  USUARIOS: "/usuarios",
 };
 
 export const API_ROUTES = {
   AUTH: {
     LOGIN: AR_KEYS.AUTH + "/login",
   },
-  COMPANIES: {
-    GETALL: AR_KEYS.COMPANIES,
-    GETBYID: (id: string) => `${AR_KEYS.COMPANIES}/${id}`,
-    CREATE: AR_KEYS.COMPANIES,
-    UPDATE: (id: string) => `${AR_KEYS.COMPANIES}/${id}`,
-    DELETE: (id: string) => `${AR_KEYS.COMPANIES}/${id}`,
+  EMPRESAS: {
+    GETALL: AR_KEYS.EMPRESAS,
+    GETBYID: (id: string) => `${AR_KEYS.EMPRESAS}/${id}`,
+    CREATE: AR_KEYS.EMPRESAS,
+    UPDATE: (id: string) => `${AR_KEYS.EMPRESAS}/${id}`,
+    DELETE: (id: string) => `${AR_KEYS.EMPRESAS}/${id}`,
   },
-  USERS: {
-    GETALL: AR_KEYS.USERS,
-    GETBYID: (id: string) => `${AR_KEYS.USERS}/${id}`,
-    CREATE: AR_KEYS.USERS,
-    UPDATE: (id: string) => `${AR_KEYS.USERS}/${id}`,
-    DELETE: (id: string) => `${AR_KEYS.USERS}/${id}`,
+  USUARIOS: {
+    GETALL: AR_KEYS.USUARIOS,
+    GETBYID: (id: string) => `${AR_KEYS.USUARIOS}/${id}`,
+    CREATE: AR_KEYS.USUARIOS,
+    UPDATE: (id: string) => `${AR_KEYS.USUARIOS}/${id}`,
+    DELETE: (id: string) => `${AR_KEYS.USUARIOS}/${id}`,
   },
 };

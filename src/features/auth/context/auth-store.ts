@@ -1,40 +1,40 @@
 import { defineStore } from "pinia";
 import { readLocalStorage } from "../../../core/helpers/read-local-storage";
-import type { IAccount } from "../interfaces/IAccount";
+import type { ICuenta } from "../interfaces/ICuenta";
 
 interface IAuthStore {
   token: string;
-  user: IAccount | null;
+  usuario: ICuenta | null;
 }
 
 const LC_KEY = "auth";
 export const useAuthStore = defineStore(LC_KEY, {
   state: () =>
     ({
-      user: null as IAccount | null,
+      usuario: null as ICuenta | null,
       token: "",
     } as IAuthStore),
   actions: {
-    setUser(userData: IAccount) {
-      this.user = userData;
+    setUser(userData: ICuenta) {
+      this.usuario = userData;
     },
     setToken(token: string) {
       this.token = token;
     },
 
     logout() {
-      this.user = null;
+      this.usuario = null;
       this.token = "";
     },
     loadData() {
       const store = readLocalStorage<IAuthStore>(LC_KEY);
       if (!store) return;
       this.token = store.token;
-      this.user = store.user;
+      this.usuario = store.usuario;
     },
     getUser() {
       this.loadData();
-      return this.user;
+      return this.usuario;
     },
   },
   persist: {
