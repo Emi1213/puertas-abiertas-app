@@ -36,7 +36,7 @@ const pages = computed(() =>
           <Pagination
             :items-per-page="props.pageSize"
             :total="props.total"
-            :default-page="props.page + 1"
+            :page="props.page + 1"
             v-slot="{ page }"
           >
             <PaginationContent>
