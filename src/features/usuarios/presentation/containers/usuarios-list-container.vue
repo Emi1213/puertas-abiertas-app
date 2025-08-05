@@ -1,25 +1,35 @@
 <script setup lang="ts">
+import { useUsuariosList } from "../../composables/use-usuarios-list";
 import type { IUsuario } from "../../interfaces/IUsuario";
-import UsersProvider from "../components/users-provider.vue";
 import UsersListView from "../views/usuarios-list-view.vue";
 
-const handleEdit = (user: IUsuario) => {
-  console.log("Editar", user);
-};
-
-const handleDelete = (user: IUsuario) => {
-  console.log("Eliminar", user);
-};
+const {
+  drawerOpen,
+  initialData,
+  confirmDialogOpen,
+  usuarioToDelete,
+  openAddDrawer,
+  openEditDrawer,
+  closeDrawer,
+  handleSubmit,
+  handleDelete,
+  confirmDelete,
+  cancelDelete,
+} = useUsuariosList();
 </script>
 
 <template>
-  <UsersProvider>
-    <template #default="{ users }">
-      <UsersListView
-        :users="users"
-        :on-edit="handleEdit"
-        :on-delete="handleDelete"
-      />
-    </template>
-  </UsersProvider>
+  <UsersListView
+    :users=""
+    :on-edit="openEditDrawer"
+    :on-delete="handleDelete"
+  />
+
+  <ConfirmationDialog
+    :visible="confirmDialogOpen"
+    :title="`Eliminar usuario`"
+    :message="`¿Estás seguro de que quieres eliminar el usuario '${usuarioToDelete?.nombre}'? Esta acción no se puede deshacer.`"
+    @confirm="confirmDelete"
+    @cancel="cancelDelete"
+  />
 </template>

@@ -7,8 +7,9 @@ import { QUERY_KEY } from "@/shared/composables/query-key";
 export function useDeleteUsuario() {
   const queryClient = useQueryClient();
   const toast = useToast();
+
   return useMutation({
-    mutationFn: (id: number) => new UsuarioDataSource().delete(id),
+    mutationFn: (id: number) => UsuarioDataSource.getInstance().delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USUARIOS] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USUARIOS_FILTROS] });

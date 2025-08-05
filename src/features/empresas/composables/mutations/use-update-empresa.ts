@@ -8,7 +8,8 @@ export function useUpdateEmpresa() {
   const queryClient = useQueryClient();
   const toast = useToast();
   return useMutation({
-    mutationFn: (data: IUpdateEmpresa) => new EmpresaDataSource().update(data),
+    mutationFn: (data: IUpdateEmpresa) =>
+      EmpresaDataSource.getInstance().update(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS_FILTROS] });

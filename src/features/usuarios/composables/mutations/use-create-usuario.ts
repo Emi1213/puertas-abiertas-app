@@ -9,7 +9,7 @@ export function useCreateUsuario() {
   const toast = useToast();
   return useMutation({
     mutationFn: (datos: ICreateUsuario) =>
-      new UsuarioDataSource().create(datos),
+      UsuarioDataSource.getInstance().create(datos),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USUARIOS] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USUARIOS_FILTROS] });

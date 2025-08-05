@@ -8,7 +8,8 @@ export function useUpdateUsuario() {
   const queryClient = useQueryClient();
   const toast = useToast();
   return useMutation({
-    mutationFn: (data: IUpdateUsuario) => new UsuarioDataSource().update(data),
+    mutationFn: (data: IUpdateUsuario) =>
+      UsuarioDataSource.getInstance().update(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USUARIOS] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USUARIOS_FILTROS] });
