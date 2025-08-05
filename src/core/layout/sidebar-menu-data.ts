@@ -18,7 +18,7 @@ export const sidebarMenu: SidebarSection[] = [
     items: [
       {
         label: "Empresas",
-        to: "/companies",
+        to: "/empresas",
         icon: Building2,
         roles: ["admin", "supervisor", "Lectura"],
       },

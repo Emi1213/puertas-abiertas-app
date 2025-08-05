@@ -55,7 +55,7 @@ const emptyMessage = "No hay empresas registradas";
         </div>
         <div class="w-full lg:w-auto">
           <Button @click="onAdd" class="w-full lg:w-auto">
-            <Plus class="w-4 h-4 mr-2" />
+            <Plus class="w-4 h-4 mr-1" />
             Agregar
           </Button>
         </div>
