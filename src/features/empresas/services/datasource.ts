@@ -32,19 +32,19 @@ export class EmpresaDataSource {
   }
 
   async create(empresa: ICreateEmpresa): Promise<IEmpresa> {
-    const data = await this.httpClient.post<IEmpresa>(
+    const datos = await this.httpClient.post<IEmpresa>(
       API_ROUTES.EMPRESAS.CREATE,
       empresa
     );
-    return data.datos;
+    return datos.datos;
   }
 
   async update(empresa: IUpdateEmpresa): Promise<IEmpresa> {
-    const data = await this.httpClient.put<IEmpresa>(
+    const datos = await this.httpClient.put<IEmpresa>(
       API_ROUTES.EMPRESAS.UPDATE(empresa.id.toString()),
       empresa
     );
-    return data.datos;
+    return datos.datos;
   }
 
   async delete(id: number): Promise<void> {
@@ -52,11 +52,11 @@ export class EmpresaDataSource {
   }
 
   async search(query: IEmpresaFilters): Promise<IRespuestaPaginada<IEmpresa>> {
-  const response = await this.httpClient.get<IRespuestaPaginada<IEmpresa>>(
+  const respuesta = await this.httpClient.get<IRespuestaPaginada<IEmpresa>>(
     API_ROUTES.EMPRESAS.SEARCH,
     { params: query }
   );
-  return response.datos;
+  return respuesta.datos;
 }
 
 }
