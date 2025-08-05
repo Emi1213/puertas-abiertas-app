@@ -10,6 +10,7 @@ export function useDeleteEmpresa() {
     mutationFn: (id: number) => new EmpresaDataSource().delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS_FILTROS] });
       toast.success("Empresa eliminada exitosamente.");
     },
     onError: () => {

@@ -11,6 +11,7 @@ export function useUpdateEmpresa() {
     mutationFn: (data: IUpdateEmpresa) => new EmpresaDataSource().update(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS_FILTROS] });
       toast.success("Empresa actualizada exitosamente.");
     },
   });

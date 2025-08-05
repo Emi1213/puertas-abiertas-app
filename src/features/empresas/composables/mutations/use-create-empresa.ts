@@ -12,6 +12,7 @@ export function useCreateEmpresa() {
       new EmpresaDataSource().create(datos),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS_FILTROS] });
       toast.success("Empresa creada exitosamente.");
     },
   });
