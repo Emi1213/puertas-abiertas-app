@@ -19,12 +19,13 @@ const {
 </script>
 
 <template>
-  <UsersListView
-    :users=""
-    :on-edit="openEditDrawer"
-    :on-delete="handleDelete"
-  />
-
+  <FormOverlay
+    :isOpen="drawerOpen"
+    :onClose="closeDrawer"
+    :title="initialData ? 'Editar Usuario' : 'Agregar Usuario'"
+  >
+    <UsuarioForm :onSubmit="handleSubmit" :initialData="initialData" />
+  </FormOverlay>
   <ConfirmationDialog
     :visible="confirmDialogOpen"
     :title="`Eliminar usuario`"

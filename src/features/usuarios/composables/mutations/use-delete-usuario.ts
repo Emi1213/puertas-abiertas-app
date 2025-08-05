@@ -1,5 +1,4 @@
-import { useMutation } from "@tanstack/vue-query";
-import { useQueryClient } from "node_modules/@tanstack/vue-query/build/modern/useQueryClient";
+import { useMutation, useQueryClient } from "@tanstack/vue-query";
 import { useToast } from "vue-toastification";
 import { UsuarioDataSource } from "../../services/datasource";
 import { QUERY_KEY } from "@/shared/composables/query-key";

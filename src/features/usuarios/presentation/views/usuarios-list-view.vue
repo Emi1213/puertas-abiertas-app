@@ -1,20 +1,25 @@
 <script setup lang="ts">
-import type { IUsuario } from "../../interfaces/IUsuario";
 import ContentLayout from "@/core/layout/content-layout.vue";
 import DataTable from "@/shared/components/data-table/data-table.vue";
 import { useUsersTableColumns } from "../components/users-table-columns";
+import type { IUsuariosListViewProps } from "../../interfaces/IUsuariosListView";
 
-const { users, loading, onEdit, onDelete } = defineProps<{
-  users: IUsuario[];
-  loading?: boolean;
-  onEdit?: (user: IUsuario) => void;
-  onDelete?: (user: IUsuario) => void;
-}>();
-
-const columns = useUsersTableColumns({
+const props = defineProps<IUsuariosListViewProps>();
+const {
+  usuarios,
+  loading,
+  searchQuery,
+  statusFilter,
+  paginationProps,
   onEdit,
   onDelete,
-});
+  onAdd,
+  onUpdateSearch,
+  onUpdateStatusFilter,
+  onClearFilters,
+} = props;
+
+const columns = useUsersTableColumns({ onEdit, onDelete });
 
 const emptyMessage = "No hay usuarios registrados";
 </script>
@@ -22,7 +27,7 @@ const emptyMessage = "No hay usuarios registrados";
 <template>
   <ContentLayout title="Usuarios">
     <DataTable
-      :data="users"
+      :data="usuarios"
       :columns="columns"
       :loading="loading"
       :empty-message="emptyMessage"

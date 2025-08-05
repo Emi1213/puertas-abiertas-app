@@ -2,39 +2,17 @@
 import ContentLayout from "@/core/layout/content-layout.vue";
 import DataTable from "@/shared/components/data-table/data-table.vue";
 import EmpresasFilters from "../components/empresas-filters.vue";
-import type { IEmpresa } from "../../interfaces/IEmpresa";
-import type { PaginationProps } from "@/shared/interfaces/data-table.types";
 import { useEmpresasTableColumns } from "../components/empresas-table-columns";
 import Button from "@/components/ui/button/Button.vue";
 import { Plus } from "lucide-vue-next";
+import type { IEmpresasListViewProps } from "../../interfaces/IEmpresasListView";
 
-const {
-  empresas,
-  loading,
-  searchQuery,
-  statusFilter,
-  paginationProps,
-  onEdit,
-  onDelete,
-  onAdd,
-  onUpdateSearch,
-  onUpdateStatusFilter,
-  onClearFilters,
-} = defineProps<{
-  empresas: IEmpresa[];
-  loading?: boolean;
-  searchQuery: string;
-  statusFilter: boolean | undefined;
-  paginationProps: PaginationProps;
-  onEdit?: (empresa: IEmpresa) => void;
-  onDelete?: (empresa: IEmpresa) => void;
-  onAdd?: () => void;
-  onUpdateSearch: (query: string) => void;
-  onUpdateStatusFilter: (status: boolean | undefined) => void;
-  onClearFilters: () => void;
-}>();
+const props = defineProps<IEmpresasListViewProps>();
 
-const columns = useEmpresasTableColumns({ onEdit, onDelete });
+const columns = useEmpresasTableColumns({
+  onEdit: props.onEdit,
+  onDelete: props.onDelete,
+});
 const emptyMessage = "No hay empresas registradas";
 </script>
 
@@ -46,15 +24,15 @@ const emptyMessage = "No hay empresas registradas";
       >
         <div class="flex-1 w-full lg:w-auto">
           <EmpresasFilters
-            :search-query="searchQuery"
-            :status-filter="statusFilter"
-            :on-update-search="onUpdateSearch"
-            :on-update-status-filter="onUpdateStatusFilter"
-            :on-clear-filters="onClearFilters"
+            :search-query="props.searchQuery"
+            :status-filter="props.statusFilter"
+            :on-update-search="props.onUpdateSearch"
+            :on-update-status-filter="props.onUpdateStatusFilter"
+            :on-clear-filters="props.onClearFilters"
           />
         </div>
         <div class="w-full lg:w-auto">
-          <Button @click="onAdd" class="w-full lg:w-auto">
+          <Button @click="props.onAdd" class="w-full lg:w-auto">
             <Plus class="w-4 h-4 mr-1" />
             Agregar
           </Button>
@@ -62,12 +40,12 @@ const emptyMessage = "No hay empresas registradas";
       </div>
       <div class="rounded-md bg-white px-6 py-4">
         <DataTable
-          :data="empresas"
+          :data="props.empresas"
           :columns="columns"
-          :loading="loading"
+          :loading="props.loading"
           :empty-message="emptyMessage"
           :pagination="true"
-          :pagination-props="paginationProps"
+          :pagination-props="props.paginationProps"
         />
       </div>
     </div>
