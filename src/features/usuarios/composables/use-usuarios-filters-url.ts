@@ -1,7 +1,6 @@
 import { debouncedRef } from "@vueuse/core";
 import { computed, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { parse } from "zod";
 import type { IUsuarioFilters } from "../interfaces/IUsuarioFilters";
 
 export function useUsuariosFiltersUrl() {
@@ -32,4 +31,35 @@ export function useUsuariosFiltersUrl() {
   };
 
   watch([searchQuery, profileFilter, currentPage], updateURL, { deep: true });
+  const updateSearch = (query: string) => {
+    searchQuery.value = query;
+    currentPage.value = 0;
+  };
+
+  const updateProfileFilter = (profileId: number) => {
+    profileFilter.value = profileId;
+    currentPage.value = 0;
+  };
+  const updatePage = (page: number) => {
+    currentPage.value = page;
+  };
+
+  const clearFilters = () => {
+    searchQuery.value = "";
+    profileFilter.value = 0;
+    currentPage.value = 0;
+  };
+
+  return {
+    searchQuery,
+    debouncedSearchQuery,
+    currentPage,
+    pageSize,
+    profileFilter,
+    filters,
+    updateSearch,
+    updateProfileFilter,
+    updatePage,
+    clearFilters,
+  };
 }
