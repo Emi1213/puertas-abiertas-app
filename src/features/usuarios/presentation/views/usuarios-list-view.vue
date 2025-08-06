@@ -5,21 +5,11 @@ import { useUsersTableColumns } from "../components/users-table-columns";
 import type { IUsuariosListViewProps } from "../../interfaces/IUsuariosListView";
 
 const props = defineProps<IUsuariosListViewProps>();
-const {
-  usuarios,
-  loading,
-  searchQuery,
-  statusFilter,
-  paginationProps,
-  onEdit,
-  onDelete,
-  onAdd,
-  onUpdateSearch,
-  onUpdateStatusFilter,
-  onClearFilters,
-} = props;
 
-const columns = useUsersTableColumns({ onEdit, onDelete });
+const columns = useUsersTableColumns({
+  onEdit: props.onEdit,
+  onDelete: props.onDelete,
+});
 
 const emptyMessage = "No hay usuarios registrados";
 </script>
@@ -27,9 +17,9 @@ const emptyMessage = "No hay usuarios registrados";
 <template>
   <ContentLayout title="Usuarios">
     <DataTable
-      :data="usuarios"
+      :data="props.usuarios"
       :columns="columns"
-      :loading="loading"
+      :loading="props.loading"
       :empty-message="emptyMessage"
     />
   </ContentLayout>

@@ -16,6 +16,8 @@ const {
   confirmDelete,
   cancelDelete,
 } = useUsuariosList();
+
+
 </script>
 
 <template>
