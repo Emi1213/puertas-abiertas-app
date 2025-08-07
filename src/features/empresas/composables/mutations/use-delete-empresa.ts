@@ -7,7 +7,7 @@ export function useDeleteEmpresa() {
   const queryClient = useQueryClient();
   const toast = useToast();
   return useMutation({
-    mutationFn: (id: number) => new EmpresaDataSource().delete(id),
+    mutationFn: (id: number) => EmpresaDataSource.getInstance().delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS_FILTROS] });

@@ -1,6 +1,5 @@
 import type { IPerfil } from "@/features/perfiles/interfaces/IPerfil";
 
-
 export interface IUsuario {
   id: number;
   usuario: string;
@@ -11,7 +10,10 @@ export interface IUsuario {
 
 export interface ICreateUsuario extends Omit<IUsuario, "id" | "perfil"> {
   perfilId: number;
+  contrasenia: string;
 }
-export interface IUpdateUsuario extends Partial<ICreateUsuario> {
+export interface IUpdateUsuario
+  extends Partial<Omit<ICreateUsuario, "contrasenia">> {
   id: number;
+  contrasenia?: string;
 }

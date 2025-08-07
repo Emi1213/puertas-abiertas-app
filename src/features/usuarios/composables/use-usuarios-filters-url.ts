@@ -1,29 +1,31 @@
-import { ref, computed, watch } from "vue";
-import { useRouter, useRoute } from "vue-router";
 import { debouncedRef } from "@vueuse/core";
-import type { IEmpresaFilters } from "../interfaces/IEmpresaFilters";
+import { computed, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import type { IUsuarioFilters } from "../interfaces/IUsuarioFilters";
 
-export function useEmpresasFiltersUrl() {
+export function useUsuariosFiltersUrl() {
   const router = useRouter();
   const route = useRoute();
   const searchQuery = ref((route.query.search as string) || "");
   const debouncedSearchQuery = debouncedRef(searchQuery, 300);
 
-  const getInitialStatusFilter = (): boolean | undefined => {
-    const status = route.query.status as string;
-    if (status === "true") return true;
-    if (status === "false") return false;
+  const getInitialProfileFilter = (): number | undefined => {
+    const profile = route.query.profile as string;
+    if (profile) {
+      const parsed = parseInt(profile);
+      return isNaN(parsed) ? undefined : parsed;
+    }
     return undefined;
   };
 
-  const statusFilter = ref<boolean | undefined>(getInitialStatusFilter());
   const currentPage = ref(parseInt(route.query.page as string) || 0);
   const pageSize = ref(7);
+  const profileFilter = ref<number | undefined>(getInitialProfileFilter());
 
   const filters = computed(
-    (): IEmpresaFilters => ({
+    (): IUsuarioFilters => ({
       busqueda: debouncedSearchQuery.value || undefined,
-      estado: statusFilter.value,
+      perfilId: profileFilter.value,
       pagina: currentPage.value + 1,
       tamanioPagina: pageSize.value,
     })
@@ -31,26 +33,22 @@ export function useEmpresasFiltersUrl() {
 
   const updateURL = () => {
     const query: Record<string, string> = {};
-
     if (searchQuery.value) query.search = searchQuery.value;
-    if (statusFilter.value !== undefined)
-      query.status = statusFilter.value.toString();
+    if (profileFilter.value !== undefined)
+      query.profile = profileFilter.value.toString();
     if (currentPage.value > 0) query.page = currentPage.value.toString();
-
     router.replace({ query });
   };
 
-  watch([searchQuery, statusFilter, currentPage], updateURL, {
-    deep: true,
-  });
+  watch([searchQuery, profileFilter, currentPage], updateURL, { deep: true });
 
   const updateSearch = (query: string) => {
     searchQuery.value = query;
     currentPage.value = 0;
   };
 
-  const updateStatusFilter = (status: boolean | undefined) => {
-    statusFilter.value = status;
+  const updateProfileFilter = (profileId: number | undefined) => {
+    profileFilter.value = profileId;
     currentPage.value = 0;
   };
 
@@ -60,18 +58,18 @@ export function useEmpresasFiltersUrl() {
 
   const clearFilters = () => {
     searchQuery.value = "";
-    statusFilter.value = undefined;
+    profileFilter.value = undefined;
     currentPage.value = 0;
   };
 
   return {
     searchQuery,
-    statusFilter,
     currentPage,
     pageSize,
+    profileFilter,
     filters,
     updateSearch,
-    updateStatusFilter,
+    updateProfileFilter,
     updatePage,
     clearFilters,
   };

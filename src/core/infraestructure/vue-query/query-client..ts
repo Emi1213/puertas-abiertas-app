@@ -4,7 +4,8 @@ export const vueQueryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 2,
-      staleTime: Infinity,
+      staleTime: 1000 * 60 * 5,
+      refetchOnReconnect: true,
     },
   },
 });

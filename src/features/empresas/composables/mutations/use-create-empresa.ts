@@ -9,11 +9,14 @@ export function useCreateEmpresa() {
   const toast = useToast();
   return useMutation({
     mutationFn: (datos: ICreateEmpresa) =>
-      new EmpresaDataSource().create(datos),
+      EmpresaDataSource.getInstance().create(datos),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS_FILTROS] });
       toast.success("Empresa creada exitosamente.");
+    },
+    onError: () => {
+      toast.error("Error al crear la empresa.");
     },
   });
 }
