@@ -22,6 +22,45 @@ export const usePersonalTableColumns = (
       width: 160,
     },
     {
+      key: "empresa",
+      label: "Empresa",
+      width: 200,
+      render: (_, row) => {
+        if (!row.empresa) {
+          return h(
+            "span",
+            {
+              class: "text-gray-400 italic text-sm",
+            },
+            "Sin empresa"
+          );
+        }
+
+        return h(
+          "div",
+          {
+            class: "flex items-center gap-2",
+          },
+          [
+            h("div", {
+              class: row.empresa.estado
+                ? "w-2 h-2 rounded-full bg-emerald-500"
+                : "w-2 h-2 rounded-full bg-gray-400 opacity-60",
+            }),
+            h(
+              "span",
+              {
+                class: row.empresa.estado
+                  ? "font-medium text-gray-900"
+                  : "font-medium text-gray-500",
+              },
+              row.empresa.nombre
+            ),
+          ]
+        );
+      },
+    },
+    {
       key: "estado",
       label: "Estado",
       width: 100,

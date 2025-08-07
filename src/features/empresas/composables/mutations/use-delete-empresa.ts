@@ -11,6 +11,7 @@ export function useDeleteEmpresa() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS_FILTROS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.PERSONAL_FILTROS] });
       toast.success("Empresa eliminada exitosamente.");
     },
     onError: () => {
