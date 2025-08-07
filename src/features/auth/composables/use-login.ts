@@ -42,7 +42,7 @@ export default function useLogin() {
     try {
       await AuthDataSource.getInstance().login(form);
       toast.success(`Bienvenido ${getUser()?.usuario}!`);
-      await router.push("/companies");
+      await router.push("/empresas");
     } catch (error) {
       toast.error(
         "Error al iniciar sesión." +

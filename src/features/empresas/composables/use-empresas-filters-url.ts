@@ -18,7 +18,7 @@ export function useEmpresasFiltersUrl() {
 
   const statusFilter = ref<boolean | undefined>(getInitialStatusFilter());
   const currentPage = ref(parseInt(route.query.page as string) || 0);
-  const pageSize = ref(7); 
+  const pageSize = ref(7);
 
   const filters = computed(
     (): IEmpresaFilters => ({

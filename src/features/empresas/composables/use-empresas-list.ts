@@ -22,17 +22,18 @@ export function useEmpresasList() {
     drawerOpen.value = true;
   };
 
-  const openEditDrawer = (company: IEmpresa) => {
-    initialData.value = company;
+  const openEditDrawer = (empresa: IEmpresa) => {
+    initialData.value = empresa;
     drawerOpen.value = true;
   };
 
   const closeDrawer = () => {
     drawerOpen.value = false;
+    initialData.value = undefined;
   };
 
-  const handleDelete = (company: IEmpresa) => {
-    empresaToDelete.value = company;
+  const handleDelete = (empresa: IEmpresa) => {
+    empresaToDelete.value = empresa;
     confirmDialogOpen.value = true;
   };
 

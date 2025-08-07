@@ -2,6 +2,7 @@ const AR_KEYS = {
   AUTH: "/auth",
   EMPRESAS: "/empresas",
   USUARIOS: "/usuarios",
+  PERFILES: "/perfiles",
 };
 
 export const API_ROUTES = {
@@ -22,5 +23,9 @@ export const API_ROUTES = {
     CREATE: AR_KEYS.USUARIOS,
     UPDATE: (id: string) => `${AR_KEYS.USUARIOS}/${id}`,
     DELETE: (id: string) => `${AR_KEYS.USUARIOS}/${id}`,
+    SEARCH: AR_KEYS.USUARIOS + "/buscar",
+  },
+  PERFILES: {
+    GETALL: AR_KEYS.PERFILES,
   },
 };

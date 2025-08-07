@@ -27,6 +27,7 @@ export const useUsersTableColumns = (
                 row.perfil?.nombre === "Administrador",
               "bg-green-100 text-green-700": row.perfil?.nombre === "Invitado",
               "bg-yellow-100 text-yellow-700": row.perfil?.nombre === "Lectura",
+              "bg-red-100 text-red-700": row.perfil?.nombre === "Creacion",
               "bg-slate-100 text-slate-600": !row.perfil?.nombre,
             },
           },

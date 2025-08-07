@@ -1,12 +1,13 @@
-export const companiesRoutes = [
+export const empresasRoutes = [
   {
-    path: "/companies",
+    path: "/empresas",
     component: () => import("../../../core/layout/dashboard-wrapper.vue"),
     children: [
       {
         path: "",
-        name: "companies",
-        component: () => import("../presentation/containers/empresas-list-container.vue"),
+        name: "empresas",
+        component: () =>
+          import("../presentation/containers/empresas-list-container.vue"),
         meta: {
           layout: "dashboard",
         },

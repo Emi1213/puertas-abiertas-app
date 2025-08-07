@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import CompaniesListView from "../views/companies-list-view.vue";
-import CompanyFormDrawer from "../components/empresa-form-drawer.vue";
+import EmpresasListView from "../views/empresas-list-view.vue";
 import ConfirmationDialog from "@/shared/components/confirmation-dialog.vue";
 import { useEmpresasList } from "../../composables/use-empresas-list";
 import { useEmpresasTable } from "../../composables/use-empresas-table";
+import FormOverlay from "@/shared/components/form-overlay.vue";
+import EmpresaForm from "../components/empresa-form.vue";
+import { computed } from "vue";
+import type { IEmpresasListViewProps } from "../../interfaces/IEmpresasListView";
 
 const {
   drawerOpen,
@@ -29,29 +32,34 @@ const {
   updateStatusFilter,
   clearFilters,
 } = useEmpresasTable();
+
+const empresasListViewProps = computed(
+  (): IEmpresasListViewProps => ({
+    empresas: empresas.value,
+    loading: isLoading.value,
+    searchQuery: searchQuery.value,
+    statusFilter: statusFilter.value,
+    paginationProps: paginationProps.value,
+    onEdit: openEditDrawer,
+    onDelete: handleDelete,
+    onAdd: openAddDrawer,
+    onUpdateSearch: updateSearch,
+    onUpdateStatusFilter: updateStatusFilter,
+    onClearFilters: clearFilters,
+  })
+);
 </script>
 
 <template>
-  <CompaniesListView
-    :empresas="empresas"
-    :loading="isLoading"
-    :search-query="searchQuery"
-    :status-filter="statusFilter"
-    :pagination-props="paginationProps"
-    :on-edit="openEditDrawer"
-    :on-delete="handleDelete"
-    :on-add="openAddDrawer"
-    :on-update-search="updateSearch"
-    :on-update-status-filter="updateStatusFilter"
-    :on-clear-filters="clearFilters"
-  />
+  <EmpresasListView v-bind="empresasListViewProps" />
 
-  <CompanyFormDrawer
+  <FormOverlay
     :isOpen="drawerOpen"
-    :onSubmit="handleSubmit"
     :onClose="closeDrawer"
-    :initialData="initialData"
-  />
+    :title="initialData ? 'Editar Empresa' : 'Agregar Empresa'"
+  >
+    <EmpresaForm :onSubmit="handleSubmit" :initialData="initialData" />
+  </FormOverlay>
 
   <ConfirmationDialog
     :visible="confirmDialogOpen"

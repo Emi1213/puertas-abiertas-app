@@ -1,7 +1,13 @@
-import type { IUsuario } from "@/features/users/interfaces/IUsuario";
+import type {
+  ICreateUsuario,
+  IUpdateUsuario,
+  IUsuario,
+} from "@/features/usuarios/interfaces/IUsuario";
 import { AxiosClient } from "@/core/infraestructure/http/axios-client";
 import type { IHttpHandler } from "@/core/interfaces/IHttpHandler";
 import { API_ROUTES } from "@/core/api/routes/api-routes";
+import type { IUsuarioFilters } from "../interfaces/IUsuarioFilters";
+import type { IRespuestaPaginada } from "@/shared/interfaces/IRespuestaPaginada";
 
 export class UsuarioDataSource {
   private httpClient: IHttpHandler;
@@ -23,6 +29,34 @@ export class UsuarioDataSource {
       API_ROUTES.USUARIOS.GETALL
     );
 
+    return respuesta.datos;
+  }
+
+  async create(usuario: ICreateUsuario): Promise<IUsuario> {
+    const datos = await this.httpClient.post<IUsuario>(
+      API_ROUTES.USUARIOS.CREATE,
+      usuario
+    );
+    return datos.datos;
+  }
+
+  async update(usuario: IUpdateUsuario): Promise<IUsuario> {
+    const datos = await this.httpClient.put<IUsuario>(
+      API_ROUTES.USUARIOS.UPDATE(usuario.id.toString()),
+      usuario
+    );
+    return datos.datos;
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.httpClient.delete(API_ROUTES.USUARIOS.DELETE(id.toString()));
+  }
+
+  async search(query: IUsuarioFilters): Promise<IRespuestaPaginada<IUsuario>> {
+    const respuesta = await this.httpClient.get<IRespuestaPaginada<IUsuario>>(
+      API_ROUTES.USUARIOS.SEARCH,
+      { params: query }
+    );
     return respuesta.datos;
   }
 }

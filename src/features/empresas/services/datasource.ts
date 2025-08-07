@@ -25,26 +25,26 @@ export class EmpresaDataSource {
   }
 
   async getAll(): Promise<IEmpresa[]> {
-    const response = await this.httpClient.get<IEmpresa[]>(
+    const respuesta = await this.httpClient.get<IEmpresa[]>(
       API_ROUTES.EMPRESAS.GETALL
     );
-    return response.datos;
+    return respuesta.datos;
   }
 
-  async create(company: ICreateEmpresa): Promise<IEmpresa> {
-    const data = await this.httpClient.post<IEmpresa>(
+  async create(empresa: ICreateEmpresa): Promise<IEmpresa> {
+    const datos = await this.httpClient.post<IEmpresa>(
       API_ROUTES.EMPRESAS.CREATE,
-      company
+      empresa
     );
-    return data.datos;
+    return datos.datos;
   }
 
-  async update(company: IUpdateEmpresa): Promise<IEmpresa> {
-    const data = await this.httpClient.put<IEmpresa>(
-      API_ROUTES.EMPRESAS.UPDATE(company.id.toString()),
-      company
+  async update(empresa: IUpdateEmpresa): Promise<IEmpresa> {
+    const datos = await this.httpClient.put<IEmpresa>(
+      API_ROUTES.EMPRESAS.UPDATE(empresa.id.toString()),
+      empresa
     );
-    return data.datos;
+    return datos.datos;
   }
 
   async delete(id: number): Promise<void> {
@@ -52,11 +52,11 @@ export class EmpresaDataSource {
   }
 
   async search(query: IEmpresaFilters): Promise<IRespuestaPaginada<IEmpresa>> {
-  const response = await this.httpClient.get<IRespuestaPaginada<IEmpresa>>(
+  const respuesta = await this.httpClient.get<IRespuestaPaginada<IEmpresa>>(
     API_ROUTES.EMPRESAS.SEARCH,
     { params: query }
   );
-  return response.datos;
+  return respuesta.datos;
 }
 
 }

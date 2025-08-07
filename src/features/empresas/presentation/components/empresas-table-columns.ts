@@ -1,7 +1,7 @@
 import type { Column } from "@/shared/interfaces/data-table.types";
 import type { IEmpresa } from "../../interfaces/IEmpresa";
 import { h } from "vue";
-import CompaniesActionsMenu from "./empresas-actions-menu.vue";
+import EmpresasActionsMenu from "./empresas-actions-menu.vue";
 import Badge from "@/components/ui/badge/Badge.vue";
 
 export const useEmpresasTableColumns = (
@@ -41,7 +41,7 @@ export const useEmpresasTableColumns = (
       align: "center",
       width: 100,
       render: (_, row) =>
-        h(CompaniesActionsMenu, {
+        h(EmpresasActionsMenu, {
           empresa: row,
           onEdit: () => handlers.onEdit?.(row),
           onDelete: () => handlers.onDelete?.(row),
