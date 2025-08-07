@@ -4,6 +4,7 @@ const AR_KEYS = {
   USUARIOS: "/usuarios",
   PERFILES: "/perfiles",
   PERSONAL: "/personal",
+  INGRESOS: "/ingresos",
 };
 
 export const API_ROUTES = {
@@ -36,5 +37,13 @@ export const API_ROUTES = {
     UPDATE: (id: string) => `${AR_KEYS.PERSONAL}/${id}`,
     DELETE: (id: string) => `${AR_KEYS.PERSONAL}/${id}`,
     SEARCH: AR_KEYS.PERSONAL + "/buscar",
+  },
+  INGRESOS: {
+    GETALL: AR_KEYS.INGRESOS,
+    GETBYID: (id: string) => `${AR_KEYS.INGRESOS}/${id}`,
+    CREATE: AR_KEYS.INGRESOS,
+    UPDATE: (id: string) => `${AR_KEYS.INGRESOS}/${id}`,
+    DELETE: (id: string) => `${AR_KEYS.INGRESOS}/${id}`,
+    SEARCH: AR_KEYS.INGRESOS + "/buscar",
   },
 };
