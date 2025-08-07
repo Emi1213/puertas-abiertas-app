@@ -1,6 +1,6 @@
 import { QUERY_KEY } from "@/shared/composables/query-key";
 import { useQuery } from "@tanstack/vue-query";
-import { UsuarioDataSource } from "../../services/datasource";
+import { UsuarioDataSource } from "../../services/usuarios-datasource";
 
 export function useUsers() {
   const query = useQuery({

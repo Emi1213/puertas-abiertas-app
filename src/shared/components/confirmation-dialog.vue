@@ -23,10 +23,16 @@ const emit = defineEmits<{
 const closeDialog = () => {
   emit("cancel");
 };
+
+const handleOpenChange = (open: boolean) => {
+  if (!open) {
+    emit("cancel");
+  }
+};
 </script>
 
 <template>
-  <Dialog :open="visible">
+  <Dialog :open="visible" @update:open="handleOpenChange">
     <DialogContent>
       <DialogHeader>
         <DialogTitle>{{ title || "Confirmar acción" }}</DialogTitle>

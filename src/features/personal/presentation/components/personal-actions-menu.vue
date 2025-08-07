@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { IUsuario } from "../../interfaces/IUsuario";
 import { Button } from "@/components/ui/button";
 import { Edit, Trash2 } from "lucide-vue-next";
+import type { IPersonal } from "../../interfaces/IPersonal";
 
 defineProps<{
-  user: IUsuario;
+  user: IPersonal;
   onEdit?: () => void;
   onDelete?: () => void;
 }>();
