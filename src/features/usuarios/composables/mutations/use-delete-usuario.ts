@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/vue-query";
 import { useToast } from "vue-toastification";
-import { UsuarioDataSource } from "../../services/datasource";
+import { UsuarioDataSource } from "../../services/usuarios-datasource";
 import { QUERY_KEY } from "@/shared/composables/query-key";
 
 export function useDeleteUsuario() {
