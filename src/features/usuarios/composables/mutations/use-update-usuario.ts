@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/vue-query";
 import { useToast } from "vue-toastification";
 import type { IUpdateUsuario } from "../../interfaces/IUsuario";
 import { QUERY_KEY } from "@/shared/composables/query-key";
-import { UsuarioDataSource } from "../../services/datasource";
+import { UsuarioDataSource } from "../../services/usuarios-datasource";
 
 export function useUpdateUsuario() {
   const queryClient = useQueryClient();

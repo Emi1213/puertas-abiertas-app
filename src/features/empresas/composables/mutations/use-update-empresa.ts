@@ -13,6 +13,7 @@ export function useUpdateEmpresa() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.EMPRESAS_FILTROS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.PERSONAL_FILTROS] });
       toast.success("Empresa actualizada exitosamente.");
     },
     onError: () => {
