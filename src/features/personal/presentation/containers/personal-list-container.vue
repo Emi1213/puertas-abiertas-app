@@ -4,6 +4,7 @@ import { usePersonalList } from "../../composables/use-personal-list";
 import { usePersonalTable } from "../../composables/use-personal-table";
 import { computed } from "vue";
 import type { IPersonalListViewProps } from "../../interfaces/IPersonalListView";
+import PersonalListView from "../views/personal-list-view.vue";
 
 const {
   drawerOpen,
@@ -13,9 +14,9 @@ const {
   openAddDrawer,
   openEditDrawer,
   closeDrawer,
-  //   handleSubmit,
+  // handleSubmit,
   handleDelete,
-  //   confirmDelete,
+  // confirmDelete,
   cancelDelete,
 } = usePersonalList();
 
@@ -30,24 +31,24 @@ const {
   clearFilters,
 } = usePersonalTable();
 
-const personalListViewProps = () =>
-  computed(
-    (): IPersonalListViewProps => ({
-      personal: personal.value,
-      loading: isLoading.value,
-      searchQuery: searchQuery.value,
-      statusFilter: statusFilter.value,
-      paginationProps: paginationProps.value,
-      onEdit: openEditDrawer,
-      onDelete: handleDelete,
-      onAdd: openAddDrawer,
-      onUpdateSearch: updateSearch,
-      onUpdateStatusFilter: updateStatusFilter,
-      onClearFilters: clearFilters,
-    })
-  );
+const personalListViewProps = computed(
+  (): IPersonalListViewProps => ({
+    personal: personal.value,
+    loading: isLoading.value,
+    searchQuery: searchQuery.value,
+    statusFilter: statusFilter.value,
+    paginationProps: paginationProps.value,
+    onEdit: openEditDrawer,
+    onDelete: handleDelete,
+    onAdd: openAddDrawer,
+    onUpdateSearch: updateSearch,
+    onUpdateStatusFilter: updateStatusFilter,
+    onClearFilters: clearFilters,
+  })
+);
 </script>
 <template>
+  <PersonalListView v-bind="personalListViewProps" />
   <ConfirmationDialog
     :visible="confirmDialogOpen"
     :title="`Eliminar personal`"

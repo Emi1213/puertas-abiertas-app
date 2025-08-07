@@ -2,6 +2,9 @@
 import ContentLayout from "@/core/layout/content-layout.vue";
 import type { IPersonalListViewProps } from "../../interfaces/IPersonalListView";
 import { usePersonalTableColumns } from "../components/personal-table-columns";
+import Button from "@/components/ui/button/Button.vue";
+import { Plus } from "lucide-vue-next";
+import DataTable from "@/shared/components/data-table/data-table.vue";
 
 const props = defineProps<IPersonalListViewProps>();
 

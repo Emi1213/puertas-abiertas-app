@@ -27,12 +27,18 @@ export const usePersonalTableColumns = (
       width: 100,
       align: "center",
       render: (_, row) =>
-        h(Badge, {
-          class: {
-            "bg-green-100 text-green-700": row.estado === true,
-            "bg-red-100 text-red-700": row.estado === false,
+        h(
+          Badge,
+          {
+            class: {
+              "bg-green-100 text-green-700": row.estado === true,
+              "bg-red-100 text-red-700": row.estado === false,
+            },
           },
-        }),
+          {
+            default: () => (row.estado ? "Activo" : "Inactivo"),
+          }
+        ),
     },
     {
       key: "actions",
