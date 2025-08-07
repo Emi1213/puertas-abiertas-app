@@ -27,7 +27,7 @@ export function useUsuarioForm(
   onSubmit?: (datos: ICreateUsuario) => Promise<void>
 ) {
   const isLoading = ref(false);
-  const isEditing = !!initialData && "id" in initialData;
+  const isEditing = computed(() => !!initialData && "id" in initialData);
 
   const getPerfilId = () => {
     if (!initialData) return undefined;
@@ -37,8 +37,8 @@ export function useUsuarioForm(
     return undefined;
   };
 
-  const schema = isEditing ? editUsuarioSchema : createUsuarioSchema;
-  const formInitialData: any = isEditing
+  const schema = isEditing.value ? editUsuarioSchema : createUsuarioSchema;
+  const formInitialData: any = isEditing.value
     ? {
         usuario: initialData?.usuario || "",
         nombre: initialData?.nombre || "",
@@ -72,7 +72,8 @@ export function useUsuarioForm(
       formData.perfilId &&
       formData.perfilId > 0 &&
       // Para creación, contraseña es requerida
-      (isEditing || (formData.contrasenia && formData.contrasenia.length >= 6));
+      (isEditing.value ||
+        (formData.contrasenia && formData.contrasenia.length >= 6));
 
     return hasValidationErrors || !isFormValid;
   });

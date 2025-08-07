@@ -23,8 +23,15 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const { formData, errors, isLoading, hasErrors, validateField, handleSubmit } =
-  useUsuarioForm(props.initialData, props.onSubmit);
+const {
+  formData,
+  errors,
+  isLoading,
+  hasErrors,
+  isEditing,
+  validateField,
+  handleSubmit,
+} = useUsuarioForm(props.initialData, props.onSubmit);
 </script>
 <template>
   <form @submit.prevent="handleSubmit" class="space-y-6">
@@ -91,6 +98,23 @@ const { formData, errors, isLoading, hasErrors, validateField, handleSubmit } =
         {{ errors.perfilId }}
       </div>
     </div>
+
+    <!-- Campo Contraseña (solo para crear) -->
+    <div v-if="!isEditing" class="space-y-2">
+      <Label for="contrasenia">Contraseña</Label>
+      <Input
+        id="contrasenia"
+        type="password"
+        v-model="formData.contrasenia"
+        placeholder="Ingrese la contraseña"
+        :class="{ 'border-red-500': errors.contrasenia }"
+        @blur="validateField('contrasenia')"
+      />
+      <div v-if="errors.contrasenia" class="text-sm text-red-500">
+        {{ errors.contrasenia }}
+      </div>
+    </div>
+
     <div class="flex justify-end space-x-3 pt-4">
       <Button
         type="button"
@@ -107,5 +131,3 @@ const { formData, errors, isLoading, hasErrors, validateField, handleSubmit } =
     </div>
   </form>
 </template>
-
-
