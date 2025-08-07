@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import ContentLayout from "@/core/layout/content-layout.vue";
 import type { IPersonalListViewProps } from "../../interfaces/IPersonalListView";
+import { usePersonalTableColumns } from "../components/personal-table-columns";
 
 const props = defineProps<IPersonalListViewProps>();
 
+const columns = usePersonalTableColumns({
+  onEdit: props.onEdit,
+  onDelete: props.onDelete,
+});
 const emptyMessage = "No se encontraron resultados.";
 </script>
 <template>
