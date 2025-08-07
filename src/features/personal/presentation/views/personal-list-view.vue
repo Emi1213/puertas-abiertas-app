@@ -5,6 +5,7 @@ import { usePersonalTableColumns } from "../components/personal-table-columns";
 import Button from "@/components/ui/button/Button.vue";
 import { Plus } from "lucide-vue-next";
 import DataTable from "@/shared/components/data-table/data-table.vue";
+import PersonalFilters from "../components/personal-filters.vue";
 
 const props = defineProps<IPersonalListViewProps>();
 
@@ -15,20 +16,19 @@ const columns = usePersonalTableColumns({
 const emptyMessage = "No se encontraron resultados.";
 </script>
 <template>
-  <ContentLayout>
+  <ContentLayout title="Personal">
     <div class="space-y-6">
       <div
         class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between"
       >
         <div class="flex-1 w-full lg:w-auto">
-          <!-- <UsuariosFilters
+          <PersonalFilters
             :search-query="props.searchQuery"
-            :profile-filter="props.profileFilter"
-            :perfiles="props.perfiles"
+            :status-filter="props.statusFilter"
             :on-update-search="props.onUpdateSearch"
-            :on-update-profile-filter="props.onUpdateProfileFilter"
+            :on-update-status-filter="props.onUpdateStatusFilter"
             :on-clear-filters="props.onClearFilters"
-          /> -->
+          />
         </div>
         <div class="w-full lg:w-auto">
           <Button @click="props.onAdd" class="w-full lg:w-auto">

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import ConfirmationDialog from "@/shared/components/confirmation-dialog.vue";
+import FormOverlay from "@/shared/components/form-overlay.vue";
 import { usePersonalList } from "../../composables/use-personal-list";
 import { usePersonalTable } from "../../composables/use-personal-table";
 import { computed } from "vue";
 import type { IPersonalListViewProps } from "../../interfaces/IPersonalListView";
 import PersonalListView from "../views/personal-list-view.vue";
+import PersonalForm from "../components/personal-form.vue";
 
 const {
   drawerOpen,
@@ -14,9 +16,9 @@ const {
   openAddDrawer,
   openEditDrawer,
   closeDrawer,
-  // handleSubmit,
+  handleSubmit,
   handleDelete,
-  // confirmDelete,
+  confirmDelete,
   cancelDelete,
 } = usePersonalList();
 
@@ -49,11 +51,24 @@ const personalListViewProps = computed(
 </script>
 <template>
   <PersonalListView v-bind="personalListViewProps" />
+
+  <FormOverlay
+    :isOpen="drawerOpen"
+    :onClose="closeDrawer"
+    :title="initialData ? 'Editar Personal' : 'Agregar Personal'"
+  >
+    <PersonalForm
+      :initial-data="initialData"
+      :on-submit="handleSubmit"
+      :on-cancel="closeDrawer"
+    />
+  </FormOverlay>
+
   <ConfirmationDialog
     :visible="confirmDialogOpen"
     :title="`Eliminar personal`"
     :message="`¿Estás seguro de que deseas eliminar a ${personalToDelete?.nombres} ${personalToDelete?.apellidos}?`"
-    @confirm=""
+    @confirm="confirmDelete"
     @cancel="cancelDelete"
   />
 </template>

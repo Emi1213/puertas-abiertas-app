@@ -8,3 +8,10 @@ export interface IPersonal {
   empresa: IEmpresa;
 }
 
+export interface ICreatePersonal extends Omit<IPersonal, "id" | "empresa"> {
+  empresaId: number;
+}
+
+export interface IUpdatePersonal extends Partial<ICreatePersonal> {
+  id: number;
+}

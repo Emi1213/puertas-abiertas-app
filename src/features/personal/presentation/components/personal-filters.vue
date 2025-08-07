@@ -46,7 +46,7 @@ const statusFilterModel = computed({
         />
         <Input
           v-model="searchModel"
-          placeholder="Buscar empresas..."
+          placeholder="Buscar personal..."
           class="pl-10 w-full"
         />
       </div>
