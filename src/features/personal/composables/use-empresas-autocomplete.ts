@@ -16,7 +16,7 @@ export function useEmpresasAutocomplete() {
   } = useEmpresasFilters(
     computed(() => ({
       busqueda: searchTerm.value || undefined,
-      estado: true, // Solo empresas activas
+      estado: true, 
       pagina: 1,
       tamanioPagina: 10,
     }))
@@ -60,7 +60,6 @@ export function useEmpresasAutocomplete() {
   };
 
   return {
-    // State
     selectedEmpresa,
     searchTerm,
     isOpen,

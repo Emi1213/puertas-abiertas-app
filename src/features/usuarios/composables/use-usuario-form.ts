@@ -71,7 +71,6 @@ export function useUsuarioForm(
       formData.nombre &&
       formData.perfilId &&
       formData.perfilId > 0 &&
-      // Para creación, contraseña es requerida
       (isEditing.value ||
         (formData.contrasenia && formData.contrasenia.length >= 6));
 
@@ -85,7 +84,6 @@ export function useUsuarioForm(
       isLoading.value = true;
       await formHandleSubmit(onSubmit as any);
     } catch (error) {
-      console.error("Error al enviar formulario:", error);
     } finally {
       isLoading.value = false;
     }
