@@ -10,6 +10,7 @@ import type { IIngresosListViewProps } from "../../interfaces/IIngresosListView"
 const props = defineProps<IIngresosListViewProps>();
 
 const columns = useIngresosTableColumns({
+  onRecognize: props.onRecognize,
   onEdit: props.onEdit,
   onDelete: props.onDelete,
 });

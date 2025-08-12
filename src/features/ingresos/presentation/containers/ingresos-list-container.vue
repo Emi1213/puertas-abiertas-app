@@ -7,14 +7,10 @@ import { computed } from "vue";
 import type { IIngresosListViewProps } from "../../interfaces/IIngresosListView";
 
 const {
-  drawerOpen,
-  initialData,
   confirmDialogOpen,
-  ingresoToDelete,
   openAddDrawer,
   openEditDrawer,
-  closeDrawer,
-  handleSubmit,
+  handleRecognize,
   handleDelete,
   confirmDelete,
   cancelDelete,
@@ -35,6 +31,7 @@ const ingresosListViewProps = computed(
     loading: isLoading.value,
     searchQuery: searchQuery.value,
     paginationProps: paginationProps.value,
+    onRecognize: handleRecognize,
     onEdit: openEditDrawer,
     onDelete: handleDelete,
     onAdd: openAddDrawer,

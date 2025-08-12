@@ -25,32 +25,15 @@ export const usePersonalTableColumns = (
       key: "empresa",
       label: "Empresa",
       width: 200,
-      render: (_, row) => {
-        if (!row.empresa) {
-          return h(
-            "span",
-            {
-              class: "text-gray-400 italic text-sm",
-            },
-            "Sin empresa"
-          );
-        }
-
-        return h(
-          Badge,
+      align: "center",
+      render: (_, row) =>
+        h(
+          "span",
           {
-            class: [
-              "px-2 py-1 rounded-full text-sm font-medium",
-              row.empresa.estado
-                ? "bg-emerald-100 text-emerald-700"
-                : "bg-gray-100 text-gray-500",
-            ],
+            class: row.empresa ? "text-gray-700" : "text-gray-400",
           },
-          {
-            default: () => row.empresa.nombre,
-          }
-        );
-      },
+          row.empresa ? row.empresa.nombre : "Sin empresa"
+        ),
     },
     {
       key: "estado",

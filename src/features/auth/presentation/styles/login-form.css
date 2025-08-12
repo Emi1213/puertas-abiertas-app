@@ -22,14 +22,14 @@
 
 .form-input:focus {
   outline: none !important;
-  border-color: #2563eb !important;
+  border-color: #1c1e4b !important;
   background: white !important;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+  box-shadow: 0 0 0 3px rgba(28, 30, 75, 0.1) !important;
 }
 
 .form-input:focus + .input-icon,
 .input-wrapper:focus-within .input-icon {
-  color: #2563eb;
+  color: #1c1e4b;
 }
 
 .form-input.error {
@@ -51,7 +51,7 @@
   border-radius: 6px !important;
   font-weight: 600 !important;
   font-size: 0.8rem !important;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+  background: linear-gradient(135deg, #1c1e4b, #151644) !important;
   border: none !important;
   color: white !important;
   cursor: pointer !important;
@@ -61,8 +61,8 @@
 }
 
 .form-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #1d4ed8, #1e40af) !important;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+  background: linear-gradient(135deg, #151644, #0f1038) !important;
+  box-shadow: 0 4px 12px rgba(28, 30, 75, 0.3) !important;
   transform: translateY(-1px);
 }
 

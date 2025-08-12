@@ -34,4 +34,11 @@ export class IngresosDataSource {
     );
     return respuesta.datos;
   }
+
+  async recognize(id: number): Promise<void> {
+    await this.httpClient.patch(
+      API_ROUTES.INGRESOS.RECOGNIZE(id.toString()),
+      {}
+    );
+  }
 }

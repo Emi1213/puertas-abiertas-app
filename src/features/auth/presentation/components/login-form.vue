@@ -77,7 +77,6 @@ const submitForm = () => handleSubmit(onSubmit);
 
     <Button
       :disabled="isLoading"
-      theme-color="primary"
       class="form-button"
       :class="{ loading: isLoading }"
     >

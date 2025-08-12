@@ -1,210 +1,100 @@
 import type { Column } from "@/shared/interfaces/data-table.types";
 import type { IIngreso } from "../../interfaces/IIngreso";
-import Badge from "@/components/ui/badge/Badge.vue";
+import IngresosActionsMenu from "./ingresos-actions-menu.vue";
+import PersonalCell from "./table-cells/PersonalCell.vue";
+import DateTimeCell from "./table-cells/DateTimeCell.vue";
+import EstadoCell from "./table-cells/EstadoCell.vue";
+import ReconocimientoCell from "./table-cells/ReconocimientoCell.vue";
 import { h } from "vue";
 
+export interface IngresosTableHandlers {
+  onRecognize?: (ingreso: IIngreso) => void;
+  onEdit?: (ingreso: IIngreso) => void;
+  onDelete?: (ingreso: IIngreso) => void;
+}
+
 export const useIngresosTableColumns = (
-  handlers: {
-    onEdit?: (ingreso: IIngreso) => void;
-    onDelete?: (ingreso: IIngreso) => void;
-  } = {}
+  handlers: IngresosTableHandlers = {}
 ): Column<IIngreso>[] => {
   return [
     {
       key: "id",
       label: "Personal",
-      width: 200,
-      align: "center",
-      render: (_, row) => {
-        if (!row.personal) {
-          return h(
-            "span",
-            {
-              class: "text-gray-400 italic text-sm",
-            },
-            "Sin asignar"
-          );
-        }
-
-        return h(
-          "span",
-          {
-            class: "font-medium text-gray-900",
-          },
-          `${row.personal.nombres} ${row.personal.apellidos}`
-        );
-      },
+      width: 170,
+      render: (_, row) => h(PersonalCell, { personal: row.personal }),
     },
     {
       key: "id",
       label: "Empresa",
-      width: 200,
-      align: "center",
+      width: 140,
       render: (_, row) => {
-        if (!row.personal?.empresa) {
-          return h(
-            "span",
-            {
-              class: "text-gray-400 italic text-sm",
-            },
-            "Sin asignar"
-          );
+        const empresa = row.personal?.empresa;
+        if (!empresa) {
+          return h("span", { class: "text-gray-400 italic " }, "Sin asignar");
         }
-
-        return h(
-          "span",
-          {
-            class: "font-medium text-gray-900",
-          },
-          row.personal.empresa.nombre
-        );
+        return h("span", { class: "text-gray-800" }, empresa.nombre);
       },
     },
     {
       key: "fechaInicio",
-      label: "Fecha Inicio",
-      width: 160,
-      render: (_, row) => {
-        const fecha = new Date(row.fechaInicio);
-        return h(
-          "div",
-          {
-            class: "text-sm text-gray-700",
-          },
-          [
-            h(
-              "div",
-              {
-                class: "font-medium",
-              },
-              fecha.toLocaleDateString("es-ES", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-              })
-            ),
-            h(
-              "div",
-              {
-                class: "text-xs text-gray-500",
-              },
-              fecha.toLocaleTimeString("es-ES", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })
-            ),
-          ]
-        );
-      },
+      label: "Inicio",
+      width: 140,
+      render: (_, row) =>
+        h(DateTimeCell, {
+          date: row.fechaInicio,
+          showTime: true,
+        }),
     },
     {
       key: "fechaFin",
-      label: "Fecha Fin",
-      width: 160,
-      render: (_, row) => {
-        if (!row.fechaFin) {
-          return h(
-            "span",
-            {
-              class: "text-gray-400 italic text-sm",
-            },
-            "En progreso"
-          );
-        }
-
-        const fecha = new Date(row.fechaFin);
-        return h(
-          "div",
-          {
-            class: "text-sm text-gray-700",
-          },
-          [
-            h(
-              "div",
-              {
-                class: "font-medium",
-              },
-              fecha.toLocaleDateString("es-ES", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-              })
-            ),
-            h(
-              "div",
-              {
-                class: "text-xs text-gray-500",
-              },
-              fecha.toLocaleTimeString("es-ES", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })
-            ),
-          ]
-        );
-      },
+      label: "Fin",
+      width: 140,
+      render: (_, row) =>
+        h(DateTimeCell, {
+          date: row.fechaFin,
+          showTime: true,
+          emptyMessage: "En progreso",
+        }),
     },
     {
       key: "duracion",
       label: "Duración",
-      width: 100,
+      width: 80,
       align: "center",
       render: (_, row) =>
-        h(
-          "span",
-          {
-            class: "text-sm font-medium text-gray-900",
-          },
-          row.duracion
-        ),
+        h("span", { class: "text-xs text-gray-800" }, row.duracion),
     },
     {
       key: "estado",
       label: "Estado",
-      width: 120,
+      width: 100,
       align: "center",
-      render: (_, row) => {
-        if (!row.estado) {
-          return h(
-            Badge,
-            {
-              class: "bg-gray-100 text-gray-700",
-            },
-            {
-              default: () => "Sin estado",
-            }
-          );
-        }
-        let badgeClass = "";
-        switch (row.estado.toLowerCase()) {
-          case "activo":
-          case "en_progreso":
-            badgeClass = "bg-blue-100 text-blue-700";
-            break;
-          case "completado":
-          case "finalizado":
-            badgeClass = "bg-green-100 text-green-700";
-            break;
-          case "pendiente":
-            badgeClass = "bg-yellow-100 text-yellow-700";
-            break;
-          case "cancelado":
-            badgeClass = "bg-red-100 text-red-700";
-            break;
-          default:
-            badgeClass = "bg-gray-100 text-gray-700";
-        }
-
-        return h(
-          Badge,
-          {
-            class: badgeClass,
-          },
-          {
-            default: () => (row.estado || "").replace("_", " ").toUpperCase(),
-          }
-        );
-      },
+      render: (_, row) => h(EstadoCell, { estado: row.estado }),
+    },
+    {
+      key: "fechaRecon",
+      label: "Reconocimiento",
+      width: 140,
+      align: "center",
+      render: (_, row) =>
+        h(ReconocimientoCell, {
+          fechaRecon: row.fechaRecon,
+          usuarioReconId: row.usuarioReconId,
+          usuarioRecon: row.usuarioRecon,
+        }),
+    },
+    {
+      key: "actions",
+      label: "Acciones",
+      align: "center",
+      width: 100,
+      render: (_, row) =>
+        h(IngresosActionsMenu, {
+          ingreso: row,
+          onRecognize: () => handlers.onRecognize?.(row),
+          onEdit: () => handlers.onEdit?.(row),
+          onDelete: () => handlers.onDelete?.(row),
+        }),
     },
   ];
 };
