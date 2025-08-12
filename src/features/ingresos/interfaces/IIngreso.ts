@@ -5,7 +5,7 @@ export interface IIngreso {
   id: number;
   fechaInicio: Date;
   fechaFin?: Date;
-  duracion: string;
+  duracion?: string;
   comentario?: string;
   idMotivo?: string;
   tipoMotivo?: string;
@@ -15,4 +15,8 @@ export interface IIngreso {
   usuarioRecon?: IUsuario;
   estado?: string;
   personal?: IPersonal;
+}
+
+export interface ICreateIngreso extends Omit<IIngreso, "id" | "personal"> {
+  personalId: number;
 }

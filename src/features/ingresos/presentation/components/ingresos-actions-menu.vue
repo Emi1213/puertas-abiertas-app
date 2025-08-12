@@ -32,7 +32,7 @@ const recognizeButtonTitle = computed(() => {
         'text-gray-400 cursor-not-allowed': isAlreadyRecognized,
       }"
       :disabled="isAlreadyRecognized"
-      @click.stop="!isAlreadyRecognized && onRecognize?.()"
+      @click.stop="onRecognize"
       :title="recognizeButtonTitle"
     >
       <CheckCircle2 class="h-4 w-4" />

@@ -14,38 +14,38 @@ export interface EstadoConfig {
 const ESTADO_CONFIGS: Record<string, EstadoConfig> = {
   activo: {
     variant: "info",
-    class: "bg-blue-100 text-blue-700",
-    text: "ACTIVO",
+    class: "bg-blue-50 text-blue-700 border border-blue-200",
+    text: "Activo",
   },
   en_progreso: {
     variant: "info",
-    class: "bg-blue-100 text-blue-700",
-    text: "EN PROGRESO",
+    class: "bg-blue-50 text-blue-700 border border-blue-200",
+    text: "En progreso",
   },
   completado: {
     variant: "success",
-    class: "bg-green-100 text-green-700",
-    text: "COMPLETADO",
+    class: "bg-emerald-50 text-emerald-700 border border-emerald-200",
+    text: "Completado",
   },
   finalizado: {
     variant: "success",
-    class: "bg-green-100 text-green-700",
-    text: "FINALIZADO",
+    class: "bg-emerald-50 text-emerald-700 border border-emerald-200",
+    text: "Finalizado",
   },
   pendiente: {
     variant: "warning",
-    class: "bg-yellow-100 text-yellow-700",
-    text: "PENDIENTE",
+    class: "bg-amber-50 text-amber-700 border border-amber-200",
+    text: "Pendiente",
   },
   cancelado: {
     variant: "error",
-    class: "bg-red-100 text-red-700",
-    text: "CANCELADO",
+    class: "bg-rose-50 text-rose-700 border border-rose-200",
+    text: "Cancelado",
   },
   resuelto: {
     variant: "success",
-    class: "bg-green-100 text-green-700",
-    text: "RESUELTO",
+    class: "bg-emerald-50 text-emerald-700 border border-emerald-200",
+    text: "Resuelto",
   },
 };
 
@@ -53,8 +53,8 @@ export const getEstadoConfig = (estado?: string): EstadoConfig => {
   if (!estado) {
     return {
       variant: "neutral",
-      class: "bg-gray-100 text-gray-700",
-      text: "SIN ESTADO",
+      class: "bg-gray-50 text-gray-600 border border-gray-200",
+      text: "Sin estado",
     };
   }
 
@@ -63,8 +63,8 @@ export const getEstadoConfig = (estado?: string): EstadoConfig => {
   return (
     config || {
       variant: "neutral",
-      class: "bg-gray-100 text-gray-700",
-      text: estado.replace("_", " ").toUpperCase(),
+      class: "bg-gray-50 text-gray-600 border border-gray-200",
+      text: estado.replace("_", " "),
     }
   );
 };

@@ -10,7 +10,7 @@ const estadoConfig = getEstadoConfig(props.estado);
 </script>
 
 <template>
-  <Badge :class="estadoConfig.class">
+  <Badge :class="`rounded-full  ${estadoConfig.class}`">
     {{ estadoConfig.text }}
   </Badge>
 </template>

@@ -4,16 +4,22 @@ import ConfirmationDialog from "@/shared/components/confirmation-dialog.vue";
 import { useIngresosList } from "../../composables/use-ingresos-list";
 import { useIngresosTable } from "../../composables/use-ingresos-table";
 import { computed } from "vue";
-import type { IIngresosListViewProps } from "../../interfaces/IIngresosListView";
+import type { IIngresosListViewProps } from "../../interfaces/IIngresosViewsProps";
 
 const {
+  drawerOpen,
+  initialData,
   confirmDialogOpen,
+  ingresoToRecognize,
   openAddDrawer,
   openEditDrawer,
-  handleRecognize,
+  closeDrawer,
   handleDelete,
   confirmDelete,
   cancelDelete,
+  handleRecognize,
+  confirmRecognize,
+  cancelRecognize,
 } = useIngresosList();
 
 const {
@@ -55,9 +61,9 @@ const ingresosListViewProps = computed(
 
   <ConfirmationDialog
     :visible="confirmDialogOpen"
-    :title="`Eliminar ingreso`"
-    :message="`¿Estás seguro de que quieres eliminar este ingreso? Esta acción no se puede deshacer.`"
-    @confirm="confirmDelete"
-    @cancel="cancelDelete"
+    :title="`Reconocer ingreso`"
+    :message="`¿Estás seguro de que quieres reconocer este ingreso? Esta acción no se puede deshacer.`"
+    @confirm="confirmRecognize"
+    @cancel="cancelRecognize"
   />
 </template>

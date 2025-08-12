@@ -14,6 +14,15 @@ export const ingresosRoutes: RouteRecordRaw[] = [
           layout: "dashboard",
         },
       },
+      {
+        path: "nuevo",
+        name: "ingresos-nuevo",
+        component: () =>
+          import("../presentation/containers/ingresos-form-container.vue"),
+        meta: {
+          layout: "dashboard",
+        },
+      },
     ],
   },
 ];

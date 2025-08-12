@@ -12,15 +12,15 @@ const formattedDate =
 </script>
 
 <template>
-  <div v-if="!formattedDate" class="text-gray-400 italic text-xs">
+  <div v-if="!formattedDate" class="text-sm text-gray-400 italic">
     {{ emptyMessage || "No especificado" }}
   </div>
 
-  <div v-else class="text-xs text-gray-700">
-    <div class="text-gray-800">
+  <div v-else class="text-center">
+    <div class="text-sm text-gray-800">
       {{ formattedDate.date }}
     </div>
-    <div v-if="showTime" class="text-xs text-gray-500">
+    <div v-if="showTime" class="text-xs text-gray-600 mt-1">
       {{ formattedDate.time }}
     </div>
   </div>

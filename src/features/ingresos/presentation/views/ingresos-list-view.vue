@@ -5,7 +5,7 @@ import IngresosFilters from "../components/ingresos-filters.vue";
 import { useIngresosTableColumns } from "../components/ingresos-table-columns";
 import Button from "@/components/ui/button/Button.vue";
 import { Plus } from "lucide-vue-next";
-import type { IIngresosListViewProps } from "../../interfaces/IIngresosListView";
+import type { IIngresosListViewProps } from "../../interfaces/IIngresosViewsProps";
 
 const props = defineProps<IIngresosListViewProps>();
 

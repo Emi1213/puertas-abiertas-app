@@ -10,6 +10,7 @@ export function useRecognizeIngresos() {
     mutationFn: (id: number) => IngresosDataSource.getInstance().recognize(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.INGRESOS_FILTROS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.INGRESOS] });
       toast.success("Ingreso reconocido exitosamente");
     },
     onError: () => {
