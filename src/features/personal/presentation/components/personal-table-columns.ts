@@ -37,26 +37,18 @@ export const usePersonalTableColumns = (
         }
 
         return h(
-          "div",
+          Badge,
           {
-            class: "flex items-center gap-2",
+            class: [
+              "px-2 py-1 rounded-full text-sm font-medium",
+              row.empresa.estado
+                ? "bg-emerald-100 text-emerald-700"
+                : "bg-gray-100 text-gray-500",
+            ],
           },
-          [
-            h("div", {
-              class: row.empresa.estado
-                ? "w-2 h-2 rounded-full bg-emerald-500"
-                : "w-2 h-2 rounded-full bg-gray-400 opacity-60",
-            }),
-            h(
-              "span",
-              {
-                class: row.empresa.estado
-                  ? "font-medium text-gray-900"
-                  : "font-medium text-gray-500",
-              },
-              row.empresa.nombre
-            ),
-          ]
+          {
+            default: () => row.empresa.nombre,
+          }
         );
       },
     },
