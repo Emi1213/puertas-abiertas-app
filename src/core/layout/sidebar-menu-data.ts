@@ -1,6 +1,7 @@
 import {
   BriefcaseBusiness,
   Building2,
+  Home,
   ScanFace,
   Users2,
 } from "lucide-vue-next";
@@ -22,16 +23,21 @@ export const sidebarMenu: SidebarSection[] = [
     title: "Principal",
     items: [
       {
-        label: "Empresas",
-        to: "/empresas",
-        icon: Building2,
-        roles: ["admin", "supervisor", "Lectura"],
+        label: "Dashboard",
+        to: "/dashboard",
+        icon: Home,
       },
       {
         label: "Ingresos",
         to: "/ingresos",
         icon: ScanFace,
         roles: ["admin", "vigilante", "Lectura"],
+      },
+      {
+        label: "Empresas",
+        to: "/empresas",
+        icon: Building2,
+        roles: ["admin", "supervisor", "Lectura"],
       },
       {
         label: "Usuarios",

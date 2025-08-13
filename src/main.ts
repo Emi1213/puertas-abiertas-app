@@ -12,7 +12,7 @@ import { vueQueryClient } from "./core/infraestructure/vue-query/query-client.";
 import { VueQueryDevtools } from "@tanstack/vue-query-devtools";
 
 const toastOptions = {
-  position: "top-right",
+  position: "top-left",
   timeout: 4000,
   closeOnClick: true,
   pauseOnFocusLoss: true,
