@@ -6,11 +6,13 @@ export interface IPersonalListViewProps {
   loading?: boolean;
   searchQuery: string;
   statusFilter: boolean | undefined;
+  empresaFilter: number | undefined;
   paginationProps: PaginationProps;
   onEdit?: (personal: IPersonal) => void;
   onDelete?: (personal: IPersonal) => void;
   onAdd?: () => void;
   onUpdateSearch: (query: string) => void;
   onUpdateStatusFilter: (status: boolean | undefined) => void;
+  onUpdateEmpresaFilter: (empresaId: number | undefined) => void;
   onClearFilters: () => void;
 }

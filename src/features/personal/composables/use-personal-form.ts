@@ -61,7 +61,6 @@ export function usePersonalForm(
       isLoading.value = true;
       await formHandleSubmit(onSubmit as any);
     } catch (error) {
-      console.error("Error al enviar formulario:", error);
     } finally {
       isLoading.value = false;
     }

@@ -51,7 +51,7 @@ function renderCell(
         :key="String(column.key)"
         :style="{ width: column.width ? column.width + 'px' : undefined }"
         :class="[
-          'px-4 py-2 text-sm text-slate-800',
+          'px-4 py-3 text-sm border-b border-gray-100',
           column.align === 'right'
             ? 'text-right'
             : column.align === 'center'

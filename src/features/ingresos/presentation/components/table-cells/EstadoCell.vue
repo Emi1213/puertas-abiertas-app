@@ -1,0 +1,16 @@
+<script setup lang="ts">
+import Badge from "@/components/ui/badge/Badge.vue";
+import { getEstadoConfig } from "../../../utils/estado-formatters";
+
+const props = defineProps<{
+  estado?: string;
+}>();
+
+const estadoConfig = getEstadoConfig(props.estado);
+</script>
+
+<template>
+  <Badge :class="`rounded-full  ${estadoConfig.class}`">
+    {{ estadoConfig.text }}
+  </Badge>
+</template>

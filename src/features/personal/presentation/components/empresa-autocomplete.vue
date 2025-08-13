@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div ref="containerRef" class="relative">
     <Label v-if="label" :for="id">{{ label }}</Label>
     <div class="relative">
       <Input
@@ -40,30 +40,55 @@
         Buscando empresas...
       </div>
 
-      <div
-        v-else-if="displayedEmpresas.length === 0"
-        class="p-3 text-center text-gray-500"
-      >
-        No se encontraron empresas activas
-      </div>
+      <template v-else>
+        <!-- Opción para limpiar selección (solo en filtros) -->
+        <div
+          v-if="showClearOption"
+          class="p-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 text-gray-600 italic"
+          @click="clearSelection"
+        >
+          Todas las empresas
+        </div>
 
-      <div
-        v-for="empresa in displayedEmpresas"
-        :key="empresa.id"
-        class="p-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0"
-        @click="selectEmpresa(empresa)"
-      >
-        <div>{{ empresa.nombre }}</div>
-      </div>
-    </div>
-    <div v-if="!isOpen && !selectedEmpresa" class="text-xs text-gray-400 mt-1">
-      Haga clic para ver las empresas disponibles
+        <div
+          v-if="displayedEmpresas.length === 0"
+          class="p-3 text-center text-gray-500"
+        >
+          {{
+            showAllEmpresas
+              ? "No se encontraron empresas"
+              : "No se encontraron empresas activas"
+          }}
+        </div>
+
+        <div
+          v-for="empresa in displayedEmpresas"
+          :key="empresa.id"
+          class="p-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+          @click="selectEmpresa(empresa)"
+        >
+          <div class="flex items-center justify-between">
+            <span>{{ empresa.nombre }}</span>
+            <span
+              v-if="showAllEmpresas"
+              :class="[
+                'text-xs px-2 py-1 rounded-full',
+                empresa.estado
+                  ? 'bg-green-100 text-green-700'
+                  : 'bg-red-100 text-red-700',
+              ]"
+            >
+              {{ empresa.estado ? "Activa" : "Inactiva" }}
+            </span>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useEmpresasAutocomplete } from "../../composables/use-empresas-autocomplete";
 import type { IEmpresa } from "@/features/empresas/interfaces/IEmpresa";
 import { Label } from "@/components/ui/label";
@@ -76,6 +101,8 @@ interface Props {
   placeholder?: string;
   modelValue?: IEmpresa | null;
   errorMessage?: string;
+  showClearOption?: boolean; // Para mostrar opción de limpiar cuando es filtro
+  showAllEmpresas?: boolean;
 }
 
 interface Emits {
@@ -86,9 +113,14 @@ interface Emits {
 const props = withDefaults(defineProps<Props>(), {
   id: "empresa-autocomplete",
   placeholder: "Buscar empresa...",
+  showClearOption: false,
+  showAllEmpresas: false,
 });
 
 const emit = defineEmits<Emits>();
+
+// Referencia al contenedor del componente
+const containerRef = ref<HTMLElement>();
 
 const {
   selectedEmpresa,
@@ -100,9 +132,10 @@ const {
   selectEmpresa: selectEmpresaComposable,
   clearSelection: clearSelectionComposable,
   openDropdown,
+  closeDropdown,
   handleInputBlur,
   setInitialEmpresa,
-} = useEmpresasAutocomplete();
+} = useEmpresasAutocomplete(props.showAllEmpresas);
 
 const hasError = computed(() => !!props.errorMessage);
 
@@ -114,6 +147,7 @@ const selectEmpresa = (empresa: IEmpresa) => {
 
 const clearSelection = () => {
   clearSelectionComposable();
+  closeDropdown();
   emit("update:modelValue", null);
   emit("update:empresaId", undefined);
 };
@@ -124,6 +158,26 @@ const onInputChange = () => {
     emit("update:empresaId", undefined);
   }
 };
+
+// Cerrar dropdown al hacer clic fuera
+const handleClickOutside = (event: Event) => {
+  if (
+    containerRef.value &&
+    !containerRef.value.contains(event.target as Node)
+  ) {
+    closeDropdown();
+  }
+};
+
+// Agregar/remover listener de clicks
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
+
 if (props.modelValue && !selectedEmpresa.value) {
   setInitialEmpresa(props.modelValue);
 }

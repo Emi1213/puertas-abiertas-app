@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { IUsuario } from "../../interfaces/IUsuario";
 import { Button } from "@/components/ui/button";
+import { Edit, Trash2 } from "lucide-vue-next";
 
 defineProps<{
   user: IUsuario;
@@ -17,7 +18,7 @@ defineProps<{
       class="text-blue-600 hover:text-blue-700"
       @click.stop="onEdit"
     >
-      Editar
+      <Edit class="h-4 w-4" />
     </Button>
 
     <Button
@@ -26,7 +27,7 @@ defineProps<{
       class="text-red-600 hover:text-red-700"
       @click.stop="onDelete"
     >
-      Eliminar
+      <Trash2 class="h-4 w-4" />
     </Button>
   </div>
 </template>

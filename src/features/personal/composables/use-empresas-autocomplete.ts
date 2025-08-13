@@ -2,7 +2,7 @@ import { ref, computed } from "vue";
 import { useEmpresasFilters } from "@/features/empresas/composables/queries/use-empresas-filters";
 import type { IEmpresa } from "@/features/empresas/interfaces/IEmpresa";
 
-export function useEmpresasAutocomplete() {
+export function useEmpresasAutocomplete(showAllEmpresas: boolean = false) {
   const selectedEmpresa = ref<IEmpresa | null>(null);
   const isOpen = ref(false);
   const searchTerm = ref("");
@@ -16,7 +16,7 @@ export function useEmpresasAutocomplete() {
   } = useEmpresasFilters(
     computed(() => ({
       busqueda: searchTerm.value || undefined,
-      estado: true, // Solo empresas activas
+      estado: showAllEmpresas ? undefined : true, // Si showAllEmpresas es true, no filtrar por estado
       pagina: 1,
       tamanioPagina: 10,
     }))
@@ -48,6 +48,7 @@ export function useEmpresasAutocomplete() {
 
   const handleInputBlur = () => {
     setTimeout(() => {
+      isOpen.value = false; // Cerrar el dropdown siempre
       if (!selectedEmpresa.value && searchTerm.value) {
         searchTerm.value = "";
       }
@@ -60,7 +61,6 @@ export function useEmpresasAutocomplete() {
   };
 
   return {
-    // State
     selectedEmpresa,
     searchTerm,
     isOpen,

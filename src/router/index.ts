@@ -4,7 +4,7 @@ import { authRoutes } from "../features/auth/routes/auth-routes";
 import { useAuthStore } from "../features/auth/context/auth-store";
 import { empresasRoutes } from "@/features/empresas/routes/empresas-routes";
 import { usuariosRoutes } from "@/features/usuarios/routes/users-routes";
-import { ingresosRoutes } from "@/features/ingresos/routes/incomes-routes";
+import { ingresosRoutes } from "@/features/ingresos/routes/ingresos-routes";
 import { personalRoutes } from "@/features/personal/routes/personal-routes";
 
 const router = createRouter({

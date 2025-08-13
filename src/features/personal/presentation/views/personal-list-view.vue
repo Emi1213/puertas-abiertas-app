@@ -25,8 +25,10 @@ const emptyMessage = "No se encontraron resultados.";
           <PersonalFilters
             :search-query="props.searchQuery"
             :status-filter="props.statusFilter"
+            :empresa-filter="props.empresaFilter"
             :on-update-search="props.onUpdateSearch"
             :on-update-status-filter="props.onUpdateStatusFilter"
+            :on-update-empresa-filter="props.onUpdateEmpresaFilter"
             :on-clear-filters="props.onClearFilters"
           />
         </div>

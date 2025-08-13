@@ -27,9 +27,11 @@ const {
   isLoading,
   searchQuery,
   statusFilter,
+  empresaFilter,
   paginationProps,
   updateSearch,
   updateStatusFilter,
+  updateEmpresaFilter,
   clearFilters,
 } = usePersonalTable();
 
@@ -39,12 +41,14 @@ const personalListViewProps = computed(
     loading: isLoading.value,
     searchQuery: searchQuery.value,
     statusFilter: statusFilter.value,
+    empresaFilter: empresaFilter.value,
     paginationProps: paginationProps.value,
     onEdit: openEditDrawer,
     onDelete: handleDelete,
     onAdd: openAddDrawer,
     onUpdateSearch: updateSearch,
     onUpdateStatusFilter: updateStatusFilter,
+    onUpdateEmpresaFilter: updateEmpresaFilter,
     onClearFilters: clearFilters,
   })
 );
