@@ -1,21 +1,28 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { useIngresoForm } from "../../composables/use-ingreso-form";
-import type { IIngresosFormViewProps } from "../../interfaces/IIngresosFormView";
-import IngresosFormView from "../views/ingresos-form-view.vue";
-
-const { initialData, isEditing, handleSubmit, handleCancel } = useIngresoForm();
-
-const ingresosFormViewProps = computed(
-  (): IIngresosFormViewProps => ({
-    initialData: initialData.value,
-    isEditing: isEditing.value,
-    onSubmit: handleSubmit,
-    onCancel: handleCancel,
-  })
-);
+import { ArrowLeft } from "lucide-vue-next";
+import { Button } from "@/components/ui/button";
+import ContentLayout from "@/core/layout/content-layout.vue";
+import IngresoForm from "../components/ingreso-form.vue";
 </script>
 
 <template>
-  <IngresosFormView v-bind="ingresosFormViewProps" />
+  <ContentLayout title="Nuevo Ingreso">
+    <div class="flex flex-col items-center">
+      <div class="w-full mb-6">
+        <Button
+          variant="ghost"
+          size="sm"
+          class="text-gray-600 hover:text-gray-900"
+          @click="$router.push({ name: 'ingresos' })"
+        >
+          <ArrowLeft class="h-4 w-4 mr-2" />
+          Volver a Lista
+        </Button>
+      </div>
+
+      <div class="w-full max-w-3xl">
+        <IngresoForm />   
+      </div>
+    </div>
+  </ContentLayout>
 </template>

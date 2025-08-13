@@ -50,15 +50,6 @@ const ingresosListViewProps = computed(
 <template>
   <IngresosListView v-bind="ingresosListViewProps" />
 
-  <!-- TODO: Agregar FormOverlay e IngresoForm cuando sea necesario -->
-  <!-- <FormOverlay
-    :isOpen="drawerOpen"
-    :onClose="closeDrawer"
-    :title="initialData ? 'Editar Ingreso' : 'Agregar Ingreso'"
-  >
-    <IngresoForm :onSubmit="handleSubmit" :initialData="initialData" />
-  </FormOverlay> -->
-
   <ConfirmationDialog
     :visible="confirmDialogOpen"
     :title="`Reconocer ingreso`"
