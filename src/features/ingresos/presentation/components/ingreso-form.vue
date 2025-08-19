@@ -34,12 +34,10 @@ const {
   validateField,
 } = useIngresoForm();
 
-// Composable para crear ingreso
 const { mutateAsync: createIngreso } = useCreateIngreso();
 
 const onSubmit = async () => {
   await handleFormSubmit(async (data) => {
-    // Convertir datos del formulario a ICreateIngreso
     const ingresoData: ICreateIngreso = {
       personalId: data.personalId,
       fechaInicio: data.fechaInicio,
@@ -157,10 +155,13 @@ const fechaFinModel = computed({
         class="resize-none"
       />
     </div>
-
-    <!-- Botones -->
     <div class="flex justify-end gap-3 pt-4 border-t">
-      <Button type="button" variant="outline" :disabled="loading">
+      <Button
+        type="button"
+        variant="outline"
+        :disabled="loading"
+        @click="$router.push({ name: 'ingresos' })"
+      >
         Cancelar
       </Button>
       <Button

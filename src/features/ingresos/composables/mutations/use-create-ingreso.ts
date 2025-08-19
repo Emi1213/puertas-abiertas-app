@@ -7,7 +7,7 @@ import { QUERY_KEY } from "@/shared/composables/query-key";
 export function useCreateIngreso() {
   const queryClient = useQueryClient();
   const toast = useToast();
-  
+
   return useMutation({
     mutationFn: (datos: ICreateIngreso) =>
       IngresosDataSource.getInstance().create(datos),
