@@ -1,6 +1,5 @@
-<!-- src/shared/components/sidebar/sidebar.vue -->
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { LogOut, ChevronLeft, ChevronRight } from "lucide-vue-next";
 import { Button } from "@/components/ui/button";
@@ -10,24 +9,29 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { sidebarMenu } from "./sidebar-menu-data";
 import { useAuthStore } from "../../features/auth/context/auth-store";
+import { useRbac } from "../../features/navegacion/composables/queries/use-rbac";
+import { createMenuItemsFromModules } from "./rbac-menu-config";
 
 const route = useRoute();
 const router = useRouter();
 const authStore = useAuthStore();
 const isCollapsed = ref(false);
 
-const userRole = authStore.usuario?.rol || "";
+const { modules, isLoading } = useRbac();
 
-const visibleMenu = sidebarMenu
-  .map((section) => {
-    const visibleItems = section.items.filter(
-      (item) => !item.roles || item.roles.includes(userRole)
-    );
-    return { ...section, items: visibleItems };
-  })
-  .filter((section) => section.items.length > 0);
+const visibleMenu = computed(() => {
+  if (isLoading.value || !modules.value) return [];
+
+  const menuItems = createMenuItemsFromModules(modules.value);
+
+  return [
+    {
+      title: "Principal",
+      items: menuItems,
+    },
+  ];
+});
 
 const logout = () => {
   authStore.logout();
@@ -70,8 +74,20 @@ const toggleSidebar = () => {
         class="flex-1 flex flex-col justify-between overflow-y-auto p-4 space-y-6"
       >
         <div class="space-y-6">
-          <div v-for="section in visibleMenu" :key="section.title">
-            <!-- Section title - solo visible cuando no está colapsado -->
+          <div v-if="isLoading" class="space-y-3">
+            <div v-if="!isCollapsed" class="animate-pulse">
+              <div class="h-3 bg-slate-200 rounded w-20 mb-3"></div>
+            </div>
+            <div class="space-y-2">
+              <div v-for="n in 4" :key="n" class="animate-pulse">
+                <div
+                  :class="isCollapsed ? 'h-10 w-10 mx-auto' : 'h-10 w-full'"
+                  class="bg-slate-200 rounded-xl"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div v-else v-for="section in visibleMenu" :key="section.title">
             <h3
               v-if="!isCollapsed"
               class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 px-3"
@@ -84,7 +100,6 @@ const toggleSidebar = () => {
             ></div>
             <div class="space-y-1">
               <template v-for="item in section.items" :key="item.to">
-                <!-- Con tooltip cuando está colapsado -->
                 <Tooltip v-if="isCollapsed" :delay-duration="0">
                   <TooltipTrigger as-child>
                     <RouterLink

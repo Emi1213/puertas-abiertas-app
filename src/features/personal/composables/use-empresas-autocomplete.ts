@@ -16,7 +16,7 @@ export function useEmpresasAutocomplete(showAllEmpresas: boolean = false) {
   } = useEmpresasFilters(
     computed(() => ({
       busqueda: searchTerm.value || undefined,
-      estado: showAllEmpresas ? undefined : true, // Si showAllEmpresas es true, no filtrar por estado
+      estado: showAllEmpresas ? undefined : true,
       pagina: 1,
       tamanioPagina: 10,
     }))

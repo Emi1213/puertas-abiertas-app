@@ -58,7 +58,11 @@ const empresasListViewProps = computed(
     :onClose="closeDrawer"
     :title="initialData ? 'Editar Empresa' : 'Agregar Empresa'"
   >
-    <EmpresaForm :onSubmit="handleSubmit" :initialData="initialData" />
+    <EmpresaForm
+      :onSubmit="handleSubmit"
+      :onCancel="closeDrawer"
+      :initialData="initialData"
+    />
   </FormOverlay>
 
   <ConfirmationDialog
