@@ -6,16 +6,20 @@ import { empresasRoutes } from "@/features/empresas/routes/empresas-routes";
 import { usuariosRoutes } from "@/features/usuarios/routes/users-routes";
 import { ingresosRoutes } from "@/features/ingresos/routes/ingresos-routes";
 import { personalRoutes } from "@/features/personal/routes/personal-routes";
+import { perfilesRoutes } from "@/features/perfiles/routes/perfiles-routes";
+import { dashboardRoutes } from "@/features/dashboard/routes/dashboard-routes";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     ...mainRoutes,
     ...authRoutes,
+    ...dashboardRoutes,
     ...empresasRoutes,
     ...usuariosRoutes,
     ...ingresosRoutes,
     ...personalRoutes,
+    ...perfilesRoutes,
     {
       path: "",
       name: "not-found",

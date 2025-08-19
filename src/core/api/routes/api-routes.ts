@@ -5,6 +5,8 @@ const AR_KEYS = {
   PERFILES: "/perfiles",
   PERSONAL: "/personal",
   INGRESOS: "/ingresos",
+  MODULOS: "/modulos",
+  NAVEGACION: "/navegacion",
 };
 
 export const API_ROUTES = {
@@ -29,6 +31,11 @@ export const API_ROUTES = {
   },
   PERFILES: {
     GETALL: AR_KEYS.PERFILES,
+    GETBYID: (id: string) => `${AR_KEYS.PERFILES}/${id}`,
+    CREATE: AR_KEYS.PERFILES,
+    UPDATE: (id: string) => `${AR_KEYS.PERFILES}/${id}`,
+    DELETE: (id: string) => `${AR_KEYS.PERFILES}/${id}`,
+    SEARCH: AR_KEYS.PERFILES + "/buscar",
   },
   PERSONAL: {
     GETALL: AR_KEYS.PERSONAL,
@@ -46,5 +53,16 @@ export const API_ROUTES = {
     DELETE: (id: string) => `${AR_KEYS.INGRESOS}/${id}`,
     SEARCH: AR_KEYS.INGRESOS + "/buscar",
     RECOGNIZE: (id: string) => `${AR_KEYS.INGRESOS}/${id}/reconocer`,
+  },
+  MODULOS: {
+    GETALL: AR_KEYS.MODULOS,
+    GETBYID: (id: string) => `${AR_KEYS.MODULOS}/${id}`,
+    CREATE: AR_KEYS.MODULOS,
+    UPDATE: (id: string) => `${AR_KEYS.MODULOS}/${id}`,
+    DELETE: (id: string) => `${AR_KEYS.MODULOS}/${id}`,
+    SEARCH: AR_KEYS.MODULOS + "/buscar",
+  },
+  NAVEGACION: {
+    ME: AR_KEYS.NAVEGACION + "/me",
   },
 };

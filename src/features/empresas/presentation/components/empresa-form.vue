@@ -8,6 +8,7 @@ import type { ICreateEmpresa } from "../../interfaces/IEmpresa";
 
 const props = defineProps<{
   onSubmit: (datos: ICreateEmpresa) => Promise<void>;
+  onCancel?: () => void;
   initialData?: Partial<ICreateEmpresa>;
 }>();
 
@@ -32,8 +33,19 @@ const { formData, errors, loading, handleSubmit, validateField } =
       <Switch id="estado" v-model="formData.estado" />
     </div>
 
-    <Button type="submit" class="w-full" :disabled="loading">
-      {{ loading ? "Guardando..." : "Guardar" }}
-    </Button>
+    <div class="flex justify-end gap-3 pt-4 border-t">
+      <Button
+        v-if="props.onCancel"
+        type="button"
+        variant="outline"
+        @click="props.onCancel"
+        :disabled="loading"
+      >
+        Cancelar
+      </Button>
+      <Button type="submit" :disabled="loading">
+        {{ loading ? "Guardando..." : "Guardar" }}
+      </Button>
+    </div>
   </form>
 </template>
