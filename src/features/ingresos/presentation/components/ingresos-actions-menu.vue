@@ -1,25 +1,12 @@
 <script setup lang="ts">
-import type { IIngreso } from "../../interfaces/IIngreso";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Edit, Trash2 } from "lucide-vue-next";
-import { computed } from "vue";
+import { Edit, Eye, AlertTriangle } from "lucide-vue-next";
 
 const props = defineProps<{
-  ingreso: IIngreso;
-  onRecognize?: () => void;
   onEdit?: () => void;
-  onDelete?: () => void;
+  onViewDetails?: () => void;
+  onViewAlarmas?: () => void;
 }>();
-
-// Computed para determinar si el ingreso ya fue reconocido
-const isAlreadyRecognized = computed(() => {
-  return !!(props.ingreso.fechaRecon && props.ingreso.usuarioReconId);
-});
-
-// Computed para el título dinámico del botón de reconocer
-const recognizeButtonTitle = computed(() => {
-  return isAlreadyRecognized.value ? "Ya reconocido" : "Reconocer";
-});
 </script>
 
 <template>
@@ -27,35 +14,29 @@ const recognizeButtonTitle = computed(() => {
     <Button
       variant="ghost"
       size="sm"
-      :class="{
-        'text-green-600 hover:text-green-700': !isAlreadyRecognized,
-        'text-gray-400 cursor-not-allowed': isAlreadyRecognized,
-      }"
-      :disabled="isAlreadyRecognized"
-      @click.stop="onRecognize"
-      :title="recognizeButtonTitle"
+      class="text-orange-500 hover:text-orange-800"
+      @click.stop="props.onViewAlarmas"
+      title="Ver Alarmas"
     >
-      <CheckCircle2 class="h-4 w-4" />
+      <AlertTriangle class="h-4 w-4" />
     </Button>
-
+    <Button
+      variant="ghost"
+      size="sm"
+      class="text-yellow-500 hover:text-yellow-800"
+      @click.stop="props.onViewDetails"
+      title="Ver Detalles"
+    >
+      <Eye class="h-4 w-4" />
+    </Button>
     <Button
       variant="ghost"
       size="sm"
       class="text-blue-600 hover:text-blue-700"
-      @click.stop="onEdit"
+      @click.stop="props.onEdit"
       title="Editar"
     >
       <Edit class="h-4 w-4" />
-    </Button>
-
-    <Button
-      variant="ghost"
-      size="sm"
-      class="text-red-600 hover:text-red-700"
-      @click.stop="onDelete"
-      title="Eliminar"
-    >
-      <Trash2 class="h-4 w-4" />
     </Button>
   </div>
 </template>

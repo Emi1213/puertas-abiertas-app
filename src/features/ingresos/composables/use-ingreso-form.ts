@@ -3,6 +3,7 @@ import { useForm } from "@/lib/composables/use-form";
 import { z } from "zod";
 import type { IEmpresa } from "@/features/empresas/interfaces/IEmpresa";
 import type { IPersonal } from "@/features/personal/interfaces/IPersonal";
+import { ESTADOS_INGRESO } from "../interfaces/EstadosIngreso";
 
 export const ingresoSchema = z
   .object({
@@ -16,7 +17,7 @@ export const ingresoSchema = z
     causa: z.string().optional(),
     fechaRecon: z.date().optional(),
     usuarioReconId: z.number().optional(),
-    estado: z.string().optional().default("ACTIVO"),
+    estado: z.string().optional().default(ESTADOS_INGRESO.EN_PROCESO),
   })
   .refine(
     (data) => {
@@ -47,7 +48,7 @@ export function useIngresoForm() {
     fechaInicio: new Date(),
     fechaFin: undefined,
     comentario: "",
-    estado: "ACTIVO",
+    estado: ESTADOS_INGRESO.EN_PROCESO,
   };
 
   const {

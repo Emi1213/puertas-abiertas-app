@@ -1,5 +1,6 @@
 import type { IPersonal } from "@/features/personal/interfaces/IPersonal";
 import type { IUsuario } from "@/features/usuarios/interfaces/IUsuario";
+import type { IAlarma } from "./IAlarma";
 
 export interface IIngreso {
   id: number;
@@ -15,6 +16,7 @@ export interface IIngreso {
   usuarioRecon?: IUsuario;
   estado?: string;
   personal?: IPersonal;
+  alarmas?: IAlarma[];
 }
 
 export interface ICreateIngreso extends Omit<IIngreso, "id" | "personal"> {
