@@ -1,33 +1,32 @@
 <script setup lang="ts">
 import IngresosListView from "../views/ingresos-list-view.vue";
-import ConfirmationDialog from "@/shared/components/confirmation-dialog.vue";
+import AlarmasDrawer from "../components/alarmas-drawer.vue";
+import DetallesDrawer from "../components/detalles-drawer.vue";
 import { useIngresosList } from "../../composables/use-ingresos-list";
 import { useIngresosTable } from "../../composables/use-ingresos-table";
 import { computed } from "vue";
-import type { IIngresosListViewProps } from "../../interfaces/IIngresosViewsProps";
+import type { IIngresosListViewProps } from "../../interfaces/IIngresosListView";
 
 const {
-  drawerOpen,
-  initialData,
-  confirmDialogOpen,
-  ingresoToRecognize,
+  detallesDrawerOpen,
+  alarmasDrawerOpen,
+  currentIngreso,
   openAddDrawer,
+  openViewDetails,
+  closeDetallesDrawer,
   openEditDrawer,
-  closeDrawer,
-  handleDelete,
-  confirmDelete,
-  cancelDelete,
-  handleRecognize,
-  confirmRecognize,
-  cancelRecognize,
+  openAlarmasDrawer,
+  closeAlarmasDrawer,
 } = useIngresosList();
 
 const {
   ingresos,
   isLoading,
   searchQuery,
+  statusFilter,
   paginationProps,
   updateSearch,
+  updateStatusFilter,
   clearFilters,
 } = useIngresosTable();
 
@@ -36,12 +35,14 @@ const ingresosListViewProps = computed(
     ingresos: ingresos.value,
     loading: isLoading.value,
     searchQuery: searchQuery.value,
+    statusFilter: statusFilter.value,
     paginationProps: paginationProps.value,
-    onRecognize: handleRecognize,
     onEdit: openEditDrawer,
-    onDelete: handleDelete,
+    onViewDetails: openViewDetails,
+    onViewAlarmas: openAlarmasDrawer,
     onAdd: openAddDrawer,
     onUpdateSearch: updateSearch,
+    onUpdateStatusFilter: updateStatusFilter,
     onClearFilters: clearFilters,
   })
 );
@@ -50,11 +51,15 @@ const ingresosListViewProps = computed(
 <template>
   <IngresosListView v-bind="ingresosListViewProps" />
 
-  <ConfirmationDialog
-    :visible="confirmDialogOpen"
-    :title="`Reconocer ingreso`"
-    :message="`¿Estás seguro de que quieres reconocer este ingreso? Esta acción no se puede deshacer.`"
-    @confirm="confirmRecognize"
-    @cancel="cancelRecognize"
+  <DetallesDrawer
+    :isOpen="detallesDrawerOpen"
+    :ingreso="currentIngreso"
+    :onClose="closeDetallesDrawer"
+  />
+
+  <AlarmasDrawer
+    :isOpen="alarmasDrawerOpen"
+    :ingreso="currentIngreso"
+    :onClose="closeAlarmasDrawer"
   />
 </template>

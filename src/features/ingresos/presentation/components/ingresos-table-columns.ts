@@ -7,9 +7,9 @@ import EstadoCell from "./table-cells/EstadoCell.vue";
 import { h } from "vue";
 
 export interface IngresosTableHandlers {
-  onRecognize?: (ingreso: IIngreso) => void;
   onEdit?: (ingreso: IIngreso) => void;
-  onDelete?: (ingreso: IIngreso) => void;
+  onViewDetails?: (ingreso: IIngreso) => void;
+  onViewAlarmas?: (ingreso: IIngreso) => void;
 }
 
 export const useIngresosTableColumns = (
@@ -23,11 +23,17 @@ export const useIngresosTableColumns = (
       width: 100,
       render: (_, row) =>
         h(IngresosActionsMenu, {
-          ingreso: row,
-          onRecognize: () => handlers.onRecognize?.(row),
           onEdit: () => handlers.onEdit?.(row),
-          onDelete: () => handlers.onDelete?.(row),
+          onViewDetails: () => handlers.onViewDetails?.(row),
+          onViewAlarmas: () => handlers.onViewAlarmas?.(row),
         }),
+    },
+    {
+      key: "estado",
+      label: "Estado",
+      width: 100,
+      align: "center",
+      render: (_, row) => h(EstadoCell, { estado: row.estado }),
     },
     {
       key: "id",
@@ -93,13 +99,6 @@ export const useIngresosTableColumns = (
       align: "center",
       render: (_, row) =>
         h("span", { class: "text-sm text-gray-800 " }, row.duracion),
-    },
-    {
-      key: "estado",
-      label: "Estado",
-      width: 100,
-      align: "center",
-      render: (_, row) => h(EstadoCell, { estado: row.estado }),
     },
   ];
 };

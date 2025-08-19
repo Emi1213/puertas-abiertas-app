@@ -5,15 +5,16 @@ import IngresosFilters from "../components/ingresos-filters.vue";
 import { useIngresosTableColumns } from "../components/ingresos-table-columns";
 import Button from "@/components/ui/button/Button.vue";
 import { Plus } from "lucide-vue-next";
-import type { IIngresosListViewProps } from "../../interfaces/IIngresosViewsProps";
+import type { IIngresosListViewProps } from "../../interfaces/IIngresosListView";
 
 const props = defineProps<IIngresosListViewProps>();
 
 const columns = useIngresosTableColumns({
-  onRecognize: props.onRecognize,
   onEdit: props.onEdit,
-  onDelete: props.onDelete,
+  onViewDetails: props.onViewDetails,
+  onViewAlarmas: props.onViewAlarmas,
 });
+
 const emptyMessage = "No hay ingresos registrados";
 </script>
 
@@ -26,14 +27,16 @@ const emptyMessage = "No hay ingresos registrados";
         <div class="flex-1 w-full lg:w-auto">
           <IngresosFilters
             :search-query="props.searchQuery"
+            :status-filter="props.statusFilter"
             :on-update-search="props.onUpdateSearch"
+            :on-update-status-filter="props.onUpdateStatusFilter"
             :on-clear-filters="props.onClearFilters"
           />
         </div>
         <div class="w-full lg:w-auto">
           <Button @click="props.onAdd" class="w-full lg:w-auto">
             <Plus class="w-4 h-4 mr-1" />
-            Agregar
+            Nuevo Ingreso
           </Button>
         </div>
       </div>

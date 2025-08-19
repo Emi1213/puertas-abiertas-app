@@ -6,7 +6,6 @@ export interface IIngresosListViewProps {
   loading?: boolean;
   searchQuery: string;
   paginationProps: PaginationProps;
-  onRecognize?: (ingreso: IIngreso) => void;
   onEdit?: (ingreso: IIngreso) => void;
   onDelete?: (ingreso: IIngreso) => void;
   onAdd?: () => void;

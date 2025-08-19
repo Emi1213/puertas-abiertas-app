@@ -6,13 +6,16 @@ import type { PaginationProps } from "@/shared/interfaces/data-table.types";
 export function useIngresosTable() {
   const {
     searchQuery,
+    statusFilter,
     currentPage,
     pageSize,
     filters,
+    updateSearch,
+    updateStatusFilter,
     updatePage,
     clearFilters,
-    updateSearch,
   } = useIngresosFiltersUrl();
+
   const {
     data: response,
     isLoading,
@@ -38,10 +41,12 @@ export function useIngresosTable() {
     error,
     totalRecords,
     searchQuery,
+    statusFilter,
     currentPage,
     pageSize,
     paginationProps,
     updateSearch,
+    updateStatusFilter,
     clearFilters,
     refetch,
   };
