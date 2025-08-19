@@ -31,6 +31,11 @@ export const API_ROUTES = {
   },
   PERFILES: {
     GETALL: AR_KEYS.PERFILES,
+    GETBYID: (id: string) => `${AR_KEYS.PERFILES}/${id}`,
+    CREATE: AR_KEYS.PERFILES,
+    UPDATE: (id: string) => `${AR_KEYS.PERFILES}/${id}`,
+    DELETE: (id: string) => `${AR_KEYS.PERFILES}/${id}`,
+    SEARCH: AR_KEYS.PERFILES + "/buscar",
   },
   PERSONAL: {
     GETALL: AR_KEYS.PERSONAL,

@@ -13,4 +13,5 @@ export const QUERY_KEY = {
   PERSONAL: "personal",
   INGRESOS: "ingresos",
   INGRESOS_FILTROS: (filters: IIngresoFilters) => ["ingresos", filters],
+  MODULOS: "modulos",
 };
