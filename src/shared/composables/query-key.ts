@@ -9,9 +9,11 @@ export const QUERY_KEY = {
   EMPRESAS: "empresas",
   EMPRESAS_FILTROS: (filters: IEmpresaFilters) => ["empresas", filters],
   PERFILES: "perfiles",
+  PERFILES_FILTROS: "perfiles-filtros",
   PERSONAL_FILTROS: (filters: IPersonalFilters) => ["personal", filters],
   PERSONAL: "personal",
   INGRESOS: "ingresos",
   INGRESOS_FILTROS: (filters: IIngresoFilters) => ["ingresos", filters],
   MODULOS: "modulos",
+  NAVEGACION: "navegacion",
 };

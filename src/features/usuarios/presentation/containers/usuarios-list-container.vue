@@ -5,10 +5,10 @@ import { useUsuariosTable } from "../../composables/use-usuarios-table";
 import UsersListView from "../views/usuarios-list-view.vue";
 import type { IUsuariosListViewProps } from "../../interfaces/IUsuariosListView";
 import type { IPerfil } from "@/features/perfiles/interfaces/IPerfil";
-import PerfilesProvider from "@/features/perfiles/components/perfiles-provider.vue";
 import FormOverlay from "@/shared/components/form-overlay.vue";
 import ConfirmationDialog from "@/shared/components/confirmation-dialog.vue";
 import UsuarioForm from "../components/usuario-form.vue";
+import PerfilesProvider from "@/features/perfiles/presentation/components/perfiles-provider.vue";
 
 const {
   drawerOpen,

@@ -6,6 +6,8 @@ import type {
   IUpdatePerfil,
 } from "../interfaces/IPerfil";
 import { API_ROUTES } from "@/core/api/routes/api-routes";
+import type { IPerfilFilters } from "../interfaces/IPerfilFilters";
+import type { IRespuestaPaginada } from "@/shared/interfaces/IRespuestaPaginada";
 
 export class PerfilesDataSource {
   private httpClient: IHttpHandler;
@@ -48,5 +50,13 @@ export class PerfilesDataSource {
     await this.httpClient.delete<void>(
       API_ROUTES.PERFILES.DELETE(id.toString())
     );
+  }
+
+  async search(query: IPerfilFilters): Promise<IRespuestaPaginada<IPerfil>> {
+    const respuesta = await this.httpClient.get<IRespuestaPaginada<IPerfil>>(
+      API_ROUTES.PERFILES.SEARCH,
+      { params: query }
+    );
+    return respuesta.datos;
   }
 }

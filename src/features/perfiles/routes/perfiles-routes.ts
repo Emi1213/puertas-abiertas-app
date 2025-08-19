@@ -8,8 +8,7 @@ export const perfilesRoutes: RouteRecordRaw[] = [
       {
         path: "",
         name: "perfiles",
-        component: () =>
-          import("../presentation/containers/perfiles-list-container.vue"),
+        component: () => import("../presentation/perfiles-list-container.vue"),
         meta: {
           layout: "dashboard",
         },

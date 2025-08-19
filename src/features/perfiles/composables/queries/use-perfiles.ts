@@ -5,7 +5,7 @@ import { PerfilesDataSource } from "../../services/perfiles-datasource";
 export function usePerfiles() {
   const query = useQuery({
     queryKey: [QUERY_KEY.PERFILES],
-    queryFn: () => new PerfilesDataSource().getAll(),
+    queryFn: () => PerfilesDataSource.getInstance().getAll(),
   });
   return query;
 }
