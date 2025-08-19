@@ -6,6 +6,7 @@ const AR_KEYS = {
   PERSONAL: "/personal",
   INGRESOS: "/ingresos",
   MODULOS: "/modulos",
+  NAVEGACION: "/navegacion",
 };
 
 export const API_ROUTES = {
@@ -55,5 +56,8 @@ export const API_ROUTES = {
     UPDATE: (id: string) => `${AR_KEYS.MODULOS}/${id}`,
     DELETE: (id: string) => `${AR_KEYS.MODULOS}/${id}`,
     SEARCH: AR_KEYS.MODULOS + "/buscar",
+  },
+  NAVEGACION: {
+    ME: AR_KEYS.NAVEGACION + "/me",
   },
 };
