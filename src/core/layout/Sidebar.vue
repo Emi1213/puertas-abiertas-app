@@ -74,7 +74,6 @@ const toggleSidebar = () => {
         class="flex-1 flex flex-col justify-between overflow-y-auto p-4 space-y-6"
       >
         <div class="space-y-6">
-          <!-- Loading state -->
           <div v-if="isLoading" class="space-y-3">
             <div v-if="!isCollapsed" class="animate-pulse">
               <div class="h-3 bg-slate-200 rounded w-20 mb-3"></div>
