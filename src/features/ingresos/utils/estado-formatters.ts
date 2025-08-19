@@ -14,12 +14,17 @@ export interface EstadoConfig {
 const ESTADO_CONFIGS: Record<string, EstadoConfig> = {
   enproceso: {
     variant: "warning",
-    class: "bg-orange-100 text-orange-800 border border-orange-300",
+    class: "bg-yellow-100 text-yellow-800 border border-yellow-300",
     text: "En Proceso",
   },
   en_proceso: {
-    variant: "warning", 
-    class: "bg-orange-100 text-orange-800 border border-orange-300",
+    variant: "warning",
+    class: "bg-yellow-100 text-yellow-800 border border-yellow-300",
+    text: "En Proceso",
+  },
+  "en proceso": {
+    variant: "warning",
+    class: "bg-yellow-100 text-yellow-800 border border-yellow-300",
     text: "En Proceso",
   },
   registroalarma: {
@@ -29,7 +34,12 @@ const ESTADO_CONFIGS: Record<string, EstadoConfig> = {
   },
   registro_alarma: {
     variant: "error",
-    class: "bg-red-100 text-red-800 border border-red-300", 
+    class: "bg-red-100 text-red-800 border border-red-300",
+    text: "Registro Alarma",
+  },
+  "registro alarma": {
+    variant: "error",
+    class: "bg-red-100 text-red-800 border border-red-300",
     text: "Registro Alarma",
   },
   cerrado: {
@@ -43,6 +53,11 @@ const ESTADO_CONFIGS: Record<string, EstadoConfig> = {
     text: "Alarma Descompuesta",
   },
   alarma_descompuesta: {
+    variant: "neutral",
+    class: "bg-gray-100 text-gray-800 border border-gray-300",
+    text: "Alarma Descompuesta",
+  },
+  "alarma descompuesta": {
     variant: "neutral",
     class: "bg-gray-100 text-gray-800 border border-gray-300",
     text: "Alarma Descompuesta",

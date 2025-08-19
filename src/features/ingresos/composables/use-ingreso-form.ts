@@ -21,7 +21,6 @@ export const ingresoSchema = z
   })
   .refine(
     (data) => {
-
       if (data.fechaFin && data.fechaInicio) {
         return data.fechaFin >= data.fechaInicio;
       }

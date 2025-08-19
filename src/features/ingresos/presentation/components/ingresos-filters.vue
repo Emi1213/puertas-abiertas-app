@@ -37,10 +37,10 @@ const statusFilterModel = computed({
 
 const statusOptions = [
   { value: "all", label: "Todos" },
-  ...TODAS_ESTADOS_OPCIONES.map(estado => ({
-    value: estado.value.toLowerCase(),
-    label: estado.label
-  }))
+  ...TODAS_ESTADOS_OPCIONES.map((estado) => ({
+    value: estado.value.toLowerCase().replace(/\s+/g, ""), // Remover espacios para el value del filtro
+    label: estado.label,
+  })),
 ];
 </script>
 
