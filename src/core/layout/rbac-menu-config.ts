@@ -44,6 +44,12 @@ export const moduleMenuConfig: Record<string, ModuleMenuConfig> = {
     icon: BriefcaseBusiness,
     order: 4,
   },
+  perfiles: {
+    label: "Perfiles",
+    to: "/perfiles",
+    icon: Users2,
+    order: 5,
+  },
 };
 
 export function createMenuItemsFromModules(modules: { alias: string }[]) {

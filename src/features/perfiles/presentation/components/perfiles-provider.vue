@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LoadingListSkeleton from "@/shared/components/loading-list-skeleton.vue";
-import { usePerfiles } from "../composables/queries/use-perfiles";
+import { usePerfiles } from "../../composables/queries/use-perfiles";
 
 const { data: perfiles, isLoading, isError } = usePerfiles();
 </script>
