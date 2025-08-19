@@ -12,15 +12,46 @@ export interface EstadoConfig {
 }
 
 const ESTADO_CONFIGS: Record<string, EstadoConfig> = {
+  enproceso: {
+    variant: "warning",
+    class: "bg-orange-100 text-orange-800 border border-orange-300",
+    text: "En Proceso",
+  },
+  en_proceso: {
+    variant: "warning", 
+    class: "bg-orange-100 text-orange-800 border border-orange-300",
+    text: "En Proceso",
+  },
+  registroalarma: {
+    variant: "error",
+    class: "bg-red-100 text-red-800 border border-red-300",
+    text: "Registro Alarma",
+  },
+  registro_alarma: {
+    variant: "error",
+    class: "bg-red-100 text-red-800 border border-red-300", 
+    text: "Registro Alarma",
+  },
+  cerrado: {
+    variant: "success",
+    class: "bg-green-100 text-green-800 border border-green-300",
+    text: "Cerrado",
+  },
+  alarmadescompuesta: {
+    variant: "neutral",
+    class: "bg-gray-100 text-gray-800 border border-gray-300",
+    text: "Alarma Descompuesta",
+  },
+  alarma_descompuesta: {
+    variant: "neutral",
+    class: "bg-gray-100 text-gray-800 border border-gray-300",
+    text: "Alarma Descompuesta",
+  },
+  // Mantener estados anteriores por compatibilidad
   activo: {
     variant: "info",
     class: "bg-blue-50 text-blue-700 border border-blue-200",
     text: "Activo",
-  },
-  en_progreso: {
-    variant: "info",
-    class: "bg-blue-50 text-blue-700 border border-blue-200",
-    text: "En progreso",
   },
   completado: {
     variant: "success",

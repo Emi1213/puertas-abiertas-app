@@ -16,6 +16,7 @@ import EmpresaAutocomplete from "@/features/personal/presentation/components/emp
 import { useIngresoForm } from "../../composables/use-ingreso-form";
 import { useCreateIngreso } from "../../composables/mutations/use-create-ingreso";
 import type { ICreateIngreso } from "../../interfaces/IIngreso";
+import { ESTADOS_INGRESO } from "../../interfaces/EstadosIngreso";
 
 const {
   formData,
@@ -49,7 +50,7 @@ const onSubmit = async () => {
       causa: data.causa,
       fechaRecon: data.fechaRecon,
       usuarioReconId: data.usuarioReconId,
-      estado: data.estado || "ACTIVO",
+      estado: data.estado || ESTADOS_INGRESO.EN_PROCESO,
     };
 
     await createIngreso(ingresoData);

@@ -52,7 +52,6 @@ export const API_ROUTES = {
     UPDATE: (id: string) => `${AR_KEYS.INGRESOS}/${id}`,
     DELETE: (id: string) => `${AR_KEYS.INGRESOS}/${id}`,
     SEARCH: AR_KEYS.INGRESOS + "/buscar",
-    RECOGNIZE: (id: string) => `${AR_KEYS.INGRESOS}/${id}/reconocer`,
   },
   MODULOS: {
     GETALL: AR_KEYS.MODULOS,
