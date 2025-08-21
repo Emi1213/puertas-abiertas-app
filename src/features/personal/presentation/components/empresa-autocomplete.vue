@@ -101,7 +101,7 @@ interface Props {
   placeholder?: string;
   modelValue?: IEmpresa | null;
   errorMessage?: string;
-  showClearOption?: boolean; 
+  showClearOption?: boolean;
   showAllEmpresas?: boolean;
 }
 
@@ -167,7 +167,6 @@ const handleClickOutside = (event: Event) => {
   }
 };
 
-// Agregar/remover listener de clicks
 onMounted(() => {
   document.addEventListener("click", handleClickOutside);
 });
