@@ -1,4 +1,4 @@
-// src/features/usuarios/composables/use-usuarios-autocomplete.ts
+
 import { ref, computed, nextTick, onMounted, onUnmounted } from "vue";
 import type { ComputedRef } from "vue";
 import type { IUsuarioActiveDirectory } from "../interfaces/IUsuarioActiveDirectory";

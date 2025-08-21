@@ -57,7 +57,6 @@ const onSubmit = async () => {
   });
 };
 
-// Computed para manejar fechaFin como puede ser undefined
 const fechaFinModel = computed({
   get: () => formData.fechaFin || null,
   set: (value: Date | null) => {
@@ -69,7 +68,6 @@ const fechaFinModel = computed({
 
 <template>
   <form @submit.prevent="onSubmit" class="space-y-6 bg-white p-6 rounded-lg">
-    <!-- Autocompletado de Empresa -->
     <div class="space-y-2">
       <EmpresaAutocomplete
         label="Empresa"

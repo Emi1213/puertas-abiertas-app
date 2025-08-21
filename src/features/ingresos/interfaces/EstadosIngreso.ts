@@ -1,11 +1,8 @@
-// Estados principales de ingresos
 export const ESTADOS_INGRESO = {
-  EN_PROCESO: "En Proceso", // Cambiado para coincidir con el backend
-  REGISTRO_ALARMA: "Registro Alarma", // Cambiado para coincidir con el backend
+  EN_PROCESO: "En Proceso", 
+  REGISTRO_ALARMA: "Registro Alarma", 
   CERRADO: "Cerrado",
-  ALARMA_DESCOMPUESTA: "Alarma Descompuesta", // Cambiado para coincidir con el backend
-
-  // Estados anteriores para compatibilidad
+  ALARMA_DESCOMPUESTA: "Alarma Descompuesta", 
   ACTIVO: "ACTIVO",
   FINALIZADO: "FINALIZADO",
   PENDIENTE: "PENDIENTE",
@@ -17,7 +14,6 @@ export const ESTADOS_INGRESO = {
 export type EstadoIngreso =
   (typeof ESTADOS_INGRESO)[keyof typeof ESTADOS_INGRESO];
 
-// Opciones para selects/filtros
 export const ESTADOS_OPCIONES = [
   { value: ESTADOS_INGRESO.EN_PROCESO, label: "En Proceso", color: "yellow" },
   {
@@ -33,14 +29,12 @@ export const ESTADOS_OPCIONES = [
   },
 ] as const;
 
-// Opciones adicionales para compatibilidad
 export const ESTADOS_LEGACY_OPCIONES = [
   { value: ESTADOS_INGRESO.ACTIVO, label: "Activo", color: "blue" },
   { value: ESTADOS_INGRESO.FINALIZADO, label: "Finalizado", color: "green" },
   { value: ESTADOS_INGRESO.PENDIENTE, label: "Pendiente", color: "yellow" },
 ] as const;
 
-// Todas las opciones juntas
 export const TODAS_ESTADOS_OPCIONES = [
   ...ESTADOS_OPCIONES,
   ...ESTADOS_LEGACY_OPCIONES,

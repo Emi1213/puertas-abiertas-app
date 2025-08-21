@@ -62,7 +62,6 @@ const ESTADO_CONFIGS: Record<string, EstadoConfig> = {
     class: "bg-gray-100 text-gray-800 border border-gray-300",
     text: "Alarma Descompuesta",
   },
-  // Mantener estados anteriores por compatibilidad
   activo: {
     variant: "info",
     class: "bg-blue-50 text-blue-700 border border-blue-200",

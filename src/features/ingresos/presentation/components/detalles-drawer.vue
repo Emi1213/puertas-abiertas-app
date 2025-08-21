@@ -46,7 +46,6 @@ const getEstadoBadgeVariant = (estado?: string) => {
     case "alarma_descompuesta":
     case "alarma descompuesta":
       return "outline";
-    // Estados anteriores por compatibilidad
     case "activo":
     case "en progreso":
       return "default";
