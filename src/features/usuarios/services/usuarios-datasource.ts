@@ -8,6 +8,7 @@ import type { IHttpHandler } from "@/core/interfaces/IHttpHandler";
 import { API_ROUTES } from "@/core/api/routes/api-routes";
 import type { IUsuarioFilters } from "../interfaces/IUsuarioFilters";
 import type { IRespuestaPaginada } from "@/shared/interfaces/IRespuestaPaginada";
+import type { IUsuarioActiveDirectory } from "../interfaces/IUsuarioActiveDirectory";
 
 export class UsuarioDataSource {
   private httpClient: IHttpHandler;
@@ -56,6 +57,16 @@ export class UsuarioDataSource {
     const respuesta = await this.httpClient.get<IRespuestaPaginada<IUsuario>>(
       API_ROUTES.USUARIOS.SEARCH,
       { params: query }
+    );
+    return respuesta.datos;
+  }
+
+  async searchActiveDirectory(
+    query: string
+  ): Promise<IUsuarioActiveDirectory[]> {
+    const respuesta = await this.httpClient.get<IUsuarioActiveDirectory[]>(
+      API_ROUTES.USUARIOS.ACTIVE_DIRECTORY.SEARCH,
+      { params: { query } }
     );
     return respuesta.datos;
   }
