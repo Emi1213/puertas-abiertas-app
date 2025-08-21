@@ -11,8 +11,6 @@
       "@core": ["./src/core"],
       "@components/*": ["./src/components/*"]
     },
-
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

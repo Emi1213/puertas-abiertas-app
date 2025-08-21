@@ -69,12 +69,11 @@ export function useIngresoForm() {
   maxDate.setDate(maxDate.getDate() + 30);
 
   const handleEmpresaChange = (_empresaId: number | undefined) => {
-    // No se envía al servidor, solo para filtrar personal
+   
   };
 
   const handleEmpresaModelChange = (empresa: IEmpresa | null) => {
     selectedEmpresa.value = empresa;
-    // Limpiar personal seleccionado cuando cambia la empresa
     if (
       selectedPersonal.value &&
       empresa?.id !== selectedPersonal.value.empresa.id
@@ -84,7 +83,6 @@ export function useIngresoForm() {
     }
   };
 
-  // Manejar selección de personal
   const handlePersonalChange = (personalId: number | undefined) => {
     formData.personalId = personalId || 0;
     if (personalId) {
@@ -96,7 +94,6 @@ export function useIngresoForm() {
     selectedPersonal.value = personal;
   };
 
-  // Handle submit con tipado correcto
   const handleFormSubmit = async (
     onValid: (data: IngresoFormData) => Promise<void>
   ) => {
@@ -105,7 +102,6 @@ export function useIngresoForm() {
     await originalHandleSubmit(async (validatedData) => {
       loading.value = true;
       try {
-        // Convertir el tipo validated a IngresoFormData
         const ingresoData: IngresoFormData = validatedData as IngresoFormData;
         await onValid(ingresoData);
       } finally {
@@ -115,21 +111,14 @@ export function useIngresoForm() {
   };
 
   return {
-    // Form data
     formData,
     errors,
     loading,
-
-    // Additional state
     selectedEmpresa,
     selectedPersonal,
-
-    // Options
     motivosOptions,
     minDate,
     maxDate,
-
-    // Handlers
     handleEmpresaChange,
     handleEmpresaModelChange,
     handlePersonalChange,

@@ -43,21 +43,17 @@ export function useIngresosList() {
     currentIngreso.value = null;
   };
 
-  // Submit para edición (TODO: implementar lógica de actualización)
   const handleSubmit = async (data: any) => {
     console.log("Update ingreso:", data);
     closeEditDrawer();
   };
 
   return {
-    // Estado
     editDrawerOpen,
     detallesDrawerOpen,
     alarmasDrawerOpen,
     initialData,
     currentIngreso,
-
-    // Acciones
     openAddDrawer,
     openViewDetails,
     closeDetallesDrawer,

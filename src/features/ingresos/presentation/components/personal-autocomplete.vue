@@ -1,11 +1,13 @@
 <template>
   <div class="relative">
-    <Label v-if="label" class="mb-2" :for="id">{{ label }}</Label>
+    <Label v-if="props.label" class="mb-2" :for="props.id">{{
+      props.label
+    }}</Label>
     <div class="relative">
       <Input
-        :id="id"
+        :id="props.id"
         v-model="searchTerm"
-        :placeholder="placeholder"
+        :placeholder="props.placeholder"
         class="pr-10"
         @focus="isOpen = true"
         @blur="handleBlur"

@@ -28,6 +28,9 @@ export const API_ROUTES = {
     UPDATE: (id: string) => `${AR_KEYS.USUARIOS}/${id}`,
     DELETE: (id: string) => `${AR_KEYS.USUARIOS}/${id}`,
     SEARCH: AR_KEYS.USUARIOS + "/buscar",
+    ACTIVE_DIRECTORY: {
+      SEARCH: AR_KEYS.USUARIOS + "/buscar-ad",
+    },
   },
   PERFILES: {
     GETALL: AR_KEYS.PERFILES,

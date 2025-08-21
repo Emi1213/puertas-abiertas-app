@@ -3,17 +3,7 @@ import { z } from "zod";
 import { useForm } from "@/lib/composables/use-form";
 import type { ICreateUsuario } from "../interfaces/IUsuario";
 
-const createUsuarioSchema = z.object({
-  usuario: z.string().min(1, "El usuario es requerido"),
-  nombre: z.string().min(1, "El nombre es requerido"),
-  descripcion: z.string().optional(),
-  perfilId: z.number().min(1, "Debe seleccionar un perfil"),
-  contrasenia: z
-    .string()
-    .min(6, "La contraseña debe tener al menos 6 caracteres"),
-});
-
-const editUsuarioSchema = z.object({
+const usuarioSchema = z.object({
   usuario: z.string().min(1, "El usuario es requerido"),
   nombre: z.string().min(1, "El nombre es requerido"),
   descripcion: z.string().optional(),
@@ -37,21 +27,12 @@ export function useUsuarioForm(
     return undefined;
   };
 
-  const schema = isEditing.value ? editUsuarioSchema : createUsuarioSchema;
-  const formInitialData: any = isEditing.value
-    ? {
-        usuario: initialData?.usuario || "",
-        nombre: initialData?.nombre || "",
-        descripcion: initialData?.descripcion || "",
-        perfilId: getPerfilId(),
-      }
-    : {
-        usuario: initialData?.usuario || "",
-        nombre: initialData?.nombre || "",
-        descripcion: initialData?.descripcion || "",
-        perfilId: getPerfilId(),
-        contrasenia: "",
-      };
+  const formInitialData = {
+    usuario: initialData?.usuario || "",
+    nombre: initialData?.nombre || "",
+    descripcion: initialData?.descripcion || "",
+    perfilId: getPerfilId(),
+  };
 
   const {
     formData,
@@ -59,7 +40,7 @@ export function useUsuarioForm(
     validateField,
     resetForm,
     handleSubmit: formHandleSubmit,
-  } = useForm(schema, formInitialData);
+  } = useForm(usuarioSchema, formInitialData);
 
   const hasErrors = computed(() => {
     const hasValidationErrors = Object.values(errors.value).some(
@@ -70,9 +51,7 @@ export function useUsuarioForm(
       formData.usuario &&
       formData.nombre &&
       formData.perfilId &&
-      formData.perfilId > 0 &&
-      (isEditing.value ||
-        (formData.contrasenia && formData.contrasenia.length >= 6));
+      formData.perfilId > 0;
 
     return hasValidationErrors || !isFormValid;
   });
