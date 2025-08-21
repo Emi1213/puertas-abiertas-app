@@ -4,3 +4,7 @@ export interface IUsuarioFilters {
   pagina?: number;
   tamanioPagina?: number;
 }
+
+export interface IUsuarioActiveDirectoryFilters {
+  query?: string;
+}

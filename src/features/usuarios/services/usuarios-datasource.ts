@@ -6,8 +6,12 @@ import type {
 import { AxiosClient } from "@/core/infraestructure/http/axios-client";
 import type { IHttpHandler } from "@/core/interfaces/IHttpHandler";
 import { API_ROUTES } from "@/core/api/routes/api-routes";
-import type { IUsuarioFilters } from "../interfaces/IUsuarioFilters";
+import type {
+  IUsuarioActiveDirectoryFilters,
+  IUsuarioFilters,
+} from "../interfaces/IUsuarioFilters";
 import type { IRespuestaPaginada } from "@/shared/interfaces/IRespuestaPaginada";
+import type { IUsuarioActiveDirectory } from "../interfaces/IUsuarioActiveDirectory";
 
 export class UsuarioDataSource {
   private httpClient: IHttpHandler;
@@ -57,6 +61,17 @@ export class UsuarioDataSource {
       API_ROUTES.USUARIOS.SEARCH,
       { params: query }
     );
+    return respuesta.datos;
+  }
+
+  async searchActiveDirectory(
+    query: IUsuarioActiveDirectoryFilters
+  ): Promise<IUsuarioActiveDirectory[]> {
+    const respuesta = await this.httpClient.get<IUsuarioActiveDirectory[]>(
+      API_ROUTES.USUARIOS.ACTIVE_DIRECTORY.SEARCH,
+      { params: query }
+    );
+    console.log(respuesta);
     return respuesta.datos;
   }
 }

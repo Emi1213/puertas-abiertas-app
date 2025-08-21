@@ -48,7 +48,7 @@ export function useEmpresasAutocomplete(showAllEmpresas: boolean = false) {
 
   const handleInputBlur = () => {
     setTimeout(() => {
-      isOpen.value = false; // Cerrar el dropdown siempre
+      isOpen.value = false; 
       if (!selectedEmpresa.value && searchTerm.value) {
         searchTerm.value = "";
       }

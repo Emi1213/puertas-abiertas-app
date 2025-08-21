@@ -104,8 +104,8 @@ interface Props {
   placeholder?: string;
   modelValue?: IPersonal | null;
   errorMessage?: string;
-  empresaId?: number | undefined; // Para filtrar por empresa
-  requireEmpresa?: boolean; // Si es true, requiere empresa seleccionada
+  empresaId?: number | undefined; 
+  requireEmpresa?: boolean; 
 }
 
 interface Emits {
@@ -120,11 +120,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<Emits>();
-
-// Referencia al contenedor del componente
 const containerRef = ref<HTMLElement>();
-
-// El componente está deshabilitado solo si requireEmpresa es true y no hay empresaId
 const disabled = computed(() => props.requireEmpresa && !props.empresaId);
 
 const {
@@ -144,7 +140,6 @@ const {
 
 const hasError = computed(() => !!props.errorMessage);
 
-// Función para obtener iniciales
 const getInitials = (nombres: string, apellidos: string): string => {
   const nombresInitial = nombres.charAt(0).toUpperCase();
   const apellidosInitial = apellidos.charAt(0).toUpperCase();
@@ -171,12 +166,10 @@ const onInputChange = () => {
   }
 };
 
-// Limpiar selección cuando cambia la empresa
 watch(
   () => props.empresaId,
   (newEmpresaId, oldEmpresaId) => {
     if (newEmpresaId !== oldEmpresaId && selectedPersonal.value) {
-      // Si cambió la empresa y hay personal seleccionado, verificar si pertenece a la nueva empresa
       if (!newEmpresaId || selectedPersonal.value.empresa.id !== newEmpresaId) {
         clearSelection();
       }
@@ -184,7 +177,6 @@ watch(
   }
 );
 
-// Cerrar dropdown al hacer clic fuera
 const handleClickOutside = (event: Event) => {
   if (
     containerRef.value &&
@@ -194,7 +186,6 @@ const handleClickOutside = (event: Event) => {
   }
 };
 
-// Agregar/remover listener de clicks
 onMounted(() => {
   document.addEventListener("click", handleClickOutside);
 });
@@ -203,7 +194,6 @@ onUnmounted(() => {
   document.removeEventListener("click", handleClickOutside);
 });
 
-// Inicializar si hay valor inicial
 if (props.modelValue && !selectedPersonal.value) {
   setInitialPersonal(props.modelValue);
 }

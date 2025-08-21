@@ -10,8 +10,6 @@ export function usePersonalAutocomplete(
   const searchTerm = ref("");
 
   const shouldSearch = computed(() => isOpen.value);
-
-  // Convertir empresaId a reactivo si no lo es
   const empresaIdRef = computed(() => {
     if (typeof empresaId === "object" && empresaId && "value" in empresaId) {
       return empresaId.value;
@@ -26,8 +24,8 @@ export function usePersonalAutocomplete(
   } = usePersonalFilters(
     computed(() => ({
       busqueda: searchTerm.value || undefined,
-      estado: true, // Solo personal activo
-      empresaId: empresaIdRef.value, // Filtrar por empresa si se proporciona
+      estado: true, 
+      empresaId: empresaIdRef.value,
       pagina: 1,
       tamanioPagina: 10,
     }))
@@ -72,7 +70,6 @@ export function usePersonalAutocomplete(
   };
 
   return {
-    // State
     selectedPersonal,
     searchTerm,
     isOpen,
@@ -80,7 +77,6 @@ export function usePersonalAutocomplete(
     error,
     displayedPersonal,
     shouldSearch,
-    // Actions
     selectPersonal,
     clearSelection,
     openDropdown,

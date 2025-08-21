@@ -101,7 +101,7 @@ interface Props {
   placeholder?: string;
   modelValue?: IEmpresa | null;
   errorMessage?: string;
-  showClearOption?: boolean; // Para mostrar opción de limpiar cuando es filtro
+  showClearOption?: boolean;
   showAllEmpresas?: boolean;
 }
 
@@ -119,7 +119,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>();
 
-// Referencia al contenedor del componente
 const containerRef = ref<HTMLElement>();
 
 const {
@@ -159,7 +158,6 @@ const onInputChange = () => {
   }
 };
 
-// Cerrar dropdown al hacer clic fuera
 const handleClickOutside = (event: Event) => {
   if (
     containerRef.value &&
@@ -169,7 +167,6 @@ const handleClickOutside = (event: Event) => {
   }
 };
 
-// Agregar/remover listener de clicks
 onMounted(() => {
   document.addEventListener("click", handleClickOutside);
 });
