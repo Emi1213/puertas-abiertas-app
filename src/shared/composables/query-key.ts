@@ -1,7 +1,10 @@
 import type { IEmpresaFilters } from "@/features/empresas/interfaces/IEmpresaFilters";
 import type { IIngresoFilters } from "@/features/ingresos/interfaces/IIngresoFilters";
 import type { IPersonalFilters } from "@/features/personal/interfaces/IPersonalFilters";
-import type { IUsuarioFilters } from "@/features/usuarios/interfaces/IUsuarioFilters";
+import type {
+  IUsuarioActiveDirectoryFilters,
+  IUsuarioFilters,
+} from "@/features/usuarios/interfaces/IUsuarioFilters";
 
 export const QUERY_KEY = {
   USUARIOS: "usuarios",
@@ -16,4 +19,8 @@ export const QUERY_KEY = {
   INGRESOS_FILTROS: (filters: IIngresoFilters) => ["ingresos", filters],
   MODULOS: "modulos",
   NAVEGACION: "navegacion",
+  USUARIOS_ACTIVE_DIRECTORY: (filters: IUsuarioActiveDirectoryFilters) => [
+    "usuarios-ad",
+    filters,
+  ],
 };

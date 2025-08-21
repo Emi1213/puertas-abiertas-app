@@ -10,10 +10,8 @@ export interface IUsuario {
 
 export interface ICreateUsuario extends Omit<IUsuario, "id" | "perfil"> {
   perfilId: number;
-  contrasenia: string;
 }
 export interface IUpdateUsuario
   extends Partial<Omit<ICreateUsuario, "contrasenia">> {
   id: number;
-  contrasenia?: string;
 }
