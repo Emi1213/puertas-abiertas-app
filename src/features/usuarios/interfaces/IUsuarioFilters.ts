@@ -6,5 +6,5 @@ export interface IUsuarioFilters {
 }
 
 export interface IUsuarioActiveDirectoryFilters {
-  query?: string;
+  busqueda?: string;
 }

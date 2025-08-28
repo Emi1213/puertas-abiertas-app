@@ -1,84 +1,77 @@
-
-import { ref, computed, nextTick, onMounted, onUnmounted } from "vue";
-import type { ComputedRef } from "vue";
+import { ref, computed } from "vue";
 import type { IUsuarioActiveDirectory } from "../interfaces/IUsuarioActiveDirectory";
-import type { IUsuarioActiveDirectoryFilters } from "../interfaces/IUsuarioFilters";
 import { useUsuariosActiveDirectory } from "./queries/use-active-directory";
 
-export function useUsuariosAdAutocomplete() {
-  const containerRef = ref<HTMLElement>();
+export function useUsuariosAdAutocomplete(
+) {
   const selectedUsuario = ref<IUsuarioActiveDirectory | null>(null);
   const isOpen = ref(false);
   const searchTerm = ref("");
 
-  const enabled = computed(() => isOpen.value);
-  const filters: ComputedRef<IUsuarioActiveDirectoryFilters> = computed(() => ({
-    query: searchTerm.value || undefined,
-  }));
+  const shouldSearch = computed(() => isOpen.value);
+
 
   const {
     data: usuarios,
-    isFetching,
+    isLoading,
     error,
-  } = useUsuariosActiveDirectory(filters, enabled);
-
-  const displayedUsuarios = computed<IUsuarioActiveDirectory[]>(() =>
-    isOpen.value
-      ? (usuarios.value as any)?.items ?? (usuarios.value as any) ?? []
-      : []
+  } = useUsuariosActiveDirectory(
+    computed(() => ({
+      busqueda: searchTerm.value || undefined,
+    }))
   );
 
-  const selectUsuario = (usuario: IUsuarioActiveDirectory) => {
-    selectedUsuario.value = usuario;
-    searchTerm.value = usuario.nombreParaMostrar || usuario.samAccountName;
+  const displayedUsuarios = computed(() => {
+    if (!shouldSearch.value) return [];
+    return usuarios.value || [];
+  });
+
+  const selectUsuario = (user: IUsuarioActiveDirectory) => {
+    selectedUsuario.value = user;
+    searchTerm.value = user.nombreParaMostrar;
     isOpen.value = false;
   };
-
   const clearSelection = () => {
     selectedUsuario.value = null;
     searchTerm.value = "";
   };
 
-  const openDropdown = async () => {
+  const openDropdown = () => {
     isOpen.value = true;
-    await nextTick();
   };
 
   const closeDropdown = () => {
     isOpen.value = false;
   };
 
-  const setInitialUsuario = (usuario: IUsuarioActiveDirectory | null) => {
-    selectedUsuario.value = usuario;
-    searchTerm.value =
-      usuario?.nombreParaMostrar || usuario?.samAccountName || "";
+  const handleInputBlur = () => {
+    setTimeout(() => {
+      isOpen.value = false;
+      if (!selectedUsuario.value && searchTerm.value) {
+        searchTerm.value = "";
+      }
+    }, 200);
   };
 
-  const onPointerDownOutside = (e: PointerEvent) => {
-    if (containerRef.value && !containerRef.value.contains(e.target as Node)) {
-      closeDropdown();
-    }
+  const setInitialUsuario = (user: IUsuarioActiveDirectory) => {
+    selectedUsuario.value = user;
+    searchTerm.value = user.nombreParaMostrar;
+    isOpen.value = false;
   };
-  onMounted(() =>
-    document.addEventListener("pointerdown", onPointerDownOutside)
-  );
-  onUnmounted(() =>
-    document.removeEventListener("pointerdown", onPointerDownOutside)
-  );
 
   return {
-
-    containerRef,
     selectedUsuario,
     searchTerm,
     isOpen,
-    isFetching,
+    isLoading,
     error,
     displayedUsuarios,
+    shouldSearch,
     selectUsuario,
     clearSelection,
     openDropdown,
     closeDropdown,
+    handleInputBlur,
     setInitialUsuario,
   };
 }
